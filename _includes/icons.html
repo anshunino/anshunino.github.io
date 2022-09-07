@@ -25,16 +25,6 @@
           </a>
         </li>
         {% endif %}
-        {% if site.orcid %}
-        <li class="list-inline-item">
-          <a href="https://orcid.org/{{ site.orcid }}">
-            <span class="fa-stack fa-lg">
-              <i class="fas fa-circle fa-stack-2x"></i>
-              <i class="fab fa-orcid fa-stack-1x fa-inverse"></i>
-            </span>
-          </a>
-        </li>
-        {% endif %}
         {% if site.facebook_username %}
         <li class="list-inline-item">
           <a href="https://www.facebook.com/{{ site.facebook_username }}">
@@ -71,25 +61,6 @@
             <span class="fa-stack fa-lg">
               <i class="fas fa-circle fa-stack-2x"></i>
               <i class="fab fa-instagram fa-stack-1x fa-inverse"></i>
-            </span>
-          </a>
-        </li>
-        {% endif %}
-        {% if site.artstation_username %}
-        <li class="list-inline-item">
-          <a href="https://www.artstation.com/{{ site.artstation_username }}">
-            <span class="fa-stack fa-lg">
-              <i class="fas fa-circle fa-stack-2x"></i>
-              <i class="fab fa-artstation fa-stack-1x fa-inverse"></i>
-            </span>
-          </a>
-        </li>
-        {% endif %}
-        <li class="list-inline-item">
-          <a href="{{ "/feed.xml" | relative_url }}">
-            <span class="fa-stack fa-lg">
-              <i class="fas fa-circle fa-stack-2x"></i>
-              <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
             </span>
           </a>
         </li>
