@@ -1,12 +1,12 @@
 ---
 layout: home
-background: '/img/kaleidoscop.PNG'
+background: '/img/kaleidoscope.jpg'
 ---
 
 About
 ====================
 
-<img src="img/me.png" alt="drawing" width="180px"/>
+<img src="img/me.jpg" alt="drawing" width="180px"/>
 
 Welcome to the n'th draft of Anshunino's personal website.
 I am still a work in progress, so please be patient.
