@@ -1,0 +1,37 @@
+title:              Anshuman Sinha
+email:
+description:        Homepage of Anshuman Sinha
+author:             Anshuman Sinha
+baseurl:            ""
+url:                "https://anshunino.github.io"
+
+# Social Profiles
+twitter_username:   _anshumanS
+github_username:    anshunino
+facebook_username:
+instagram_username:
+linkedin_username: anshuman-sinha-355b31198
+artstation_username: ogjee
+orcid: 0000-0003-3133-9405
+
+# Add your google-analytics ID here to activate google analytics
+google_analytics:   UA-177060768-1 # out your google-analytics code
+
+# Build settings
+markdown:           kramdown
+
+plugins:
+  - jekyll-feed
+  - jekyll-paginate
+  - jekyll-scholar
+  - jekyll-sitemap ## Uncomment this line to silently generate a sitemaps.org compliant sitemap for your Jekyll site
+
+
+paginate:           5
+paginate_path:      "/posts/page:num/"
+
+
+scholar:
+  style: apa
+  source: ./_bibliography
+  bibliography: biblio.bib
