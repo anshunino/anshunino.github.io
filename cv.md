@@ -4,64 +4,38 @@ layout: page
 background: '/img/forest.jpg'
 ---
 
+_______________________________
 
-### 2020-2023
-#### PhD at INRIA Sophia-Antipolis, France
-Under the direction of Josiane Zerubia, [AYANA team](https://team.inria.fr/ayana/), in partnership with Airbus Defense and Space. On Stochastic Geometry for Multiple Object Detection and Tracking in High Resolution Multi-Source Data Sets
+### Dec 2021 - Sep 2022
+#### Research Internship at [EMBL-EBI](https://www.ebi.ac.uk)
+Bachelor's Thesis + extended internship in the [Uhlmann group](https://www.ebi.ac.uk/research/uhlmann).
+Worked with Johannes Hugger and Dr Virginie Uhlmann towards the development an algorithm to detect cellular and sub-cellular entities in bio-images by formulating continuous control on spline models as an RL paradigm.
+
+Cambridge, UK
 
 _______________________________
 
-### 2019 (6 months)
-#### Research internship at [EMBL-EBI](https://www.ebi.ac.uk) in Cambridge
-Final year intership in [Virginie Uhlmann’s research group](https://www.ebi.ac.uk/research/uhlmann). Improving detection and tracking of individual Mycobacteria smegamtis in time lapse microscopy images of growing colonies, using graphical models and convolutional neural networks.
-
-_______________________________
-### 2016-2019
-#### Master’s degree in Engineering at [Ecole Centrale de Lille](https://centralelille.fr)
-Multidisciplinary engineering school, France
-Common core : Aero/Hydrodynamics, Thermodynamics, Signal processing, Project management, Materials science etc...
-
-Specialization : [Option DAD (Decision & Data Analysis)](http://pierrechainais.ec-lille.fr/Centrale/Option_DAD/Accueil.html) : Probability and statistics, optimization, machine learning ...
-
-_______________________________
-### 2018-2019
-#### Applied Mathematics at Université de Lille
-Courses on Functional analysis, Stochastic process, Itô integrals, Statistical physics
+### May 2021 - July 2021
+#### Software Internship at [Texas Instruments](https://www.ti.com/)
+◦ Data Analytics: Analysed time and space performance of 500+ trained Deep Learning models with layer-wise data. Also implemented my electronics core knowledge to automate memory optimisation.
+◦ Web Development: Used Streamlit, Altair, Plotly to design a cached data-intensive and interactive visualisation tool featuring data flow graphs, bokeh plots, et cetera catering to multi-dimensional data.
 
 _______________________________
 
-### 2018 (4 months)
-#### R&D Internship at [NU!](https://manger.nu), Paris
-Research, development and documentation on a product recognition system for a “connected fridge” using image processing. Experimentation on several methods from simple image differences (OpenCV) to neural networks for object recognition (Tensorflow).
+### Jul 2018 - May 2022
+#### Bachelor of Technology at [National Institute of Technology Karnataka](https://www.nitk.ac.in/)
+Major in in Electrical & Electronics Engineering
+Minor in Information Technology
+
+Surathkal, Karnataka, India
 
 _______________________________
 
 ### 2018
-#### Research project : in computer science with [CRIsTAL](https://www.cristal.univ-lille.fr)
-Initiation at research work on the subject of matrix factorization for recommendation systems. Study of research publications and implementation of machine learning and optimization algorithms to produce such recommendation systems such as used with Netflix or Spotify.
+#### Secondary Education
+Calcutta Boys' School
 
-_______________________________
-
-### 2016-2018
-#### Group project : «Hôpital sous tension»
-Use of multi-agent systems to simulate and observe sources of tension in the emergency services of the Hospital Center of Lille in partnership with computer science laboratory CRIsTAL.
-
-_______________________________
-
-### 2017 (4 weeks)
-#### Internship at Thales Skycenter Innovation Lab
-
-_______________________________
-
-### 2014-2016
-#### Classes Préparatoires aux Grandes Ecoles
-Lycée Saint Louis,Paris
-
-_______________________________
-
-### 2014
-#### Baccalauréat Scientifique
-
+Kolkata, India
 
 _______________________________
 
@@ -69,7 +43,7 @@ _______________________________
 
 
 
-<a href="media/CV.pdf" download="CV_JulesMabon">Download a pdf of my resume here</a>
+<a href="media/CV.pdf" download="CV_AnshumanSinha">Download my formal resume here in PDF format</a>
 
 <!-- <object data="media/CV.pdf" type="application/pdf" width="800px" height="1200px">
     <embed src="media/CV.pdf">
