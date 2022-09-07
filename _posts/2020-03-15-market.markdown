@@ -1,0 +1,46 @@
+---
+layout: post
+title:  "Market scene"
+date:   2020-03-15 16:00:00 +0200
+categories : creative
+thumbnail: /img/market.png
+background: /img/market.png
+hidden : false
+---
+
+This project is a first serious try at camera tracking and filming people on green screen. This was a great way to learn all kind of tricks from filming to 3d modeling.
+<iframe width="560" height="315" src="https://www.youtube.com/embed/9y_z57JPjco" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+This was filmed with a smartphone, lit with some RGB LED lights and house lights, on a green cloth attached to a curtain rod in my parents living room.
+
+Here is what the filming looked like.
+<iframe width="560" height="315" src="https://www.youtube.com/embed/ZHD_vG0bLJU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+The rest of the scene was built with [Blender](https://www.blender.org). The people filmed were keyed from the green screen and the added as simple 2D planes into the 3D scene. The yellow triangle markers added to the green cloth "for better tracking" ended up being quite a pain to remove digitally.
+
+
+<iframe width="560" height="560" src="https://cdn-animation.artstation.com/p/video_sources/000/024/393/spin.mp4"></iframe>
+
+
+The center vehicle/market was made before shooting but since I did not really plan the camera point of view for the shooting, the background was added after. I believe a key component to make the actor blend into the 3d scene was to match the lighting after filming (i.e. adding a big bright neon on the right side that was never meant to be there). Notice how there is no stabilization on this hand held phone shot ... this is quite bad.
+
+As a whole this was a lesson on planning before filming.
+
+<figure>
+  <center>
+    <img src="https://cdna.artstation.com/p/assets/images/images/025/004/280/medium/jules-mabon-viewport-1.jpg?1584270788" style="width:100%"/>
+    <figcaption>Literally "behind" the scene</figcaption>
+    </center>
+</figure>
+
+
+
+<figure>
+  <center>
+    <img src="https://cdnb.artstation.com/p/assets/images/images/030/131/305/medium/jules-mabon-cat.jpg?1599691096" style="width:100%"/>
+    <figcaption>The early testing stages involved filming my cat in front of a blue cloth to test the camera tracking</figcaption>
+    </center>
+</figure>
+
+Acknowledgments
+-----------------------
+Huge thanks to Thomas, Odile, Clémence, Arthur et Antoine for their acting and help for filming.

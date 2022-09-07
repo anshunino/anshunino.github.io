@@ -1,0 +1,28 @@
+---
+layout: post
+title:  "Skyboats"
+date:   2020-04-02 16:00:00 +0200
+categories : creative
+thumbnail: /img/crea/boat/boat-cropped.png
+background: /img/crea/boat/boat-cropped.png
+hidden : false
+---
+
+
+An animation done with [Blender](https://www.blender.org) using a mix of 2D animation and 3D models.
+
+<iframe width="560" height="560" src="https://www.youtube.com/embed/d32CcprU4N4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+The grease pencil tool (that basically allows you do draw in the 3D space) upgraded in blender 2.8 was of great use to draw details on surfaces. I learned a lot from analysing [Dedouze's 2.82 splash screen file](https://cloud.blender.org/p/gallery/5e46a80442fa9613e1cd1fca).
+
+
+<figure>
+  <center>
+    <img src="{{site.url}}/img/crea/boat/model.png" style="width:100%"/>
+    <figcaption>On the left the 3D model, on the right the grease pencil component</figcaption>
+    </center>
+</figure>
+
+For the smoke I used an emitter with particles rendered as spheres, textured with the same "toonish" custom material. I also used a blend texture on particles to animate the scale of these spheres along their lifetime. Added buoyancy, wind, turbulence and tweaked it quite a lot.
+
+The project was initially to model a small flying city and have this boat float around... That may be for another time.
