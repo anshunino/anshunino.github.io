@@ -1,0 +1,70 @@
+
+/* classe css de la page*/
+#res_script{
+	border:0;
+	background-color:white;
+	color:black;
+}
+
+/*Titre*/
+div.ZoneTitreResultat
+{
+	display:none;
+}
+/* classe pour les rubriques pour certains type de classement (type de publi, année de publi) */
+.Rubrique{
+/*	position: relative;*/
+	font-size:x-large;
+	color:#000;
+	letter-spacing:2px;
+	font-weight:bold;
+	background:#CCC;
+	text-align:left;
+	/* border: solid 1px #558; */
+	padding: 3px 0px 2px 10px;
+	margin-top: 5px;
+	margin-bottom: 12px;
+}
+.SousRubrique{
+  font-weight:bold;
+	margin-left:10px;
+	font-size:1.3em;
+}
+
+
+/*nom du champ*/
+.ChampRes {
+	display:none;
+}
+
+/* classe commune à tous les champs affichés */
+.ValeurRes {
+	color:black;
+  margin-left:1em;
+}
+/* classe pour les auteurs */
+.Auteurs {
+}
+/* classe pour les titres */
+.Titre, .Titre a {
+   font-weight:bold;
+	color:#0085A1;
+}
+/* classe pour les identifiants */
+.Identifiant {
+}
+/* classe des détails de publication : une classe par type */
+.detail_revue,.detail_conf,.detail_cours,.detail_ouv,.detail_hdr,.detail_these,.detail_autre,.detail_brevet,.detail_rapport,.detail_sans_ref{
+}
+/* classe pour les doi */
+.DOI{
+}
+/* classe pour les résumés */
+.Debut_du_resume{
+}
+/* classe pour le type de document */
+.Type_de_document{
+}
+/* classe pour l'audience */
+.Audience{
+}

@@ -1,0 +1,26 @@
+I"�<p>The following is a detailed description of my PhD subject within the <a href="https://team.inria.fr/ayana/">AYANA team at INRIA</a> under the supervision of <a href="http://www-sop.inria.fr/members/Josiane.Zerubia/index-eng.html">Josiane Zerubia</a> (AYANA team, INRIA) and <a href="https://team.inria.fr/ayin/dr-mathias-ortner/">Matias Ortner</a> (Airbus Defense and Space)</p>
+
+<p>Unmanned aerial vehicles and low-orbit satellites, including cubesats, are increasingly used for wide area surveillance, which results in large amounts of multi-source that have to be processed and analyzed. These sensor platforms capture vast ground areas at roughly one frame per second. The number of moving objects in such data is typically very high, accounting for up to thousands of objects.</p>
+
+<p><strong>Multiple objects tracking</strong> has traditionally been a major area of research in the computer vision field, but this type of data poses new, specific, tracking related challenges. The large number of small objects coupled with the reduced frame rate of the video, illumination changes and image registration provide significant sources of errors. Numerous motion models and state estimation methods like the Kalman filter or the particle filter have been proposed for object tracking. 
+Classical trackers such as the Multiple Hypothesis Tracker or the Joint Probabilistic Data Association Filter have been employed to solve the data association problem between multiple detections. Both approaches work on a set of data association hypothesis. A strong limitation of these methods is that past decisions cannot be updated when new information is available. One way to cope with this problem is to use a sliding temporal window to perform tracking taking into account both past and future information and hence, removing the causality of the result. A new <strong>spatio-temporal Marked Point Process</strong> model specifically adapted to the problem of multiple objects tracking has been developed by Craciun et al <a class="citation" href="#craciun2015stochastic">(Crăciun, 2015)</a>.. Craciun et al. use ellipses to model the objects (boats or cars for instance) adding a non-geometric mark to facilitate the association between objects in different frames.</p>
+
+<p>Nevertheless, one important drawback of the above-mentioned model is that constant velocity of the moving objects is a necessary prior hypothesis to deal with the corresponding density function to be optimized.</p>
+
+<p>In this PhD thesis, we propose to both get rid of this constraint by extending the previous model of <a href="https://team.inria.fr/ayin/paula-craciun/">Paula Craciun</a> , and introduce <strong>Machine Learning</strong> techniques.</p>
+
+<p>On one hand, <strong>stochastic geometry</strong> has proven to be extremely powerful for capturing object positions within images using a prior model on their relative positions. For instance, it is possible to introduce a regularizing term that accounts for relative positions of objects, in order to represent specific patterns. One major drawback of this approach is that the amount of marks that can be handled has to be limited in order to avoid an explosion of the problem dimensionality. Moreover, parameter optimization is more complex when objects have complex shapes. 
+On the other hand, <strong>deep learning</strong> approaches have largely proven over the recent years to be extremely efficient in building representations that matches tiny object signatures. Recent work on representations in <strong>latent space</strong> have shown that it is possible to capture a network interpretation in a small space, even if the network uses a large amount of parameters and operations to infer the likelihood of the presence of an object.</p>
+
+<p>We propose to merge both approaches and build a Stochastic Point Process model in a state space that is an intermediary layer of a <strong>Convolutional Neural Network</strong>. Using regularizing terms, it is indeed possible to build <strong>intermediate representations</strong> in a latent space in which an object of interest such as a car, a boat or a truck, has a simple shape such as a circle, an ellipse or a small segment, which fits perfectly well the <strong>stochastic geometry</strong> approach.</p>
+
+<p>After an initial set up on images of cars, trucks, planes and boats, the project will focus on building a <strong>convolutional net</strong> that projects small sequences of images in a latent space made for <strong>estimation of object positions and velocities</strong>. Our purpose is to build a <strong>point process model</strong> in a latent space that captures both objects positions and velocities in order to account for <strong>complex trajectories</strong>.</p>
+
+<p>The data and some ground truth will be provided by <strong>Airbus Defense and Space</strong> (Airbus DS).</p>
+
+<h4 id="references">References</h4>
+
+<ol class="bibliography"><li><span id="craciun2015stochastic">Crăciun, P. (2015). <i>Stochastic geometry for automatic multiple object detection and tracking in remotely sensed high resolution image sequences</i> [PhD thesis].</span></li></ol>
+
+<p>background image from : ESA / Copernicus Sentinel-2A - http://www.esa.int/spaceinimages/Images/2017/04/Central-eastern_Brazil</p>
+:ET
