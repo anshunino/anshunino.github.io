@@ -14,24 +14,17 @@ Some shots from 2021, from me and my trusty Sony A7C
 
 <figure>
   <center>
-    <img src="https://lh3.googleusercontent.com/pw/AM-JKLUdFWdPMjw-tPmcRVH28v7gKnIvFyfyQVpIR69DHqQkzLIyyBoViUasQBwFIjGTdzqAlGnaq1mr8ST6PlgsFFerIowQ0fYAp57ScjeHyGizaU7iEllxxx7zMTrdT7OJBVgGsVI_bM_wlL6fvwtRq3K24Q=w1409-h939-no" style="width:100%">
+    <img src="/img/posts/photography/Himachal.JPG" style="width:100%">
     <figcaption>Moonlight shot, <i>Observatoire Astronomique du plateau de Calern</i></figcaption>
     </center>
 </figure>
 
-<!-- <figure>
-  <center>
-    <img src="https://lh3.googleusercontent.com/pw/AM-JKLVvMIRsGSeukY3nOoOcq3yq39g9UeWkx-iTeKpnNPAUH6Z9uH547DnKPr-Dp-UYhW29f483e6506uYB04QdZYYHP1HjactS2MeajegA4wCQEkjwq64X2T6MjNVe5Xl9ZimL4CBOgAd9FPZqe00DBjzAQA=w1409-h939-no" style="width:100%">
-    <figcaption><i>Observatoire Astronomique du plateau de Calern</i></figcaption>
-    </center>
-</figure>
- -->
 
 
 
 <figure>
   <center>
-    <img src="https://lh3.googleusercontent.com/pw/AM-JKLVrWdxVi-Wa2WeVqMzlrEAcm_NwYG52ePVfUM2_Q3J8pAi6w6JpFXCWwiRNdbfq6UYfxOE9VZyDjAnIh9dKvMsc-hwz9hlT_Us2xktxhxBvn55yrXtFuFTKx_tyWalpvlB4d9zKLlHYOE-j1OfLNdYazw=w1409-h939-no" style="width:100%">
+    <img src="/img/posts/photography/Bosphorus.JPG" style="width:100%">
     <figcaption>Héliport, <i>La Bérarde</i></figcaption>
     </center>
 </figure>
@@ -41,28 +34,28 @@ Some shots from 2021, from me and my trusty Sony A7C
 
 <figure>
   <center>
-    <img src="https://lh3.googleusercontent.com/pw/AM-JKLXv605462smuz2ZVKMIyBMRQTt-pIkkyBNOTbPvciMwxjts9t1f13OhQFbK0awwMrc0Xb5Dpre_7gONu4V01HAsln2pXz4_GL8gyQgqR8JkQSksj4BRS5gHBPDbYUMOOJSrkgi8boZuwL-gxlYoIAjTfg=w705-h939-no" style="width:100%">
+    <img src="/img/posts/photography/Île-de-Bréhat.JPG" style="width:100%">
     <figcaption>Josette</figcaption>
     </center>
 </figure>
 
 <figure>
   <center>
-    <img src="https://lh3.googleusercontent.com/pw/AM-JKLVwsdIpDCG4ZOH6LFMqALuZXHRkS1xE298HCIT6QwBFkWN73V3HU45umzjmYzal9WJyNFHQoNnhUDvYVG1P2Z2oB90bxoaz_mkJhqDPS8C7pkZf_Obe0Z_D88A6RyDVI-mKBgSfBEEchmRRUAWy6Rvq9Q=w1409-h939-no" style="width:100%">
+    <img src="/img/posts/photography/Fjordline.JPG" style="width:100%">
     <figcaption>SPARKS !</figcaption>
     </center>
 </figure>
 
 <figure>
   <center>
-    <img src="https://lh3.googleusercontent.com/pw/AM-JKLW-Oc3kSkbdO-9DE4f1rdQVq6wVwzYTQ6nRmUddeeyD4Jc0J0x9s_8770I2wPh4QwMFi6UbON30gq3-dwVfFNH3fNlCr3Bq0o8MxxtNn3JbrNbnCxGC-bp55gbPEt1v9EZSEy2h5umo0yLC6ukYexEShw=w705-h939-no" style="width:100%">
+    <img src="/img/posts/photography/Bergen.JPG" style="width:100%">
     <figcaption><i>The Louvre</i></figcaption>
     </center>
 </figure>
 
 <figure>
   <center>
-    <img src="https://lh3.googleusercontent.com/pw/AM-JKLX-AXwSWqOEZHBuwuVMlA1u8T7wClWHL9PAGVWQeYFrJx_gLA-DRxxpJnyUPglt9T6rbBJ2cI4xslEHtruFDmPdcxAIj5msHt2P__WqdWK8Lxpv5pU_uYos4B0cz6TIkxrtY7UVC5_-SH_ioBXqq1QkYA=w1409-h939-no" style="width:100%">
+    <img src="/img/posts/photography/Preikestolen.JPG" style="width:100%">
     <figcaption><i>Lac du Chambon</i></figcaption>
     </center>
 </figure>
