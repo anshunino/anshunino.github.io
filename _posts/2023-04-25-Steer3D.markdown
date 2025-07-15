@@ -89,7 +89,7 @@ $$
     & = 0 \hspace{2cm} \small{\textit{if} \\ (u,v) \not= (n,m)}
 \end{split}$$
 
-$$\text{where} \hspace{1cm} \langle {Y}_{n}^{m} , {Y}_{u}^{v} \rangle = \int_{0}^{\pi} \int_{0}^{2\pi} {Y}^{m}_{n}(\theta, \phi) \cdot \overline{{Y}^{v}_{u}(\theta, \phi)} ~~sin\theta ~~d\phi ~~d\theta$$
+$$\text{where} \hspace{1cm} \langle {Y}_{n}^{m} , {Y}_{u}^{v} \rangle = \int_{0}^{\pi} \int_{0}^{2\pi} {Y}^{m}_{n}(\theta, \phi) \cdot \overline{ {Y}^{v}_{u}(\theta, \phi)} ~~sin\theta ~~d\phi ~~d\theta$$
 
 #### Steerability
 
@@ -212,8 +212,8 @@ Using finite norm and the orthogonality of the system
 
 $$\begin{aligned}
     \|\|f\|\|_2^2 & =  \int_{0}^{\infty} \int_{0}^{\pi} \int_{0}^{2\pi} \|f(\rho, \theta, \phi)\|^2 {\rho}^2 sim\theta ~~d\phi ~~d\theta ~~d\rho \\
-    & =  \int_{0}^{\infty} \int_{0}^{\pi} \int_{0}^{2\pi} \sum_{n \in \mathbf{Z}} \sum_{m=-n}^{n} \sum_{u \in \mathbf{Z}} \sum_{v=-u}^{u}  {f}^{m}_{n}(\rho) \overline{{f}^{v}_{u}(\rho)}  {Y}^{m}_{n} \overline{{Y}^{v}_{u}}  {\rho}^2 sim\theta ~~d\phi ~~d\theta ~~d\rho\\
-    & = \sum_{n \in \mathbf{Z}} \sum_{m=-n}^{n} \sum_{u \in \mathbf{Z}} \sum_{v=-u}^{u} \int_{0}^{\infty} {f}^{m}_{n}(\rho) \overline{{f}^{v}_{u}(\rho)} \left( \int_{0}^{\pi} \int_{0}^{2\pi} {Y}^{m}_{n}(\theta, \phi) \overline{{Y}^{v}_{u}(\theta, \phi)} sim\theta ~~d\phi ~~d\theta \right) {\rho}^2 ~~d\rho \\
+    & =  \int_{0}^{\infty} \int_{0}^{\pi} \int_{0}^{2\pi} \sum_{n \in \mathbf{Z}} \sum_{m=-n}^{n} \sum_{u \in \mathbf{Z}} \sum_{v=-u}^{u}  {f}^{m}_{n}(\rho) \overline{{f}^{v}_{u}(\rho)}  {Y}^{m}_{n} \overline{ {Y}^{v}_{u}}  {\rho}^2 sim\theta ~~d\phi ~~d\theta ~~d\rho\\
+    & = \sum_{n \in \mathbf{Z}} \sum_{m=-n}^{n} \sum_{u \in \mathbf{Z}} \sum_{v=-u}^{u} \int_{0}^{\infty} {f}^{m}_{n}(\rho) \overline{{f}^{v}_{u}(\rho)} \left( \int_{0}^{\pi} \int_{0}^{2\pi} {Y}^{m}_{n}(\theta, \phi) \overline{ {Y}^{v}_{u}(\theta, \phi)} sim\theta ~~d\phi ~~d\theta \right) {\rho}^2 ~~d\rho \\
     & =  \sum_{n \in \mathbf{Z}} \sum_{m=-n}^{n} \sum_{u \in \mathbf{Z}} \sum_{v=-u}^{u} \int_{0}^{\infty} {f}^{m}_{n}(\rho) \overline{{f}^{v}_{u}(\rho)} \langle {Y}_{n}^{m}  ,  {Y}_{u}^{v} \rangle {\rho}^2 ~~d\rho\\
     & =  \sum_{n \in \mathbf{Z}} \sum_{m=-n}^{n} \int_{0}^{\infty} {f}^{m}_{n}(\rho) \overline{{f}^{m}_{n}(\rho)}  {\rho}^2 ~~d\rho\\
     & = sum_{n \in \mathbf{Z}} \sum_{m=-n}^{n} \int_{0}^{\infty} \|{f}^{m}_{n}(\rho)\|^2 {\rho}^2 ~~d\rho\\
@@ -299,8 +299,8 @@ Equating the real function to its complex conjugate:
 
 $$\begin{aligned}
     {f}(\rho, \theta, \phi)  & =  \overline{{f}(\rho, \theta, \phi)} \\
-    \Rightarrow \sum_{n=0}^{N}  {f}_{n}(\rho) \sum_{m=-n}^{n}  {c}^{m}_{n}  {Y}^{m}_{n}(\theta, \phi)  & =  \sum_{n=0}^{N} \overline{{f}_{n}(\rho)} \sum_{m=-n}^{n} \overline{{c}^{m}_{n}} \overline{{Y}^{m}_{n}(\theta, \phi)} \\
-    \Rightarrow \sum_{n=0}^{N}  {f}_{n}(\rho) \sum_{m=-n}^{n}  {c}^{m}_{n}  {Y}^{m}_{n}(\theta, \phi)  & =  \sum_{n=0}^{N}  {f}_{n}(\rho) \sum_{m=-n}^{n} \overline{{c}^{m}_{n}}  {(-1)}^m {Y}^{-m}_{n}(\theta, \phi) \hspace{1cm} \left[ \overline{{Y}_{n}^{m}} = {(-1)}^m {Y}_{n}^{-m} \right] \\
+    \Rightarrow \sum_{n=0}^{N}  {f}_{n}(\rho) \sum_{m=-n}^{n}  {c}^{m}_{n}  {Y}^{m}_{n}(\theta, \phi)  & =  \sum_{n=0}^{N} \overline{{f}_{n}(\rho)} \sum_{m=-n}^{n} \overline{{c}^{m}_{n}} \overline{ {Y}^{m}_{n}(\theta, \phi)} \\
+    \Rightarrow \sum_{n=0}^{N}  {f}_{n}(\rho) \sum_{m=-n}^{n}  {c}^{m}_{n}  {Y}^{m}_{n}(\theta, \phi)  & =  \sum_{n=0}^{N}  {f}_{n}(\rho) \sum_{m=-n}^{n} \overline{{c}^{m}_{n}}  {(-1)}^m {Y}^{-m}_{n}(\theta, \phi) \hspace{1cm} \left[ \overline{ {Y}_{n}^{m}} = {(-1)}^m {Y}_{n}^{-m} \right] \\
     \Rightarrow \sum_{n=0}^{N}  {f}_{n}(\rho) \sum_{m=-n}^{n}  {c}^{m}_{n}  {Y}^{m}_{n}(\theta, \phi)  & =  \sum_{n=0}^{N}  {f}_{n}(\rho) \sum_{m=-n}^{n} \overline{{c}^{-m}_{n}}  {(-1)}^m {Y}^{m}_{n}(\theta, \phi)  \hspace{1cm} \textit{[replacing index 'm' with '-m']}\\
     \Rightarrow \sum_{n=0}^{N}  {f}_{n}(\rho) \sum_{m=-n}^{n} ( {c}^{m}_{n}  & - {(-1)}^m \overline{{c}^{-m}_{n}} ) {Y}^{m}_{n}(\theta, \phi) & = 0
 \end{aligned}$$
@@ -319,14 +319,14 @@ For *f*(*ρ*, *θ*, *ϕ*) with real degree-separable radial profiles, the
 spherical harmonic coefficients *c*<sub>*n*</sub><sup>*m*</sup> can be
 expressed as:
 $$
-    {c}_{n}^{m} = \frac{1}{\|{f}_{n}(\rho)\|} \int_{0}^{\infty} \int_{0}^{\pi} \int_{0}^{2\pi} f(\rho, \theta, \phi) \overline{{Y}^{m}_{n}(\theta, \phi)}  {\rho}^2 sim\theta ~~d\phi ~~d\theta ~~d\rho$$
+    {c}_{n}^{m} = \frac{1}{\|{f}_{n}(\rho)\|} \int_{0}^{\infty} \int_{0}^{\pi} \int_{0}^{2\pi} f(\rho, \theta, \phi) \overline{ {Y}^{m}_{n}(\theta, \phi)}  {\rho}^2 sim\theta ~~d\phi ~~d\theta ~~d\rho$$
 
 #### **Proof:**
 
 $$\begin{split}
-    &  \frac{1}{\|{f}_{n}(\rho)\|} \int_{0}^{\infty} \int_{0}^{\pi} \int_{0}^{2\pi} f(\rho, \theta, \phi) \overline{{Y}^{m}_{n}(\theta, \phi)}  {\rho}^2 sim\theta ~~d\phi ~~d\theta ~~d\rho \\
-    & =  \frac{1}{\|{f}_{n}(\rho)\|} \int_{0}^{\infty} \int_{0}^{\pi} \int_{0}^{2\pi} \left( \sum_{v=0}^{N}  {f}_{v}(\rho) \sum_{u=-v}^{v}  {c}^{u}_{v}  {Y}^{u}_{v}(\theta, \phi) \right) \overline{{Y}^{m}_{n}(\theta, \phi)}  {\rho}^2 sim\theta ~~d\phi ~~d\theta ~~d\rho \\
-    & =  \frac{1}{\|{f}_{n}(\rho)\|} \int_{0}^{\infty} \sum_{v=0}^{N}  {f}_{v}(\rho) \sum_{u=-v}^{v}  {c}^{u}_{v} \int_{0}^{\pi} \int_{0}^{2\pi} {Y}^{u}_{v}(\theta, \phi) \overline{{Y}^{m}_{n}(\theta, \phi)}  {\rho}^2 sim\theta ~~d\phi ~~d\theta ~~d\rho \\
+    &  \frac{1}{\|{f}_{n}(\rho)\|} \int_{0}^{\infty} \int_{0}^{\pi} \int_{0}^{2\pi} f(\rho, \theta, \phi) \overline{ {Y}^{m}_{n}(\theta, \phi)}  {\rho}^2 sim\theta ~~d\phi ~~d\theta ~~d\rho \\
+    & =  \frac{1}{\|{f}_{n}(\rho)\|} \int_{0}^{\infty} \int_{0}^{\pi} \int_{0}^{2\pi} \left( \sum_{v=0}^{N}  {f}_{v}(\rho) \sum_{u=-v}^{v}  {c}^{u}_{v}  {Y}^{u}_{v}(\theta, \phi) \right) \overline{ {Y}^{m}_{n}(\theta, \phi)}  {\rho}^2 sim\theta ~~d\phi ~~d\theta ~~d\rho \\
+    & =  \frac{1}{\|{f}_{n}(\rho)\|} \int_{0}^{\infty} \sum_{v=0}^{N}  {f}_{v}(\rho) \sum_{u=-v}^{v}  {c}^{u}_{v} \int_{0}^{\pi} \int_{0}^{2\pi} {Y}^{u}_{v}(\theta, \phi) \overline{ {Y}^{m}_{n}(\theta, \phi)}  {\rho}^2 sim\theta ~~d\phi ~~d\theta ~~d\rho \\
     & =  \frac{1}{\|{f}_{n}(\rho)\|} \int_{0}^{\infty} \sum_{v=0}^{N}  {f}_{v}(\rho) \sum_{u=-v}^{v}  {c}^{u}_{v} \langle {Y}^{u}_{v}(\theta, \phi) , {Y}^{m}_{n}(\theta, \phi) \rangle {\rho}^2 ~~d\rho \\
     & =  \frac{1}{\|{f}_{n}(\rho)\|}  {c}^{m}_{n} \int_{0}^{\infty}  {f}_{n}(\rho) {\rho}^2 ~~d\rho \\
     & = {c}^{m}_{n}
