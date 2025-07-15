@@ -60,7 +60,7 @@ form, one for each integer *m*. The integer *m* corresponds to the
 different possible frequencies applied to *ϕ* and *θ*. *B* is a
 normalization constant:
 
-$$B = \sqrt{\frac{2n+1}{4\pi} \frac{(n-m)!}{(n+m)!}}$$
+$$B = \sqrt{\frac{2n+1}{4\pi} \frac{(n-m)!}{(n+m)!} }$$
 
 *P*<sub>*n*</sub><sup>*m*</sup>(*x*) is the associated Legendre
 polynomial, a canonical solution of the Legendre equation
@@ -85,11 +85,11 @@ basis of the Hilbert space of square-integrable functions. Therefore:
 
 $$
 \begin{split}
-    \langle {Y}_{n}^{m} , {Y}_{u}^{v} \rangle & = 1 \hspace{2cm} \small{\textit{if} \\ (u,v) = (n,m)}\\
+    \langle Y_{n}^{m} , Y_{u}^{v} \rangle & = 1 \hspace{2cm} \small{\textit{if} \\ (u,v) = (n,m)}\\
     & = 0 \hspace{2cm} \small{\textit{if} \\ (u,v) \not= (n,m)}
 \end{split}$$
 
-$$\text{where} \hspace{1cm} \langle {Y}_{n}^{m} , {Y}_{u}^{v} \rangle = \int_{0}^{\pi} \int_{0}^{2\pi} {Y}^{m}_{n}(\theta, \phi) \cdot \overline{ {Y}^{v}_{u}(\theta, \phi)} ~~sin\theta ~~d\phi ~~d\theta$$
+$$\text{where} \hspace{1cm} \langle Y_{n}^{m} , Y_{u}^{v} \rangle = \int_{0}^{\pi} \int_{0}^{2\pi} Y^{m}_{n}(\theta, \phi) \cdot \overline{ Y^{v}_{u}(\theta, \phi)} ~~sin\theta ~~d\phi ~~d\theta$$
 
 #### Steerability
 
@@ -111,14 +111,14 @@ expressed as a linear combination of all elements in in the family
 represented by the degree subspace *n*:
 
 $$
-    {Y}_{n}^{m}(\mathcal{R} · )(\theta, \phi) = \sum_{m'=-n}^{n}{D}_{\mathcal{R},n}[m,m']{Y}_{n}^{m'}(\theta, \phi)$$
+    Y_{n}^{m}(\mathcal{R} · )(\theta, \phi) = \sum_{m'=-n}^{n}{D}_{\mathcal{R},n}[m,m']Y_{n}^{m'}(\theta, \phi)$$
 where the *D*<sub>ℛ, *n*</sub> ∈ ℂ<sup>(2*n* + 1)x(2*n* + 1)</sup> are
 known as Wigner-D matrices.
 
 ## Wigner-D Matrices
 
 $$
-    {Y}_{n}^{m}(\mathcal{R} · )(\theta, \phi) = \sum_{m'=-n}^{n}{D}_{\mathcal{R},n}[m,m']{Y}_{n}^{m'}(\theta, \phi)$$
+    Y_{n}^{m}(\mathcal{R} · )(\theta, \phi) = \sum_{m'=-n}^{n}{D}_{\mathcal{R},n}[m,m']Y_{n}^{m'}(\theta, \phi)$$
 where the *D*<sub>ℛ, *n*</sub> ∈ ℂ<sup>(2*n* + 1)x(2*n* + 1)</sup> are
 known as Wigner-D matrices.
 
@@ -180,7 +180,7 @@ square-integrable functions.
 Therefore:
 $$
 \begin{split}
-    \langle {Y}_{n}^{m}  ,  {Y}_{u}^{v} \rangle & = 1 \hspace{2cm} \small{\textit{if} \\ (u,v) = (n,m)}\\
+    \langle Y_{n}^{m}  ,  Y_{u}^{v} \rangle & = 1 \hspace{2cm} \small{\textit{if} \\ (u,v) = (n,m)}\\
     & = 0 \hspace{2cm} \small{\textit{if} \\ (u,v) \not= (n,m)}
 \end{split}$$
 
@@ -191,14 +191,14 @@ is a finite-dimensional subspace of *L*<sup>2</sup>(ℝ<sup>3</sup>). This
 implies that there exist *P* ≥ 1 filters
 *f*<sub>*p*</sub>, *p* = 1, ⋯*P* such that for any set of rotation
 angles, we have
-$f(\mathcal{R}·) = \sum_{p=1}^{P} {c}_{p}(\mathcal{R}·) {f}_{p}$,
+$f(\mathcal{R}·) = \sum_{p=1}^{P} c_{p}(\mathcal{R}·) f_{p}$,
 for some *c*<sub>*p*</sub>(ℛ·) ∈ ℝ, 1 ≤ *p* ≤ *P*.
 
 #### *Proposition 1:*
 
 A function *f* ∈ *L*<sup>2</sup>(ℝ<sup>3</sup>) can be uniquely
 decomposed in spherical coordinates as:
-$${f}(\rho, \theta, \phi) = \sum_{n=0}^{\infty} \sum_{m=-n}^{n}  {f}^{m}_{n}(\rho) {Y}^{m}_{n}(\theta, \phi)$$
+$$f(\rho, \theta, \phi) = \sum_{n=0}^{\infty} \sum_{m=-n}^{n}  f^{m}_{n}(\rho) Y^{m}_{n}(\theta, \phi)$$
 
 The functions *f*<sub>*n*</sub><sup>*m*</sup>(*ρ*) are called the
 Fourier radial profiles of *f*. Moreover, *f* is steerable if and only
@@ -212,28 +212,28 @@ Using finite norm and the orthogonality of the system
 
 $$\begin{aligned}
     \|\|f\|\|_2^2 & =  \int_{0}^{\infty} \int_{0}^{\pi} \int_{0}^{2\pi} \|f(\rho, \theta, \phi)\|^2 {\rho}^2 sim\theta ~~d\phi ~~d\theta ~~d\rho \\
-    & =  \int_{0}^{\infty} \int_{0}^{\pi} \int_{0}^{2\pi} \sum_{n \in \mathbf{Z}} \sum_{m=-n}^{n} \sum_{u \in \mathbf{Z}} \sum_{v=-u}^{u}  {f}^{m}_{n}(\rho) \overline{{f}^{v}_{u}(\rho)}  {Y}^{m}_{n} \overline{ {Y}^{v}_{u}}  {\rho}^2 sim\theta ~~d\phi ~~d\theta ~~d\rho\\
-    & = \sum_{n \in \mathbf{Z}} \sum_{m=-n}^{n} \sum_{u \in \mathbf{Z}} \sum_{v=-u}^{u} \int_{0}^{\infty} {f}^{m}_{n}(\rho) \overline{{f}^{v}_{u}(\rho)} \left( \int_{0}^{\pi} \int_{0}^{2\pi} {Y}^{m}_{n}(\theta, \phi) \overline{ {Y}^{v}_{u}(\theta, \phi)} sim\theta ~~d\phi ~~d\theta \right) {\rho}^2 ~~d\rho \\
-    & =  \sum_{n \in \mathbf{Z}} \sum_{m=-n}^{n} \sum_{u \in \mathbf{Z}} \sum_{v=-u}^{u} \int_{0}^{\infty} {f}^{m}_{n}(\rho) \overline{{f}^{v}_{u}(\rho)} \langle {Y}_{n}^{m}  ,  {Y}_{u}^{v} \rangle {\rho}^2 ~~d\rho\\
-    & =  \sum_{n \in \mathbf{Z}} \sum_{m=-n}^{n} \int_{0}^{\infty} {f}^{m}_{n}(\rho) \overline{{f}^{m}_{n}(\rho)}  {\rho}^2 ~~d\rho\\
-    & = sum_{n \in \mathbf{Z}} \sum_{m=-n}^{n} \int_{0}^{\infty} \|{f}^{m}_{n}(\rho)\|^2 {\rho}^2 ~~d\rho\\
-    & =  \sum_{n \in \mathbf{Z}} \sum_{m=-n}^{n} \|\|{f}^{m}_{n}\|\|_2^2
+    & =  \int_{0}^{\infty} \int_{0}^{\pi} \int_{0}^{2\pi} \sum_{n \in \mathbf{Z}} \sum_{m=-n}^{n} \sum_{u \in \mathbf{Z}} \sum_{v=-u}^{u}  f^{m}_{n}(\rho) \overline{f^{v}_{u}(\rho)}  Y^{m}_{n} \overline{ Y^{v}_{u}}  {\rho}^2 sim\theta ~~d\phi ~~d\theta ~~d\rho\\
+    & = \sum_{n \in \mathbf{Z}} \sum_{m=-n}^{n} \sum_{u \in \mathbf{Z}} \sum_{v=-u}^{u} \int_{0}^{\infty} f^{m}_{n}(\rho) \overline{f^{v}_{u}(\rho)} \left( \int_{0}^{\pi} \int_{0}^{2\pi} Y^{m}_{n}(\theta, \phi) \overline{ Y^{v}_{u}(\theta, \phi)} sim\theta ~~d\phi ~~d\theta \right) {\rho}^2 ~~d\rho \\
+    & =  \sum_{n \in \mathbf{Z}} \sum_{m=-n}^{n} \sum_{u \in \mathbf{Z}} \sum_{v=-u}^{u} \int_{0}^{\infty} f^{m}_{n}(\rho) \overline{f^{v}_{u}(\rho)} \langle Y_{n}^{m}  ,  Y_{u}^{v} \rangle {\rho}^2 ~~d\rho\\
+    & =  \sum_{n \in \mathbf{Z}} \sum_{m=-n}^{n} \int_{0}^{\infty} f^{m}_{n}(\rho) \overline{f^{m}_{n}(\rho)}  {\rho}^2 ~~d\rho\\
+    & = sum_{n \in \mathbf{Z}} \sum_{m=-n}^{n} \int_{0}^{\infty} \|f^{m}_{n}(\rho)\|^2 {\rho}^2 ~~d\rho\\
+    & =  \sum_{n \in \mathbf{Z}} \sum_{m=-n}^{n} \|\|f^{m}_{n}\|\|_2^2
 \end{aligned}$$
 
 This proves that *f* is square-integrable if and only if
-$\sum_{n \in \mathbf{Z}} \sum_{m=-n}^{n} \|\|{f}^{m}_{n}\|\|_2^2 < \infty$
+$\sum_{n \in \mathbf{Z}} \sum_{m=-n}^{n} \|\|f^{m}_{n}\|\|_2^2 < \infty$
 which is possible if and only if finitely many
 *f*<sub>*n*</sub><sup>*m*</sup> are non-zero.
 
 As a consequence, the general form of a steerable filter is
-${f}(\rho, \theta, \phi) = \sum_{n \in \mathbb{H}} \sum_{m=-n}^{n}  {f}^{m}_{n}(\rho) {Y}^{m}_{n}(\theta, \phi)$,
+$f(\rho, \theta, \phi) = \sum_{n \in \mathbb{H}} \sum_{m=-n}^{n}  f^{m}_{n}(\rho) Y^{m}_{n}(\theta, \phi)$,
 where ℍ is a finite subset of ℤ and
 *f*<sub>*n*</sub><sup>*m*</sup> ∈ *L*<sup>2</sup>(ℝ) the non zero radial
 profiles.
 
 We may now specify the general representation of the template (*T*) as:
 $$
-    {T}(\rho, \theta, \phi) = \sum_{n=0}^{\infty} \sum_{m=-n}^{n}  {T}^{m}_{n}(\rho) {Y}^{m}_{n}(\theta, \phi)$$
+    {T}(\rho, \theta, \phi) = \sum_{n=0}^{\infty} \sum_{m=-n}^{n}  {T}^{m}_{n}(\rho) Y^{m}_{n}(\theta, \phi)$$
 
 ## Case 1:
 
@@ -241,18 +241,18 @@ Radial function depends on the degree and the order of spherical
 harmonics. Therefore the coefficients for each harmonic can be included
 within the radial function.
 $$
-    {f}(\rho, \theta, \phi) = \sum_{n=0}^{N} \sum_{m=-n}^{n}  {f}^{m}_{n}(\rho) {Y}^{m}_{n}(\theta, \phi)$$
+    f(\rho, \theta, \phi) = \sum_{n=0}^{N} \sum_{m=-n}^{n}  f^{m}_{n}(\rho) Y^{m}_{n}(\theta, \phi)$$
 
 $$\begin{split}
-    \langle {f} , {T} \rangle & = \sum_{n=0}^{N} \sum_{m=-n}^{n} \sum_{u=0}^{\infty} \sum_{v=-u}^{u} \langle {f}_{n,m}  {Y}_{n}^{m}  , {T}_{u,v}  {Y}_{u}^{v} \rangle \\
-    & = \sum_{n=0}^{N} \sum_{m=-n}^{n} \sum_{u=0}^{N} \sum_{v=-u}^{u} \langle {f}_{n,m}  ,  {T}_{u,v} \rangle\langle {Y}_{n}^{m}  ,  {Y}_{u}^{v} \rangle \\
-    & = \sum_{n,m}^{N} \langle {f}_{n,m}  ,  {T}_{n,m} \rangle \\
-    & = \sum_{n=0}^{N} \sum_{m=-n}^{n} \langle \sum_{k \in \mathbb{Z}} \frac{{d}_{n,m}^{k}}{{r}_0} \beta (\frac{\rho}{{r}_0}  -  k)  ,  {T}_{n,m} \rangle \\
-    & = \sum_{n=0}^{N} \sum_{m=-n}^{n} \sum_{k \in \mathbb{Z}} {d}_{n,m}^{k} \langle \frac{1}{{r}_0} \beta (\frac{\rho}{{r}_0}  -  k)  ,  {T}_{n,m} \rangle
+    \langle f , {T} \rangle & = \sum_{n=0}^{N} \sum_{m=-n}^{n} \sum_{u=0}^{\infty} \sum_{v=-u}^{u} \langle f_{n,m}  Y_{n}^{m}  , {T}_{u,v}  Y_{u}^{v} \rangle \\
+    & = \sum_{n=0}^{N} \sum_{m=-n}^{n} \sum_{u=0}^{N} \sum_{v=-u}^{u} \langle f_{n,m}  ,  {T}_{u,v} \rangle\langle Y_{n}^{m}  ,  Y_{u}^{v} \rangle \\
+    & = \sum_{n,m}^{N} \langle f_{n,m}  ,  {T}_{n,m} \rangle \\
+    & = \sum_{n=0}^{N} \sum_{m=-n}^{n} \langle \sum_{k \in \mathbb{Z}} \frac{d_{n,m}^{k}}{r_0} \beta (\frac{\rho}{r_0}  -  k)  ,  {T}_{n,m} \rangle \\
+    & = \sum_{n=0}^{N} \sum_{m=-n}^{n} \sum_{k \in \mathbb{Z}} {d}_{n,m}^{k} \langle \frac{1}{r_0} \beta (\frac{\rho}{r_0}  -  k)  ,  {T}_{n,m} \rangle
 \end{split}$$
 
 Let,
-${b}_{k}(\rho) = \frac{1}{{r}_0} \beta (\frac{\rho}{{r}_0}  -  k)$
+${b}_{k}(\rho) = \frac{1}{r_0} \beta (\frac{\rho}{r_0}  -  k)$
 
 Then, we can rewrite:
  ⟨ *f*, *T* ⟩ = ∑<sub>*n*, *m*</sub> ∑<sub>*k* ∈ ℤ</sub> *d*<sub>*n*, *m*</sub><sup>*k*</sup> ⟨ *b*<sub>*k*</sub>(*ρ*) , *T*<sub>*n*, *m*</sub> ⟩
@@ -262,8 +262,8 @@ In order to maximize  ⟨ *f*, *T* ⟩ , *c⃗* needs to be collinear with
 
 Re-interpreting the aforementioned inner product,
 $$\begin{split}
-    \langle {b}_{k}(\rho){Y}_{n}^{m}  ,  {T} \rangle & = \langle {b}_{k}(\rho){Y}_{n}^{m} , \sum_{u,v} {T}_{u,v}  {Y}_{u,v} \rangle \\
-    & = \sum_{u,v} \langle {b}_{k}(\rho)  ,  {T}_{u,v} \rangle\langle {Y}_{n}^{m}  ,  {Y}_{u}^{v} \rangle \\
+    \langle {b}_{k}(\rho)Y_{n}^{m}  ,  {T} \rangle & = \langle {b}_{k}(\rho)Y_{n}^{m} , \sum_{u,v} {T}_{u,v}  Y_{u,v} \rangle \\
+    & = \sum_{u,v} \langle {b}_{k}(\rho)  ,  {T}_{u,v} \rangle\langle Y_{n}^{m}  ,  Y_{u}^{v} \rangle \\
     & = \langle {b}_{k}(\rho)  ,  {T}_{n,m} \rangle
 \end{split}$$
 
@@ -271,19 +271,19 @@ Therefore, we can say:
 *d*<sub>*n*, *m*</sub><sup>*k*</sup> = *λ* ⟨ *b*<sub>*k*</sub>(*ρ*) *Y*<sub>*n*</sub><sup>*m*</sup> , *T* ⟩
 
 $$
-    {f}(\rho, \theta, \phi) = \lambda \sum_{n=0}^{N} \sum_{m=-n}^{n} \\ ( \sum_{k \in \mathbb{Z}} \langle {b}_{k}(\rho) {Y}_{n}^{m}, {T} \rangle{b}_{k}(\rho) ) {Y}_{n}^{m}(\theta, \phi)$$
+    f(\rho, \theta, \phi) = \lambda \sum_{n=0}^{N} \sum_{m=-n}^{n} ( \sum_{k \in \mathbb{Z}} \langle {b}_{k}(\rho) Y_{n}^{m}, {T} \rangle{b}_{k}(\rho) ) Y_{n}^{m}(\theta, \phi)$$
 
 ## Case 2:
 
 Radial function depends on the degree but not on the order of spherical
 harmonics.
 $$
-    {f}(\rho, \theta, \phi) = \sum_{n=0}^{N}  {f}_{n}(\rho) \sum_{m=-n}^{n}  {c}^{m}_{n}  {Y}^{m}_{n}(\theta, \phi)$$
+    f(\rho, \theta, \phi) = \sum_{n=0}^{N}  f_{n}(\rho) \sum_{m=-n}^{n}  c^{m}_{n}  Y^{m}_{n}(\theta, \phi)$$
 
 $$\begin{aligned}
-    \langle {f} , {T} \rangle & = \sum_{n=0}^{N} \sum_{m=-n}^{n} \sum_{u=0}^{\infty} \sum_{v=-u}^{u} \langle {f}_{n}  {c}^{m}_{n}  {Y}_{n}^{m}  , {T}_{u,v}  {Y}_{u}^{v} \rangle \\
-    & = \sum_{n=0}^{N} \sum_{m=-n}^{n} \sum_{u=0}^{N} \sum_{v=-u}^{u} \langle {f}_{n}  ,  {T}_{u,v} \rangle {c}^{m}_{n}\langle {Y}_{n}^{m}  ,  {Y}_{u}^{v} \rangle \\
-    & = \sum_{n=0}^{N} \sum_{m=-n}^{n}  {c}^{m}_{n} \langle {f}_{n}  ,  {T}_{n,m} \rangle
+    \langle f , {T} \rangle & = \sum_{n=0}^{N} \sum_{m=-n}^{n} \sum_{u=0}^{\infty} \sum_{v=-u}^{u} \langle f_{n}  c^{m}_{n}  Y_{n}^{m}  , {T}_{u,v}  Y_{u}^{v} \rangle \\
+    & = \sum_{n=0}^{N} \sum_{m=-n}^{n} \sum_{u=0}^{N} \sum_{v=-u}^{u} \langle f_{n}  ,  {T}_{u,v} \rangle c^{m}_{n}\langle Y_{n}^{m}  ,  Y_{u}^{v} \rangle \\
+    & = \sum_{n=0}^{N} \sum_{m=-n}^{n}  c^{m}_{n} \langle f_{n}  ,  {T}_{n,m} \rangle
 \end{aligned}$$
 
 #### *Proposition 2:*
@@ -291,18 +291,18 @@ $$\begin{aligned}
 Given that the template $\\T : \mathbb{R}^3 \xrightarrow{} \mathbb{R}$
 is a real valued function, *f*(*ρ*, *θ*, *ϕ*) with real degree-separable
 radial profiles can be constrained to be real by:
-$${c}_{n}^{-m} = {(-1)}^{m} \overline{{c}_{n}^{m}}$$
+$$c_{n}^{-m} = {(-1)}^{m} \overline{c_{n}^{m}}$$
 
 #### **Proof:**
 
 Equating the real function to its complex conjugate:
 
 $$\begin{aligned}
-    {f}(\rho, \theta, \phi)  & =  \overline{{f}(\rho, \theta, \phi)} \\
-    \Rightarrow \sum_{n=0}^{N}  {f}_{n}(\rho) \sum_{m=-n}^{n}  {c}^{m}_{n}  {Y}^{m}_{n}(\theta, \phi)  & =  \sum_{n=0}^{N} \overline{{f}_{n}(\rho)} \sum_{m=-n}^{n} \overline{{c}^{m}_{n}} \overline{ {Y}^{m}_{n}(\theta, \phi)} \\
-    \Rightarrow \sum_{n=0}^{N}  {f}_{n}(\rho) \sum_{m=-n}^{n}  {c}^{m}_{n}  {Y}^{m}_{n}(\theta, \phi)  & =  \sum_{n=0}^{N}  {f}_{n}(\rho) \sum_{m=-n}^{n} \overline{{c}^{m}_{n}}  {(-1)}^m {Y}^{-m}_{n}(\theta, \phi) \hspace{1cm} \left[ \overline{ {Y}_{n}^{m}} = {(-1)}^m {Y}_{n}^{-m} \right] \\
-    \Rightarrow \sum_{n=0}^{N}  {f}_{n}(\rho) \sum_{m=-n}^{n}  {c}^{m}_{n}  {Y}^{m}_{n}(\theta, \phi)  & =  \sum_{n=0}^{N}  {f}_{n}(\rho) \sum_{m=-n}^{n} \overline{{c}^{-m}_{n}}  {(-1)}^m {Y}^{m}_{n}(\theta, \phi)  \hspace{1cm} \textit{[replacing index 'm' with '-m']}\\
-    \Rightarrow \sum_{n=0}^{N}  {f}_{n}(\rho) \sum_{m=-n}^{n} ( {c}^{m}_{n}  & - {(-1)}^m \overline{{c}^{-m}_{n}} ) {Y}^{m}_{n}(\theta, \phi) & = 0
+    f(\rho, \theta, \phi)  & =  \overline{f(\rho, \theta, \phi)} \\
+    \Rightarrow \sum_{n=0}^{N}  f_{n}(\rho) \sum_{m=-n}^{n}  c^{m}_{n}  Y^{m}_{n}(\theta, \phi)  & =  \sum_{n=0}^{N} \overline{f_{n}(\rho)} \sum_{m=-n}^{n} \overline{c^{m}_{n}} \overline{ Y^{m}_{n}(\theta, \phi)} \\
+    \Rightarrow \sum_{n=0}^{N}  f_{n}(\rho) \sum_{m=-n}^{n}  c^{m}_{n}  Y^{m}_{n}(\theta, \phi)  & =  \sum_{n=0}^{N}  f_{n}(\rho) \sum_{m=-n}^{n} \overline{c^{m}_{n}}  {(-1)}^m Y^{-m}_{n}(\theta, \phi) \hspace{1cm} \left[ \overline{ Y_{n}^{m}} = {(-1)}^m Y_{n}^{-m} \right] \\
+    \Rightarrow \sum_{n=0}^{N}  f_{n}(\rho) \sum_{m=-n}^{n}  c^{m}_{n}  Y^{m}_{n}(\theta, \phi)  & =  \sum_{n=0}^{N}  f_{n}(\rho) \sum_{m=-n}^{n} \overline{c^{-m}_{n}}  {(-1)}^m Y^{m}_{n}(\theta, \phi)  \hspace{1cm} \textit{[replacing index 'm' with '-m']}\\
+    \Rightarrow \sum_{n=0}^{N}  f_{n}(\rho) \sum_{m=-n}^{n} ( c^{m}_{n}  & - {(-1)}^m \overline{c^{-m}_{n}} ) Y^{m}_{n}(\theta, \phi) & = 0
 \end{aligned}$$
 
 A linear combination of orthonormal bases is zero if and only if all of
@@ -311,7 +311,7 @@ approximation of a real valued function with degree-separable spherical
 harmonics and real radial profiles, coefficients satisfy the condition:
 
 $$
-    {c}_{n}^{-m} = {(-1)}^{m} \overline{{c}_{n}^{m}}$$
+    c_{n}^{-m} = {(-1)}^{m} \overline{c_{n}^{m}}$$
 
 #### *Proposition 3:*
 
@@ -319,17 +319,17 @@ For *f*(*ρ*, *θ*, *ϕ*) with real degree-separable radial profiles, the
 spherical harmonic coefficients *c*<sub>*n*</sub><sup>*m*</sup> can be
 expressed as:
 $$
-    {c}_{n}^{m} = \frac{1}{\|{f}_{n}(\rho)\|} \int_{0}^{\infty} \int_{0}^{\pi} \int_{0}^{2\pi} f(\rho, \theta, \phi) \overline{ {Y}^{m}_{n}(\theta, \phi)}  {\rho}^2 sim\theta ~~d\phi ~~d\theta ~~d\rho$$
+    c_{n}^{m} = \frac{1}{\|f_{n}(\rho)\|} \int_{0}^{\infty} \int_{0}^{\pi} \int_{0}^{2\pi} f(\rho, \theta, \phi) \overline{ Y^{m}_{n}(\theta, \phi)}  {\rho}^2 sim\theta ~~d\phi ~~d\theta ~~d\rho$$
 
 #### **Proof:**
 
 $$\begin{split}
-    &  \frac{1}{\|{f}_{n}(\rho)\|} \int_{0}^{\infty} \int_{0}^{\pi} \int_{0}^{2\pi} f(\rho, \theta, \phi) \overline{ {Y}^{m}_{n}(\theta, \phi)}  {\rho}^2 sim\theta ~~d\phi ~~d\theta ~~d\rho \\
-    & =  \frac{1}{\|{f}_{n}(\rho)\|} \int_{0}^{\infty} \int_{0}^{\pi} \int_{0}^{2\pi} \left( \sum_{v=0}^{N}  {f}_{v}(\rho) \sum_{u=-v}^{v}  {c}^{u}_{v}  {Y}^{u}_{v}(\theta, \phi) \right) \overline{ {Y}^{m}_{n}(\theta, \phi)}  {\rho}^2 sim\theta ~~d\phi ~~d\theta ~~d\rho \\
-    & =  \frac{1}{\|{f}_{n}(\rho)\|} \int_{0}^{\infty} \sum_{v=0}^{N}  {f}_{v}(\rho) \sum_{u=-v}^{v}  {c}^{u}_{v} \int_{0}^{\pi} \int_{0}^{2\pi} {Y}^{u}_{v}(\theta, \phi) \overline{ {Y}^{m}_{n}(\theta, \phi)}  {\rho}^2 sim\theta ~~d\phi ~~d\theta ~~d\rho \\
-    & =  \frac{1}{\|{f}_{n}(\rho)\|} \int_{0}^{\infty} \sum_{v=0}^{N}  {f}_{v}(\rho) \sum_{u=-v}^{v}  {c}^{u}_{v} \langle {Y}^{u}_{v}(\theta, \phi) , {Y}^{m}_{n}(\theta, \phi) \rangle {\rho}^2 ~~d\rho \\
-    & =  \frac{1}{\|{f}_{n}(\rho)\|}  {c}^{m}_{n} \int_{0}^{\infty}  {f}_{n}(\rho) {\rho}^2 ~~d\rho \\
-    & = {c}^{m}_{n}
+    &  \frac{1}{\|f_{n}(\rho)\|} \int_{0}^{\infty} \int_{0}^{\pi} \int_{0}^{2\pi} f(\rho, \theta, \phi) \overline{ Y^{m}_{n}(\theta, \phi)}  {\rho}^2 sim\theta ~~d\phi ~~d\theta ~~d\rho \\
+    & =  \frac{1}{\|f_{n}(\rho)\|} \int_{0}^{\infty} \int_{0}^{\pi} \int_{0}^{2\pi} \left( \sum_{v=0}^{N}  f_{v}(\rho) \sum_{u=-v}^{v}  c^{u}_{v}  Y^{u}_{v}(\theta, \phi) \right) \overline{ Y^{m}_{n}(\theta, \phi)}  {\rho}^2 sim\theta ~~d\phi ~~d\theta ~~d\rho \\
+    & =  \frac{1}{\|f_{n}(\rho)\|} \int_{0}^{\infty} \sum_{v=0}^{N}  f_{v}(\rho) \sum_{u=-v}^{v}  c^{u}_{v} \int_{0}^{\pi} \int_{0}^{2\pi} Y^{u}_{v}(\theta, \phi) \overline{ Y^{m}_{n}(\theta, \phi)}  {\rho}^2 sim\theta ~~d\phi ~~d\theta ~~d\rho \\
+    & =  \frac{1}{\|f_{n}(\rho)\|} \int_{0}^{\infty} \sum_{v=0}^{N}  f_{v}(\rho) \sum_{u=-v}^{v}  c^{u}_{v} \langle Y^{u}_{v}(\theta, \phi) , Y^{m}_{n}(\theta, \phi) \rangle {\rho}^2 ~~d\rho \\
+    & =  \frac{1}{\|f_{n}(\rho)\|}  c^{m}_{n} \int_{0}^{\infty}  f_{n}(\rho) {\rho}^2 ~~d\rho \\
+    & = c^{m}_{n}
 \end{split}$$
 
 #### *Proposition 4:*
@@ -337,18 +337,18 @@ $$\begin{split}
 For *f*(*ρ*, *θ*, *ϕ*) the real degree-separable radial profiles
 *f*<sub>*n*</sub>(*ρ*) can be expressed as:
 $$
-    {f}_{n}(\rho) = \frac{1}{\sum_{m=-n}^{n} \|{c}_{n}^{m}\|^2} \int_{0}^{\pi} \int_{0}^{2\pi} f(\rho, \theta, \phi) \left( \overline{ \sum_{m=-n}^{n}  {c}_{n}^{m}  {Y}^{m}_{n}(\theta, \phi) } \right) sim\theta ~~d\phi ~~d\theta$$
+    f_{n}(\rho) = \frac{1}{\sum_{m=-n}^{n} \|c_{n}^{m}\|^2} \int_{0}^{\pi} \int_{0}^{2\pi} f(\rho, \theta, \phi) \left( \overline{ \sum_{m=-n}^{n}  c_{n}^{m}  Y^{m}_{n}(\theta, \phi) } \right) sim\theta ~~d\phi ~~d\theta$$
 
 #### **Proof:**
 
 $$\begin{split}
-    &  \frac{1}{\sum_{m=-n}^{n} \|{c}_{n}^{m}\|^2} \int_{0}^{\pi} \int_{0}^{2\pi} f(\rho, \theta, \phi) \left( \overline{ \sum_{m=-n}^{n}  {c}_{n}^{m}  {Y}^{m}_{n}(\theta, \phi) } \right) sim\theta ~~d\phi ~~d\theta \\
-    & =  \frac{1}{\sum_{m=-n}^{n} \|{c}_{n}^{m}\|^2} \int_{0}^{\pi} \int_{0}^{2\pi} \sum_{v=0}^{N}  {f}_{v}(\rho) \sum_{u=-v}^{v}  {c}^{u}_{v}  {Y}^{u}_{v}(\theta, \phi) \left( \overline{ \sum_{m=-n}^{n}  {c}_{n}^{m}  {Y}^{m}_{n}(\theta, \phi) } \right) sim\theta ~~d\phi ~~d\theta \\
-    & =  \frac{1}{\sum_{m=-n}^{n} \|{c}_{n}^{m}\|^2} \int_{0}^{\pi} \int_{0}^{2\pi} \sum_{v=0}^{N} \left( {f}_{v}(\rho) \sum_{u=-v}^{v}  {c}^{u}_{v}  {Y}^{u}_{v}(\theta, \phi) \right) \left( \sum_{m=-n}^{n} \overline{{c}_{n}^{m}} \overline{ {Y}^{m}_{n}(\theta, \phi)} \right) sim\theta ~~d\phi ~~d\theta \\
-    & =  \frac{1}{\sum_{m=-n}^{n} \|{c}_{n}^{m}\|^2} \sum_{v=0}^{N}  {f}_{v}(\rho) \sum_{u=-v}^{v} \sum_{m=-n}^{n} \int_{0}^{\pi} \int_{0}^{2\pi}  {c}^{u}_{v} \overline{{c}_{n}^{m}}  {Y}^{u}_{v}(\theta, \phi) \overline{ {Y}^{m}_{n}(\theta, \phi)} sim\theta ~~d\phi ~~d\theta \\
-    & =  \frac{1}{\sum_{m=-n}^{n} \|{c}_{n}^{m}\|^2} \sum_{v=0}^{N}  {f}_{v}(\rho) \sum_{u=-v}^{v} \sum_{m=-n}^{n}  {c}^{u}_{v} \overline{{c}_{n}^{m}} \langle {Y}^{u}_{v}(\theta, \phi) , {Y}^{m}_{n}(\theta, \phi) \rangle \\
-    & =  \frac{1}{\sum_{m=-n}^{n} \|{c}_{n}^{m}\|^2} {f}_{n}(\rho) \sum_{m=-n}^{n}  {c}^{m}_{n} \overline{{c}_{n}^{m}} \\
-    & =  {f}_{n}(\rho)
+    &  \frac{1}{\sum_{m=-n}^{n} \|c_{n}^{m}\|^2} \int_{0}^{\pi} \int_{0}^{2\pi} f(\rho, \theta, \phi) \left( \overline{ \sum_{m=-n}^{n}  c_{n}^{m}  Y^{m}_{n}(\theta, \phi) } \right) sim\theta ~~d\phi ~~d\theta \\
+    & =  \frac{1}{\sum_{m=-n}^{n} \|c_{n}^{m}\|^2} \int_{0}^{\pi} \int_{0}^{2\pi} \sum_{v=0}^{N}  f_{v}(\rho) \sum_{u=-v}^{v}  c^{u}_{v}  Y^{u}_{v}(\theta, \phi) \left( \overline{ \sum_{m=-n}^{n}  c_{n}^{m}  Y^{m}_{n}(\theta, \phi) } \right) sim\theta ~~d\phi ~~d\theta \\
+    & =  \frac{1}{\sum_{m=-n}^{n} \|c_{n}^{m}\|^2} \int_{0}^{\pi} \int_{0}^{2\pi} \sum_{v=0}^{N} \left( f_{v}(\rho) \sum_{u=-v}^{v}  c^{u}_{v}  Y^{u}_{v}(\theta, \phi) \right) \left( \sum_{m=-n}^{n} \overline{c_{n}^{m}} \overline{ Y^{m}_{n}(\theta, \phi)} \right) sim\theta ~~d\phi ~~d\theta \\
+    & =  \frac{1}{\sum_{m=-n}^{n} \|c_{n}^{m}\|^2} \sum_{v=0}^{N}  f_{v}(\rho) \sum_{u=-v}^{v} \sum_{m=-n}^{n} \int_{0}^{\pi} \int_{0}^{2\pi}  c^{u}_{v} \overline{c_{n}^{m}}  Y^{u}_{v}(\theta, \phi) \overline{ Y^{m}_{n}(\theta, \phi)} sim\theta ~~d\phi ~~d\theta \\
+    & =  \frac{1}{\sum_{m=-n}^{n} \|c_{n}^{m}\|^2} \sum_{v=0}^{N}  f_{v}(\rho) \sum_{u=-v}^{v} \sum_{m=-n}^{n}  c^{u}_{v} \overline{c_{n}^{m}} \langle Y^{u}_{v}(\theta, \phi) , Y^{m}_{n}(\theta, \phi) \rangle \\
+    & =  \frac{1}{\sum_{m=-n}^{n} \|c_{n}^{m}\|^2} f_{n}(\rho) \sum_{m=-n}^{n}  c^{m}_{n} \overline{c_{n}^{m}} \\
+    & =  f_{n}(\rho)
 \end{split}$$
 
 ## Case 3:
@@ -356,18 +356,18 @@ $$\begin{split}
 Radial function is independent of the degree and the order of spherical
 harmonics.
 $$
-    {f}(\rho, \theta, \phi) =  {f}(\rho) \sum_{n=0}^{N} \sum_{m=-n}^{n}  {c}^{m}_{n}  {Y}^{m}_{n}(\theta, \phi)$$
+    f(\rho, \theta, \phi) =  f(\rho) \sum_{n=0}^{N} \sum_{m=-n}^{n}  c^{m}_{n}  Y^{m}_{n}(\theta, \phi)$$
 
 $$\begin{split}
-    \langle {f} , {T} \rangle & = \sum_{n,m}^{N} \sum_{u,v}^{\infty} \langle {f}  {c}^{m}_{n}  {Y}_{n}^{m}  , {T}_{u,v}  {Y}_{u}^{v} \rangle \\
-    & = \sum_{n,m}^{N} \sum_{u,v}^{N} \langle {f}  ,  {T}_{u,v} \rangle {c}^{m}_{n} \langle {Y}_{n}^{m}  ,  {Y}_{u}^{v} \rangle \\
-    & = \sum_{n,m}^{N}  {c}^{m}_{n} \langle {f}  ,  {T}_{n,m} \rangle \\
-    & = \sum_{n=0}^{N} \sum_{m=-n}^{n}  {c}^{m}_{n} \langle \sum_{k \in \mathbb{Z}} \frac{{d}^{k}}{{r}_0} \beta (\frac{\rho}{{r}_0}  -  k)  ,  {T}_{n,m} \rangle \\
-    & = \sum_{n=0}^{N} \sum_{m=-n}^{n} \sum_{k \in \mathbb{Z}}  {c}^{m}_{n} {d}^{k} \langle \frac{1}{{r}_0} \beta (\frac{\rho}{{r}_0}  -  k)  ,  {T}_{n,m} \rangle
+    \langle f , {T} \rangle & = \sum_{n,m}^{N} \sum_{u,v}^{\infty} \langle f  c^{m}_{n}  Y_{n}^{m}  , {T}_{u,v}  Y_{u}^{v} \rangle \\
+    & = \sum_{n,m}^{N} \sum_{u,v}^{N} \langle f  ,  {T}_{u,v} \rangle c^{m}_{n} \langle Y_{n}^{m}  ,  Y_{u}^{v} \rangle \\
+    & = \sum_{n,m}^{N}  c^{m}_{n} \langle f  ,  {T}_{n,m} \rangle \\
+    & = \sum_{n=0}^{N} \sum_{m=-n}^{n}  c^{m}_{n} \langle \sum_{k \in \mathbb{Z}} \frac{d^{k}}{r_0} \beta (\frac{\rho}{r_0}  -  k)  ,  {T}_{n,m} \rangle \\
+    & = \sum_{n=0}^{N} \sum_{m=-n}^{n} \sum_{k \in \mathbb{Z}}  c^{m}_{n} {d}^{k} \langle \frac{1}{r_0} \beta (\frac{\rho}{r_0}  -  k)  ,  {T}_{n,m} \rangle
 \end{split}$$
 
 Let,
-${b}_{k}(\rho) = \frac{1}{{r}_0} \beta (\frac{\rho}{{r}_0}  -  k)$
+${b}_{k}(\rho) = \frac{1}{r_0} \beta (\frac{\rho}{r_0}  -  k)$
 
 Then, we can rewrite:
  ⟨ *f*, *T* ⟩ = ∑<sub>*n*, *m*</sub> ∑<sub>*k* ∈ ℤ</sub> *c*<sub>*n*, *m*</sub><sup>*k*</sup> ⟨ *b*<sub>*k*</sub>(*ρ*) , *T*<sub>*n*, *m*</sub> ⟩
@@ -377,8 +377,8 @@ In order to maximize  ⟨ *f*, *T* ⟩ , *c⃗* needs to be collinear with
 
 Re-interpreting the aforementioned inner product,
 $$\begin{split}
-    \langle {b}_{k}(\rho){Y}_{n}^{m}  ,  {T} \rangle & = \langle {b}_{k}(\rho){Y}_{n}^{m} , \sum_{u,v} {T}_{u,v}  {Y}_{u,v} \rangle \\
-    & = \sum_{u,v} \langle {b}_{k}(\rho)  ,  {T}_{u,v} \rangle \langle {Y}_{n}^{m}  ,  {Y}_{u}^{v} \rangle \\
+    \langle {b}_{k}(\rho)Y_{n}^{m}  ,  {T} \rangle & = \langle {b}_{k}(\rho)Y_{n}^{m} , \sum_{u,v} {T}_{u,v}  Y_{u,v} \rangle \\
+    & = \sum_{u,v} \langle {b}_{k}(\rho)  ,  {T}_{u,v} \rangle \langle Y_{n}^{m}  ,  Y_{u}^{v} \rangle \\
     & = \langle {b}_{k}(\rho)  ,  {T}_{n,m} \rangle
 \end{split}$$
 
@@ -398,7 +398,7 @@ combination of all elements in in the family represented by the degree
 subspace *n*:
 
 $$
-    {Y}_{n}^{m}(\mathcal{R} · )(\theta, \phi) = \sum_{m'=-n}^{n}{D}_{\mathcal{R},n}[m,m']{Y}_{n}^{m'}(\theta, \phi)$$
+    Y_{n}^{m}(\mathcal{R} · )(\theta, \phi) = \sum_{m'=-n}^{n}{D}_{\mathcal{R},n}[m,m']Y_{n}^{m'}(\theta, \phi)$$
 
 where the *D*<sub>ℛ, *n*</sub> ∈ ℂ<sup>(2*n* + 1)x(2*n* + 1)</sup> are
 Wigner matrices.
@@ -432,8 +432,8 @@ harmonics. Therefore the coefficients for each harmonic can be included
 within the radial function.
 
 $$\begin{aligned}
-    f(\mathcal{R} \cdot) & = \sum_{n=0}^{N} \sum_{m=-n}^{n}  {f}^{m}_{n}(\rho) {Y}^{m}_{n}(\mathcal{R} \cdot)(\theta, \phi) \\
-    & = \sum_{n=0}^{N} \sum_{m=-n}^{n}  {f}^{m}_{n}(\rho) \sum_{m'=-n}^{n}{D}_{\mathcal{R},n}[m,m']{Y}_{n}^{m'}(\theta, \phi)
+    f(\mathcal{R} \cdot) & = \sum_{n=0}^{N} \sum_{m=-n}^{n}  f^{m}_{n}(\rho) Y^{m}_{n}(\mathcal{R} \cdot)(\theta, \phi) \\
+    & = \sum_{n=0}^{N} \sum_{m=-n}^{n}  f^{m}_{n}(\rho) \sum_{m'=-n}^{n}{D}_{\mathcal{R},n}[m,m']Y_{n}^{m'}(\theta, \phi)
 \end{aligned}$$
 
 Computational cost given the rotation matrices, radial functions and
@@ -453,9 +453,9 @@ Radial function depends on the degree but not on the order of spherical
 harmonics.
 
 $$\begin{aligned}
-    f(\mathcal{R} \cdot) & = \sum_{n=0}^{N}  {f}_{n}(\rho) \sum_{m=-n}^{n}  {c}^{m}_{n}  {Y}^{m}_{n}(\mathcal{R} \cdot)(\theta, \phi) \\
-    & = \sum_{n=0}^{N}  {f}_{n}(\rho) \sum_{m=-n}^{n}  {c}^{m}_{n} \sum_{m'=-n}^{n}{D}_{\mathcal{R},n}[m,m']{Y}_{n}^{m'}(\theta, \phi)\\
-    & = \sum_{n=0}^{N}  {f}_{n}(\rho) \sum_{m=-n}^{n} \left[ \sum_{m'=-n}^{n}{c}^{m'}_{n}  {D}_{\mathcal{R},n}[m,m']\right] {Y}_{n}^{m}(\theta, \phi)  
+    f(\mathcal{R} \cdot) & = \sum_{n=0}^{N}  f_{n}(\rho) \sum_{m=-n}^{n}  c^{m}_{n}  Y^{m}_{n}(\mathcal{R} \cdot)(\theta, \phi) \\
+    & = \sum_{n=0}^{N}  f_{n}(\rho) \sum_{m=-n}^{n}  c^{m}_{n} \sum_{m'=-n}^{n}{D}_{\mathcal{R},n}[m,m']Y_{n}^{m'}(\theta, \phi)\\
+    & = \sum_{n=0}^{N}  f_{n}(\rho) \sum_{m=-n}^{n} \left[ \sum_{m'=-n}^{n}c^{m'}_{n}  {D}_{\mathcal{R},n}[m,m']\right] Y_{n}^{m}(\theta, \phi)  
 \end{aligned}$$
 
 Computational cost given the rotation matrices, radial functions and
@@ -471,9 +471,9 @@ Radial function is independent of the degree and the order of spherical
 harmonics.
 
 $$\begin{aligned}
-    f(\mathcal{R} \cdot) & =  {f}(\rho) \sum_{n=0}^{N} \sum_{m=-n}^{n}  {c}^{m}_{n}  {Y}^{m}_{n}(\mathcal{R} \cdot)(\theta, \phi) \\
-    & =  {f}(\rho) \sum_{n=0}^{N} \sum_{m=-n}^{n}  {c}^{m}_{n} \sum_{m'=-n}^{n}{D}_{\mathcal{R},n}[m,m']{Y}_{n}^{m'}(\theta, \phi)\\
-    & = {f}(\rho) \sum_{n=0}^{N} \sum_{m=-n}^{n} \left[ \sum_{m'=-n}^{n}{c}^{m'}_{n}  {D}_{\mathcal{R},n}[m,m']\right] {Y}_{n}^{m}(\theta, \phi)  
+    f(\mathcal{R} \cdot) & =  f(\rho) \sum_{n=0}^{N} \sum_{m=-n}^{n}  c^{m}_{n}  Y^{m}_{n}(\mathcal{R} \cdot)(\theta, \phi) \\
+    & =  f(\rho) \sum_{n=0}^{N} \sum_{m=-n}^{n}  c^{m}_{n} \sum_{m'=-n}^{n}{D}_{\mathcal{R},n}[m,m']Y_{n}^{m'}(\theta, \phi)\\
+    & = f(\rho) \sum_{n=0}^{N} \sum_{m=-n}^{n} \left[ \sum_{m'=-n}^{n}c^{m'}_{n}  {D}_{\mathcal{R},n}[m,m']\right] Y_{n}^{m}(\theta, \phi)  
 \end{aligned}$$
 
 Computational cost given the rotation matrices, radial functions and
@@ -502,8 +502,8 @@ non-zero.
 
 3D:  *f*(*ρ*, *θ*, *ϕ*)
 $$\begin{aligned}
-    {f}(\rho, \theta, \phi) &= \sum_{n \in \mathbb{Z}} \sum_{m=-n}^{n}  {f}^{m}_{n}(\rho) {Y}^{m}_{n}(\theta, \phi), \hspace{2cm} \sum_{n \in \mathbb{Z}}  {\|\|{f}_{n}^{m}\|\|}_2^2 < \infty  \\
-    {f}_{n}^{m}(\rho) &= \int_{0}^{2\pi} \int_{0}^{\pi} f(\rho, \theta, \phi) \overline{ {Y}^{m}_{n}(\theta, \phi) } sim\theta ~~d\theta ~~d\phi
+    f(\rho, \theta, \phi) &= \sum_{n \in \mathbb{Z}} \sum_{m=-n}^{n}  f^{m}_{n}(\rho) Y^{m}_{n}(\theta, \phi), \hspace{2cm} \sum_{n \in \mathbb{Z}}  {\|\|f_{n}^{m}\|\|}_2^2 < \infty  \\
+    f_{n}^{m}(\rho) &= \int_{0}^{2\pi} \int_{0}^{\pi} f(\rho, \theta, \phi) \overline{ Y^{m}_{n}(\theta, \phi) } sim\theta ~~d\theta ~~d\phi
 \end{aligned}$$
 *f* is steerable if and only if finitely many
 *f*<sub>*n*</sub><sup>*m*</sup> are non-zero.
@@ -518,7 +518,7 @@ $$\begin{aligned}
 
 3D:
 $$
-    {f}(\mathcal{R}_{(\alpha, \beta, \gamma)} \cdot)(\rho, \theta, \phi) =\sum_{n=0}^{N} \sum_{m=-n}^{n}  {f}^{m}_{n}(\rho) \sum_{m'=-n}^{n}{D}_{n, \mathcal{R}_{(\alpha, \beta, \gamma)}}^{m,m'}{Y}_{n}^{m'}(\theta, \phi)$$
+    f(\mathcal{R}_{(\alpha, \beta, \gamma)} \cdot)(\rho, \theta, \phi) =\sum_{n=0}^{N} \sum_{m=-n}^{n}  f^{m}_{n}(\rho) \sum_{m'=-n}^{n}{D}_{n, \mathcal{R}_{(\alpha, \beta, \gamma)}}^{m,m'}Y_{n}^{m'}(\theta, \phi)$$
 
 ## Detection Procedure: Continuous domain
 
@@ -526,7 +526,7 @@ $$
 $$\begin{aligned}
     {I}_{ang}(\boldsymbol{x_0}) &= \arg \max_{\theta_0 \in [0, 2\pi)} \left< {I}(\cdot -\boldsymbol{x_0}), g(\mathcal{R}_{\theta_0} \cdot)\right>\\
     {I}_{amp}(\boldsymbol{x_0}) &= \max_{\theta_0 \in [0, 2\pi)} \left< {I}(\cdot -\boldsymbol{x_0}), g(\mathcal{R}_{\theta_0} \cdot)\right>\\
-    &=  \left< {I}(\cdot -\boldsymbol{x_0}), g(\mathcal{R}_{{I}_{ang}(\boldsymbol{x_0})} \cdot)\right>
+    &=  \left< {I}(\cdot -\boldsymbol{x_0}), g(\mathcal{R}_{I_{ang}(\boldsymbol{x_0})} \cdot)\right>
 \end{aligned}$$
 where *I*<sub>*a**n**g*</sub>(**x**<sub>**0**</sub>) is the estimated
 orientation of the template at **x**<sub>**0**</sub> ∈ ℝ<sup>2</sup> and
@@ -537,7 +537,7 @@ maximum response of *g* at **x**<sub>**0**</sub>.
 $$\begin{aligned}
     {I}_{ang}(\boldsymbol{x_0}) &= \arg \max_{(\alpha_0, \beta_0, \gamma_0) \in [0, 2\pi)} \left< {I}(\cdot -\boldsymbol{x_0}), f(\mathcal{R}_{(\alpha_0, \beta_0, \gamma_0)} \cdot)\right> \\
     {I}_{amp}(\boldsymbol{x_0}) &= \max_{(\alpha_0, \beta_0, \gamma_0) \in [0, 2\pi)} \left< {I}(\cdot -\boldsymbol{x_0}), f(\mathcal{R}_{(\alpha_0, \beta_0, \gamma_0)} \cdot)\right>  \\
-    &=  \left< {I}(\cdot -\boldsymbol{x_0}), f(\mathcal{R}_{{I}_{ang}(\boldsymbol{x_0})} \cdot)\right>
+    &=  \left< {I}(\cdot -\boldsymbol{x_0}), f(\mathcal{R}_{I_{ang}(\boldsymbol{x_0})} \cdot)\right>
 \end{aligned}$$
 where *I*<sub>*a**n**g*</sub>(**x**<sub>**0**</sub>) is the estimated
 orientation of the template at **x**<sub>**0**</sub> ∈ ℝ<sup>3</sup> and
@@ -584,7 +584,7 @@ maximum response of *f* at **x**<sub>**0**</sub>.
 
 **Function Approximation Steps:**
 
-1.  Compute: $T \xrightarrow[\text{DFT}]{\text{}} \hat{T}$
+1.  Compute: $T \xrightarrow[\text{DFT}]{} \hat{T}$
 
 2.  Compute coefficients *d*<sub>*n*</sub>[*k*]
 
@@ -596,7 +596,7 @@ maximum response of *f* at **x**<sub>**0**</sub>.
     *d*<sub>*n*</sub>[*k*] = ∫<sub>ℝ<sup>2</sup></sub> *T̂*(*ω*<sub>*x*</sub>, *ω*<sub>*y*</sub>) *ϕ̂*<sub>*n*, *k*</sub>(*ω*<sub>*x*</sub>, *ω*<sub>*y*</sub>) *d**ω*<sub>*x*</sub> *d**ω*<sub>*y*</sub>
 
     where
-    $$\hat{\phi}_{n,k}(\omega_x, \omega_y) = \frac{1}{r_0} \beta \left( \frac{\sqrt{{\omega_x}^2 + {\omega_y}^2}}{r_0} - k \right) \\ e^{j n \\ arctan(\omega_x / \omega_y)}$$
+    $$\hat{\phi}_{n,k}(\omega_x, \omega_y) = \frac{1}{r_0} \beta \left( \frac{\sqrt{\omega_{x}^2 + {\omega_y}^2}}{r_0} - k \right) \\ e^{j n arctan(\omega_x / \omega_y)}$$
 
     the integral is approximated with its Riemann sum, from the
     knowledge of *T̂* on the Cartesian grid
@@ -633,7 +633,7 @@ max(*K*) × *N*<sub>2*d*</sub>× max(*K*)× *O*(2D Riemann Sum)
     *d*<sub>*n*</sub><sup>*m*</sup>[*k*] = ∫<sub>ℝ<sup>3</sup></sub> *T*(*x*, *y*, *z*) *ϕ*<sub>*n*, *m*, *k*</sub>(*x*, *y*, *z*) *d**x* *d**y* *d**z*
 
     where in spherical coordinates
-    $$\hat{\phi}_{n,m,k}(\rho, \theta, \phi) = \frac{1}{r_0} \beta \left( \frac{\rho}{r_0} - k \right) {Y}_{n}^{m}(\theta, \phi)$$
+    $$\hat{\phi}_{n,m,k}(\rho, \theta, \phi) = \frac{1}{r_0} \beta \left( \frac{\rho}{r_0} - k \right) Y_{n}^{m}(\theta, \phi)$$
 
     the integral is reduced to a sum over the discrete points for which
     *T* is defined.
@@ -651,11 +651,11 @@ max(*K*) × *N*<sub>2*d*</sub>× max(*K*)× *O*(2D Riemann Sum)
 
 3.  The radial profile is given by:
 
-    $${f}_{n}^{m}(\rho) = \sum_{k \in K} c_n^m[k] \frac{1}{r_0} \beta \left( \frac{\rho}{r_0} - k \right)$$
+    $$f_{n}^{m}(\rho) = \sum_{k \in K} c_n^m[k] \frac{1}{r_0} \beta \left( \frac{\rho}{r_0} - k \right)$$
 
 4.  The optimal filter is given by:
 
-    $${f}_{opt}(\rho, \theta, \phi) = \sum_{n=0}^{N_{3d}} \sum_{m=-n}^{n} \sum_{k \in K}^{} c_n^m[k] \frac{1}{r_0} \beta \left( \frac{\rho}{r_0} - k \right) {Y}_{n}^{m}(\theta, \phi)$$
+    $$f_{opt}(\rho, \theta, \phi) = \sum_{n=0}^{N_{3d}} \sum_{m=-n}^{n} \sum_{k \in K}^{} c_n^m[k] \frac{1}{r_0} \beta \left( \frac{\rho}{r_0} - k \right) Y_{n}^{m}(\theta, \phi)$$
 
 **Complexity**:
 
@@ -702,7 +702,7 @@ max(*K*) × *N*<sub>3*d*</sub><sup>2</sup>× max(*K*)× *O*(3D Riemann Sum)
 Grid Search and Gradient Descent approaches are used to find the maximum
 value of functions with domain as [0, 2*π*), of the form:
 
-$$f(\alpha) = \sum_{n=-N}^{N} a_n  e^{-jn\alpha} \hspace{3cm} a_n \in \mathbb{C} \text{ and } a_{-n} = \overline{a_n}$$
+$$f(\alpha) = \sum_{n=-N}^{N} a_n  e^{-jn\alpha} \hspace{3cm} a_n \in \mathbbc \text{ and } a_{-n} = \overline{a_n}$$
 
 *f*(⋅) simplifies to a trigonometric polynomial of the order N.
 
