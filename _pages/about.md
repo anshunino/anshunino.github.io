@@ -19,7 +19,7 @@ selected_papers: false # includes a list of papers marked as "selected={true}"
 social: false  # includes social icons at the bottom of the page
 ---
 
-Welcome to my personal website! I am currently a doctoral student at the Université Paris Cité in France, working on differentiable shape models of cells in young embryos - both static and dynamic. I am fortunate to be supervised by [Dr. Hervé Turlier](https://www.college-de-france.fr/fr/personne/herve-turlier) and surrounded by a truly interdisciplinary work, necessary for my subject of research, at the prestigious Collège de France in the heart of the city.
+Welcome to my personal website! I am currently a doctoral student at the Université Paris Cité in France, working on differentiable shape models of cells in young embryos - both static and dynamic. I am fortunate to be supervised by [Dr. Hervé Turlier](https://www.college-de-france.fr/fr/personne/herve-turlier) and surrounded by a truly interdisciplinary work environment necessary for my subject of research, at the prestigious Collège de France in the heart of the city.
 
 Right before, in 2024, I completed the final year of my Masters (French M2) in the popular Applied Mathematics and Computer Vision ([MVA](http://master-mva.com/) - _Mathématiques, Vision, Apprentissage_) programme.
 
