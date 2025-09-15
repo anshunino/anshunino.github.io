@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-Started as a doctoral student at the Multiscale Physics of Morphogenesis team at Collège de France in Paris, under the supervision of Dr. Hervé Turlier.
+Now a doctoral student at the Multiscale Physics of Morphogenesis team at Collège de France in the Latin Quarter of Paris!
