@@ -1,0 +1,943 @@
+---
+layout: post
+title:  "Object detection & Reinforcement Learning-based spline fitting"
+subtitle: "My internship at EMBL-EBI in Cambridge at the Uhlmann group"
+background: '/img/cells.png'
+date:   2022-09-21 14:00:00 +0200
+categories : research
+published: true
+hidden: false
+---
+
+# Introduction
+
+The revolution in accessibility of computational power has paved the
+path for the usage of 3D and higher-dimensional images across
+disciplines and industries.  
+
+Currently, deep convolutional neural networks (CNNs) show highly
+impressive detection performance in many applications. Filters can be
+designed to detect the positions of templates in images. The free
+parameters of these filters are trained on a dataset, i.e. a number of
+images containing the template of interest. With enough time and
+computation (sometimes interdependent), they learn to recognize the
+template by experimentation. Such CNNs have two major drawbacks:
+
+1.  They are *a priori* not rotation-invariant. To detect a rotated
+    template, the filters must be naively re-trained on an augmented
+    data set containing rotated versions of the template.
+
+2.  Their technique demands a large amount of data to train.
+
+These drawbacks lead to a heavy computation. There has been enough proof
+to secure a doubt-free efficacy of the results produced by such methods.
+However, in no way can one claim that they are computationally ideal
+algorithms, irrespective of application. In more ways than the above,
+one might argue that the sophistication of our algorithms has not been
+quite at par with the ease in computation enabled by leaps and bounds
+made by the hardware processors.  
+The goal of this project is to create a template recognition approach
+determining its unknown positions and orientations free from the two
+aforementioned disadvantages of CNNs. The detector can be constructed
+without using a large data set and would be rotation-invariant by
+definition. It would be possible to use it directly for object
+recognition, or to use it complementary to CNNs.
+
+## Spherical Harmonics
+
+### Definition
+
+Spherical harmonics are the three-dimensional counterparts of the
+circular harmonics, defined in 2D (described in [ref]). They form an
+orthonormal basis on *L*<sub>2</sub>(𝕊<sup>2</sup>) [ref]. They are
+defined by a degree *n* ∈ *N*, which can be seen as a layer of spherical
+harmonics, and an order *m* ∈ {−*n*, ..., *n*}:
+
+*Y*<sub>*n*</sub><sup>*m*</sup>(*θ*, *ϕ*) = *B* *e*<sup>*j**m**ϕ*</sup> *P*<sub>*n*</sub><sup>*m*</sup>(*c**o**s* *θ*)
+
+For a given degree, there are (2*n* + 1) independent solutions of this
+form, one for each integer *m*. The integer *m* corresponds to the
+different possible frequencies applied to *ϕ* and *θ*. *B* is a
+normalization constant:
+
+$$B = \sqrt{\frac{2n+1}{4\pi} \frac{(n-m)!}{(n+m)!} }$$
+
+*P*<sub>*n*</sub><sup>*m*</sup>(*x*) is the associated Legendre
+polynomial, a canonical solution of the Legendre equation
+[ref][ref]. It is defined as:
+
+$$\begin{aligned}
+    P_n^m(x) &= \frac{(-1)^m}{2^n n!} (1-x^2)^{m/2} \frac{d^{n+m}}{dx^{n+m}} (x^2-1)^n ~~\textit{if} ~~m \ge 0\\
+    &= (-1)^m \frac{(n+m)!}{(n-m)!} P_n^{-m}(x) ~~\textit{if} ~~m < 0 
+\end{aligned}$$
+
+During this project we worked with sets of spherical harmonics. A set of
+spherical harmonics is composed of the harmonics with a degree
+*n* ≤ *N*.
+
+### Properties
+
+#### Orthogonality
+
+Spherical harmonics form a complete set of orthonormal functions on
+*L*<sub>2</sub>(𝕊<sup>2</sup>). In other words, they form an orthonormal
+basis of the Hilbert space of square-integrable functions. Therefore:
+
+$$
+\begin{split}
+    \langle Y_{n}^{m} , Y_{u}^{v} \rangle & = 1 \hspace{2cm} \small{\textit{if} \\ (u,v) = (n,m)}\\
+    & = 0 \hspace{2cm} \small{\textit{if} \\ (u,v) \not= (n,m)}
+\end{split}$$
+
+$$\text{where} \hspace{1cm} \langle Y_{n}^{m} , Y_{u}^{v} \rangle = \int_{0}^{\pi} \int_{0}^{2\pi} Y^{m}_{n}(\theta, \phi) \cdot \overline{ Y^{v}_{u}(\theta, \phi)} ~~sin\theta ~~d\phi ~~d\theta$$
+
+#### Steerability
+
+A function is steerable if and only if its rotated version can be
+constructed as the linear combination of a finite number of basis
+functions. Its definition is the equation (2) in [ref].  
+We are interested in the steerability of the spherical harmonics. The
+definition in 3D is similar to the Definition 1 of the 2D case in
+[ref]. All the spherical harmonics are steerable together, however
+they are not self-steerable as the circular harmonics in [ref]. For a
+fixed degree, the set of spherical harmonics forms a steerable family.
+It means that the rotated version of one of them is a linear combination
+of the complete family. In 3D, for a fixed degree n, all the spherical
+harmonics are steerable because their rotated version is in the span of
+their system. They form a steerable family.  
+For any rotation ℛ ∈ *S**O*(3), the rotated version
+*Y*<sub>*n*</sub><sup>*m*</sup>(ℛ ·) of a spherical harmonic can be
+expressed as a linear combination of all elements in in the family
+represented by the degree subspace *n*:
+
+$$
+    Y_{n}^{m}(\mathcal{R} · )(\theta, \phi) = \sum_{m'=-n}^{n}{D}_{\mathcal{R},n}[m,m']Y_{n}^{m'}(\theta, \phi)$$
+where the *D*<sub>ℛ, *n*</sub> ∈ ℂ<sup>(2*n* + 1)x(2*n* + 1)</sup> are
+known as Wigner-D matrices.
+
+## Wigner-D Matrices
+
+$$
+    Y_{n}^{m}(\mathcal{R} · )(\theta, \phi) = \sum_{m'=-n}^{n}{D}_{\mathcal{R},n}[m,m']Y_{n}^{m'}(\theta, \phi)$$
+where the *D*<sub>ℛ, *n*</sub> ∈ ℂ<sup>(2*n* + 1)x(2*n* + 1)</sup> are
+known as Wigner-D matrices.
+
+*D*<sub>*n*</sub><sup>*m*<sup>′</sup>*m*</sup>(*α*, *β*, *γ*) = *e*<sup>−*i**m*<sup>′</sup>*α*</sup> *d*<sub>*n*</sub><sup>*m*<sup>′</sup>*m*</sup>(*β*) *e*<sup>−*i**m**γ*</sup>
+
+$$\text{where} \hspace{1cm} d^{m'm}_{n}(\beta) = \sqrt{(n+m')!\\(n-m')!\\(n+m)!\\(n-m)!} \sum_{s=s_{\mathrm{min}}}^{s_{\mathrm{max}}} \left[ \frac{(-1)^{m'-m+s} \\ (cos \frac{\beta}{2})^{2n+m-m'-2s} \\ (sin \frac{\beta}{2})^{m'-m+2s}}{(n+m-s)! \\ s! \\ (m'-m+s)! \\ (n-m'-s)!} \right]$$
+
+The sum over *s* is over such values that the factorials are
+non-negative  
+ *s*<sub>min</sub> = *m**a**x*(0, *m* − *m*<sup>′</sup>) and
+ *s*<sub>max</sub> = *m**i**n*(*n* + *m*, *n* − *m*<sup>′</sup>)  
+**Note**: The d-matrix elements defined here are real. In the often-used
+z-x-z convention of Euler angles, the factor
+(−1)<sup>*m*<sup>′</sup> − *m* + *s*</sup> in this formula is replaced
+by (−1)<sup>*s*</sup>*i*<sup>*m* − *m*<sup>′</sup></sup>, causing half
+of the functions to be purely imaginary.
+
+#### Property 1:
+
+*d*<sub>*n*</sub><sup>*m*<sup>′</sup>, *m*</sup>(−*β*) = *d*<sub>*n*</sub><sup>*m*, *m*<sup>′</sup></sup>(*β*)
+for all values of *m*, *m*<sup>′</sup> and *n*.
+
+#### Property 2:
+
+*d*<sub>*n*</sub><sup>*m*<sup>′</sup>, *m*</sup>(*β*) = *d*<sub>*n*</sub><sup>−*m*, −*m*<sup>′</sup></sup>(*β*)
+for all values of *m*, *m*<sup>′</sup> and *n*.
+
+#### Property 1:
+
+*d*<sub>*n*</sub><sup>*m*<sup>′</sup>, *m*</sup>(*β*) = (−1)<sup>*m* − *m*<sup>′</sup></sup> *d*<sub>*n*</sub><sup>*m*, *m*<sup>′</sup></sup>(*β*)
+for all values of *m*, *m*<sup>′</sup> and *n*.
+
+
+
+
+# Degrees of Separability
+
+This project aims to model the task of template matching in 3D by using
+steerable filters. From the way that they are defined, steerable filters
+are computationally easier to rotate with a minimum loss of information
+when discretised to map with the rotated template.  
+We use spherical harmonics to serve as basis for our steerable filters
+in spherical coordinates.  
+  
+Given *f* ∈ *L*<sup>2</sup>(ℝ<sup>3</sup>), we classify three categories
+of steerable filters:
+
+- *f*<sub>*n*</sub><sup>*m*</sup>(*ρ*) steerable (*S**t*<sub>*N*</sub>)
+
+- *f*<sub>*n*</sub>(*ρ*) *c*<sub>*n*</sub><sup>*m*</sup>
+  degree-separable + steerable (*d**s**S**t*<sub>*N*</sub>)
+
+- *f*(*ρ*) *c*<sub>*n*</sub><sup>*m*</sup> separable + steerable
+  (*s**S**t*<sub>*N*</sub>)
+
+Spherical harmonics form a complete set of orthonormal functions. In
+other words, they form an orthonormal basis of the Hilbert space of
+square-integrable functions.  
+Therefore:
+$$
+\begin{split}
+    \langle Y_{n}^{m}  ,  Y_{u}^{v} \rangle & = 1 \hspace{2cm} \small{\textit{if} \\ (u,v) = (n,m)}\\
+    & = 0 \hspace{2cm} \small{\textit{if} \\ (u,v) \not= (n,m)}
+\end{split}$$
+
+#### *Definition 1:*
+
+A filter *f* is steerable if the span of its rotated versions *f*(ℛ·),
+is a finite-dimensional subspace of *L*<sup>2</sup>(ℝ<sup>3</sup>). This
+implies that there exist *P* ≥ 1 filters
+*f*<sub>*p*</sub>, *p* = 1, ⋯*P* such that for any set of rotation
+angles, we have
+$f(\mathcal{R}·) = \sum_{p=1}^{P} c_{p}(\mathcal{R}·) f_{p}$,
+for some *c*<sub>*p*</sub>(ℛ·) ∈ ℝ, 1 ≤ *p* ≤ *P*.
+
+#### *Proposition 1:*
+
+A function *f* ∈ *L*<sup>2</sup>(ℝ<sup>3</sup>) can be uniquely
+decomposed in spherical coordinates as:
+$$f(\rho, \theta, \phi) = \sum_{n=0}^{\infty} \sum_{m=-n}^{n}  f^{m}_{n}(\rho) Y^{m}_{n}(\theta, \phi)$$
+
+The functions *f*<sub>*n*</sub><sup>*m*</sup>(*ρ*) are called the
+Fourier radial profiles of *f*. Moreover, *f* is steerable if and only
+if finitely many *f*<sub>*n*</sub><sup>*m*</sup> are non-zero.
+
+#### **Proof:**
+
+Using finite norm and the orthogonality of the system
+(*f*<sub>*n*</sub><sup>*m*</sup>(*ρ*) *Y*<sub>*n*</sub><sup>*m*</sup>(*θ*, *ϕ*))
+<sub>*n* ∈ ℤ, −*n* ≤ *m* ≤ *n*</sub>, we have that
+
+$$\begin{aligned}
+    \|\|f\|\|_2^2 & =  \int_{0}^{\infty} \int_{0}^{\pi} \int_{0}^{2\pi} \|f(\rho, \theta, \phi)\|^2 {\rho}^2 sim\theta ~~d\phi ~~d\theta ~~d\rho \\
+    & =  \int_{0}^{\infty} \int_{0}^{\pi} \int_{0}^{2\pi} \sum_{n \in \mathbf{Z}} \sum_{m=-n}^{n} \sum_{u \in \mathbf{Z}} \sum_{v=-u}^{u}  f^{m}_{n}(\rho) \overline{f^{v}_{u}(\rho)}  Y^{m}_{n} \overline{ Y^{v}_{u}}  {\rho}^2 sim\theta ~~d\phi ~~d\theta ~~d\rho\\
+    & = \sum_{n \in \mathbf{Z}} \sum_{m=-n}^{n} \sum_{u \in \mathbf{Z}} \sum_{v=-u}^{u} \int_{0}^{\infty} f^{m}_{n}(\rho) \overline{f^{v}_{u}(\rho)} \left( \int_{0}^{\pi} \int_{0}^{2\pi} Y^{m}_{n}(\theta, \phi) \overline{ Y^{v}_{u}(\theta, \phi)} sim\theta ~~d\phi ~~d\theta \right) {\rho}^2 ~~d\rho \\
+    & =  \sum_{n \in \mathbf{Z}} \sum_{m=-n}^{n} \sum_{u \in \mathbf{Z}} \sum_{v=-u}^{u} \int_{0}^{\infty} f^{m}_{n}(\rho) \overline{f^{v}_{u}(\rho)} \langle Y_{n}^{m}  ,  Y_{u}^{v} \rangle {\rho}^2 ~~d\rho\\
+    & =  \sum_{n \in \mathbf{Z}} \sum_{m=-n}^{n} \int_{0}^{\infty} f^{m}_{n}(\rho) \overline{f^{m}_{n}(\rho)}  {\rho}^2 ~~d\rho\\
+    & = sum_{n \in \mathbf{Z}} \sum_{m=-n}^{n} \int_{0}^{\infty} \|f^{m}_{n}(\rho)\|^2 {\rho}^2 ~~d\rho\\
+    & =  \sum_{n \in \mathbf{Z}} \sum_{m=-n}^{n} \|\|f^{m}_{n}\|\|_2^2
+\end{aligned}$$
+
+This proves that *f* is square-integrable if and only if
+$\sum_{n \in \mathbf{Z}} \sum_{m=-n}^{n} \|\|f^{m}_{n}\|\|_2^2 < \infty$
+which is possible if and only if finitely many
+*f*<sub>*n*</sub><sup>*m*</sup> are non-zero.
+
+As a consequence, the general form of a steerable filter is
+$f(\rho, \theta, \phi) = \sum_{n \in \mathbb{H}} \sum_{m=-n}^{n}  f^{m}_{n}(\rho) Y^{m}_{n}(\theta, \phi)$,
+where ℍ is a finite subset of ℤ and
+*f*<sub>*n*</sub><sup>*m*</sup> ∈ *L*<sup>2</sup>(ℝ) the non zero radial
+profiles.
+
+We may now specify the general representation of the template (*T*) as:
+$$
+    {T}(\rho, \theta, \phi) = \sum_{n=0}^{\infty} \sum_{m=-n}^{n}  {T}^{m}_{n}(\rho) Y^{m}_{n}(\theta, \phi)$$
+
+## Case 1:
+
+Radial function depends on the degree and the order of spherical
+harmonics. Therefore the coefficients for each harmonic can be included
+within the radial function.
+$$
+    f(\rho, \theta, \phi) = \sum_{n=0}^{N} \sum_{m=-n}^{n}  f^{m}_{n}(\rho) Y^{m}_{n}(\theta, \phi)$$
+
+$$\begin{split}
+    \langle f , {T} \rangle & = \sum_{n=0}^{N} \sum_{m=-n}^{n} \sum_{u=0}^{\infty} \sum_{v=-u}^{u} \langle f_{n,m}  Y_{n}^{m}  , {T}_{u,v}  Y_{u}^{v} \rangle \\
+    & = \sum_{n=0}^{N} \sum_{m=-n}^{n} \sum_{u=0}^{N} \sum_{v=-u}^{u} \langle f_{n,m}  ,  {T}_{u,v} \rangle\langle Y_{n}^{m}  ,  Y_{u}^{v} \rangle \\
+    & = \sum_{n,m}^{N} \langle f_{n,m}  ,  {T}_{n,m} \rangle \\
+    & = \sum_{n=0}^{N} \sum_{m=-n}^{n} \langle \sum_{k \in \mathbb{Z}} \frac{d_{n,m}^{k}}{r_0} \beta (\frac{\rho}{r_0}  -  k)  ,  {T}_{n,m} \rangle \\
+    & = \sum_{n=0}^{N} \sum_{m=-n}^{n} \sum_{k \in \mathbb{Z}} {d}_{n,m}^{k} \langle \frac{1}{r_0} \beta (\frac{\rho}{r_0}  -  k)  ,  {T}_{n,m} \rangle
+\end{split}$$
+
+Let,
+${b}_{k}(\rho) = \frac{1}{r_0} \beta (\frac{\rho}{r_0}  -  k)$
+
+Then, we can rewrite:
+ ⟨ *f*, *T* ⟩ = ∑<sub>*n*, *m*</sub> ∑<sub>*k* ∈ ℤ</sub> *d*<sub>*n*, *m*</sub><sup>*k*</sup> ⟨ *b*<sub>*k*</sub>(*ρ*) , *T*<sub>*n*, *m*</sub> ⟩
+
+In order to maximize  ⟨ *f*, *T* ⟩ , *c⃗* needs to be collinear with
+ ⟨ *b*<sub>*k*</sub>(*ρ*) , *T*<sub>*n*, *m*</sub> ⟩
+
+Re-interpreting the aforementioned inner product,
+$$\begin{split}
+    \langle {b}_{k}(\rho)Y_{n}^{m}  ,  {T} \rangle & = \langle {b}_{k}(\rho)Y_{n}^{m} , \sum_{u,v} {T}_{u,v}  Y_{u,v} \rangle \\
+    & = \sum_{u,v} \langle {b}_{k}(\rho)  ,  {T}_{u,v} \rangle\langle Y_{n}^{m}  ,  Y_{u}^{v} \rangle \\
+    & = \langle {b}_{k}(\rho)  ,  {T}_{n,m} \rangle
+\end{split}$$
+
+Therefore, we can say:
+*d*<sub>*n*, *m*</sub><sup>*k*</sup> = *λ* ⟨ *b*<sub>*k*</sub>(*ρ*) *Y*<sub>*n*</sub><sup>*m*</sup> , *T* ⟩
+
+$$
+    f(\rho, \theta, \phi) = \lambda \sum_{n=0}^{N} \sum_{m=-n}^{n} ( \sum_{k \in \mathbb{Z}} \langle {b}_{k}(\rho) Y_{n}^{m}, {T} \rangle{b}_{k}(\rho) ) Y_{n}^{m}(\theta, \phi)$$
+
+## Case 2:
+
+Radial function depends on the degree but not on the order of spherical
+harmonics.
+$$
+    f(\rho, \theta, \phi) = \sum_{n=0}^{N}  f_{n}(\rho) \sum_{m=-n}^{n}  c^{m}_{n}  Y^{m}_{n}(\theta, \phi)$$
+
+$$\begin{aligned}
+    \langle f , {T} \rangle & = \sum_{n=0}^{N} \sum_{m=-n}^{n} \sum_{u=0}^{\infty} \sum_{v=-u}^{u} \langle f_{n}  c^{m}_{n}  Y_{n}^{m}  , {T}_{u,v}  Y_{u}^{v} \rangle \\
+    & = \sum_{n=0}^{N} \sum_{m=-n}^{n} \sum_{u=0}^{N} \sum_{v=-u}^{u} \langle f_{n}  ,  {T}_{u,v} \rangle c^{m}_{n}\langle Y_{n}^{m}  ,  Y_{u}^{v} \rangle \\
+    & = \sum_{n=0}^{N} \sum_{m=-n}^{n}  c^{m}_{n} \langle f_{n}  ,  {T}_{n,m} \rangle
+\end{aligned}$$
+
+#### *Proposition 2:*
+
+Given that the template $\\T : \mathbb{R}^3 \xrightarrow{} \mathbb{R}$
+is a real valued function, *f*(*ρ*, *θ*, *ϕ*) with real degree-separable
+radial profiles can be constrained to be real by:
+$$c_{n}^{-m} = {(-1)}^{m} \overline{c_{n}^{m}}$$
+
+#### **Proof:**
+
+Equating the real function to its complex conjugate:
+
+$$\begin{aligned}
+    f(\rho, \theta, \phi)  & =  \overline{f(\rho, \theta, \phi)} \\
+    \Rightarrow \sum_{n=0}^{N}  f_{n}(\rho) \sum_{m=-n}^{n}  c^{m}_{n}  Y^{m}_{n}(\theta, \phi)  & =  \sum_{n=0}^{N} \overline{f_{n}(\rho)} \sum_{m=-n}^{n} \overline{c^{m}_{n}} \overline{ Y^{m}_{n}(\theta, \phi)} \\
+    \Rightarrow \sum_{n=0}^{N}  f_{n}(\rho) \sum_{m=-n}^{n}  c^{m}_{n}  Y^{m}_{n}(\theta, \phi)  & =  \sum_{n=0}^{N}  f_{n}(\rho) \sum_{m=-n}^{n} \overline{c^{m}_{n}}  {(-1)}^m Y^{-m}_{n}(\theta, \phi) \hspace{1cm} \left[ \overline{ Y_{n}^{m}} = {(-1)}^m Y_{n}^{-m} \right] \\
+    \Rightarrow \sum_{n=0}^{N}  f_{n}(\rho) \sum_{m=-n}^{n}  c^{m}_{n}  Y^{m}_{n}(\theta, \phi)  & =  \sum_{n=0}^{N}  f_{n}(\rho) \sum_{m=-n}^{n} \overline{c^{-m}_{n}}  {(-1)}^m Y^{m}_{n}(\theta, \phi)  \hspace{1cm} \textit{[replacing index 'm' with '-m']}\\
+    \Rightarrow \sum_{n=0}^{N}  f_{n}(\rho) \sum_{m=-n}^{n} ( c^{m}_{n}  & - {(-1)}^m \overline{c^{-m}_{n}} ) Y^{m}_{n}(\theta, \phi) & = 0
+\end{aligned}$$
+
+A linear combination of orthonormal bases is zero if and only if all of
+its coefficients are zero. Therefore, it is proven that for the
+approximation of a real valued function with degree-separable spherical
+harmonics and real radial profiles, coefficients satisfy the condition:
+
+$$
+    c_{n}^{-m} = {(-1)}^{m} \overline{c_{n}^{m}}$$
+
+#### *Proposition 3:*
+
+For *f*(*ρ*, *θ*, *ϕ*) with real degree-separable radial profiles, the
+spherical harmonic coefficients *c*<sub>*n*</sub><sup>*m*</sup> can be
+expressed as:
+$$
+    c_{n}^{m} = \frac{1}{\|f_{n}(\rho)\|} \int_{0}^{\infty} \int_{0}^{\pi} \int_{0}^{2\pi} f(\rho, \theta, \phi) \overline{ Y^{m}_{n}(\theta, \phi)}  {\rho}^2 sim\theta ~~d\phi ~~d\theta ~~d\rho$$
+
+#### **Proof:**
+
+$$\begin{split}
+    &  \frac{1}{\|f_{n}(\rho)\|} \int_{0}^{\infty} \int_{0}^{\pi} \int_{0}^{2\pi} f(\rho, \theta, \phi) \overline{ Y^{m}_{n}(\theta, \phi)}  {\rho}^2 sim\theta ~~d\phi ~~d\theta ~~d\rho \\
+    & =  \frac{1}{\|f_{n}(\rho)\|} \int_{0}^{\infty} \int_{0}^{\pi} \int_{0}^{2\pi} \left( \sum_{v=0}^{N}  f_{v}(\rho) \sum_{u=-v}^{v}  c^{u}_{v}  Y^{u}_{v}(\theta, \phi) \right) \overline{ Y^{m}_{n}(\theta, \phi)}  {\rho}^2 sim\theta ~~d\phi ~~d\theta ~~d\rho \\
+    & =  \frac{1}{\|f_{n}(\rho)\|} \int_{0}^{\infty} \sum_{v=0}^{N}  f_{v}(\rho) \sum_{u=-v}^{v}  c^{u}_{v} \int_{0}^{\pi} \int_{0}^{2\pi} Y^{u}_{v}(\theta, \phi) \overline{ Y^{m}_{n}(\theta, \phi)}  {\rho}^2 sim\theta ~~d\phi ~~d\theta ~~d\rho \\
+    & =  \frac{1}{\|f_{n}(\rho)\|} \int_{0}^{\infty} \sum_{v=0}^{N}  f_{v}(\rho) \sum_{u=-v}^{v}  c^{u}_{v} \langle Y^{u}_{v}(\theta, \phi) , Y^{m}_{n}(\theta, \phi) \rangle {\rho}^2 ~~d\rho \\
+    & =  \frac{1}{\|f_{n}(\rho)\|}  c^{m}_{n} \int_{0}^{\infty}  f_{n}(\rho) {\rho}^2 ~~d\rho \\
+    & = c^{m}_{n}
+\end{split}$$
+
+#### *Proposition 4:*
+
+For *f*(*ρ*, *θ*, *ϕ*) the real degree-separable radial profiles
+*f*<sub>*n*</sub>(*ρ*) can be expressed as:
+$$
+    f_{n}(\rho) = \frac{1}{\sum_{m=-n}^{n} \|c_{n}^{m}\|^2} \int_{0}^{\pi} \int_{0}^{2\pi} f(\rho, \theta, \phi) \left( \overline{ \sum_{m=-n}^{n}  c_{n}^{m}  Y^{m}_{n}(\theta, \phi) } \right) sim\theta ~~d\phi ~~d\theta$$
+
+#### **Proof:**
+
+$$\begin{split}
+    &  \frac{1}{\sum_{m=-n}^{n} \|c_{n}^{m}\|^2} \int_{0}^{\pi} \int_{0}^{2\pi} f(\rho, \theta, \phi) \left( \overline{ \sum_{m=-n}^{n}  c_{n}^{m}  Y^{m}_{n}(\theta, \phi) } \right) sim\theta ~~d\phi ~~d\theta \\
+    & =  \frac{1}{\sum_{m=-n}^{n} \|c_{n}^{m}\|^2} \int_{0}^{\pi} \int_{0}^{2\pi} \sum_{v=0}^{N}  f_{v}(\rho) \sum_{u=-v}^{v}  c^{u}_{v}  Y^{u}_{v}(\theta, \phi) \left( \overline{ \sum_{m=-n}^{n}  c_{n}^{m}  Y^{m}_{n}(\theta, \phi) } \right) sim\theta ~~d\phi ~~d\theta \\
+    & =  \frac{1}{\sum_{m=-n}^{n} \|c_{n}^{m}\|^2} \int_{0}^{\pi} \int_{0}^{2\pi} \sum_{v=0}^{N} \left( f_{v}(\rho) \sum_{u=-v}^{v}  c^{u}_{v}  Y^{u}_{v}(\theta, \phi) \right) \left( \sum_{m=-n}^{n} \overline{c_{n}^{m}} \overline{ Y^{m}_{n}(\theta, \phi)} \right) sim\theta ~~d\phi ~~d\theta \\
+    & =  \frac{1}{\sum_{m=-n}^{n} \|c_{n}^{m}\|^2} \sum_{v=0}^{N}  f_{v}(\rho) \sum_{u=-v}^{v} \sum_{m=-n}^{n} \int_{0}^{\pi} \int_{0}^{2\pi}  c^{u}_{v} \overline{c_{n}^{m}}  Y^{u}_{v}(\theta, \phi) \overline{ Y^{m}_{n}(\theta, \phi)} sim\theta ~~d\phi ~~d\theta \\
+    & =  \frac{1}{\sum_{m=-n}^{n} \|c_{n}^{m}\|^2} \sum_{v=0}^{N}  f_{v}(\rho) \sum_{u=-v}^{v} \sum_{m=-n}^{n}  c^{u}_{v} \overline{c_{n}^{m}} \langle Y^{u}_{v}(\theta, \phi) , Y^{m}_{n}(\theta, \phi) \rangle \\
+    & =  \frac{1}{\sum_{m=-n}^{n} \|c_{n}^{m}\|^2} f_{n}(\rho) \sum_{m=-n}^{n}  c^{m}_{n} \overline{c_{n}^{m}} \\
+    & =  f_{n}(\rho)
+\end{split}$$
+
+## Case 3:
+
+Radial function is independent of the degree and the order of spherical
+harmonics.
+$$
+    f(\rho, \theta, \phi) =  f(\rho) \sum_{n=0}^{N} \sum_{m=-n}^{n}  c^{m}_{n}  Y^{m}_{n}(\theta, \phi)$$
+
+$$\begin{split}
+    \langle f , {T} \rangle & = \sum_{n,m}^{N} \sum_{u,v}^{\infty} \langle f  c^{m}_{n}  Y_{n}^{m}  , {T}_{u,v}  Y_{u}^{v} \rangle \\
+    & = \sum_{n,m}^{N} \sum_{u,v}^{N} \langle f  ,  {T}_{u,v} \rangle c^{m}_{n} \langle Y_{n}^{m}  ,  Y_{u}^{v} \rangle \\
+    & = \sum_{n,m}^{N}  c^{m}_{n} \langle f  ,  {T}_{n,m} \rangle \\
+    & = \sum_{n=0}^{N} \sum_{m=-n}^{n}  c^{m}_{n} \langle \sum_{k \in \mathbb{Z}} \frac{d^{k}}{r_0} \beta (\frac{\rho}{r_0}  -  k)  ,  {T}_{n,m} \rangle \\
+    & = \sum_{n=0}^{N} \sum_{m=-n}^{n} \sum_{k \in \mathbb{Z}}  c^{m}_{n} {d}^{k} \langle \frac{1}{r_0} \beta (\frac{\rho}{r_0}  -  k)  ,  {T}_{n,m} \rangle
+\end{split}$$
+
+Let,
+${b}_{k}(\rho) = \frac{1}{r_0} \beta (\frac{\rho}{r_0}  -  k)$
+
+Then, we can rewrite:
+ ⟨ *f*, *T* ⟩ = ∑<sub>*n*, *m*</sub> ∑<sub>*k* ∈ ℤ</sub> *c*<sub>*n*, *m*</sub><sup>*k*</sup> ⟨ *b*<sub>*k*</sub>(*ρ*) , *T*<sub>*n*, *m*</sub> ⟩
+
+In order to maximize  ⟨ *f*, *T* ⟩ , *c⃗* needs to be collinear with
+ ⟨ *b*<sub>*k*</sub>(*ρ*) , *T*<sub>*n*, *m*</sub> ⟩
+
+Re-interpreting the aforementioned inner product,
+$$\begin{split}
+    \langle {b}_{k}(\rho)Y_{n}^{m}  ,  {T} \rangle & = \langle {b}_{k}(\rho)Y_{n}^{m} , \sum_{u,v} {T}_{u,v}  Y_{u,v} \rangle \\
+    & = \sum_{u,v} \langle {b}_{k}(\rho)  ,  {T}_{u,v} \rangle \langle Y_{n}^{m}  ,  Y_{u}^{v} \rangle \\
+    & = \langle {b}_{k}(\rho)  ,  {T}_{n,m} \rangle
+\end{split}$$
+
+Therefore, we can say:
+*c*<sub>*n*, *m*</sub><sup>*k*</sup> = *λ* ⟨ *b*<sub>*k*</sub>(*ρ*) *Y*<sub>*n*</sub><sup>*m*</sup> , *T* ⟩
+
+*f*(*ρ*, *θ*, *ϕ*) = ?
+
+
+
+
+# Rotation
+
+For any rotation ℛ ∈ *S**O*(3), the rotated version
+*Y*<sub>*m*</sub><sup>*n*</sup>(ℛ·) of a SH can be expressed as a linear
+combination of all elements in in the family represented by the degree
+subspace *n*:
+
+$$
+    Y_{n}^{m}(\mathcal{R} · )(\theta, \phi) = \sum_{m'=-n}^{n}{D}_{\mathcal{R},n}[m,m']Y_{n}^{m'}(\theta, \phi)$$
+
+where the *D*<sub>ℛ, *n*</sub> ∈ ℂ<sup>(2*n* + 1)x(2*n* + 1)</sup> are
+Wigner matrices.
+
+$$\begin{aligned}
+    D_{m'm}^{j}(\alpha,  & \beta, \gamma) = e^{-im'\alpha} d_{m'm}^{j}(\beta) e^{-im\gamma}\\
+    d_{m'm}^{j}(\beta) &= [(j+m')!(j-m')!(j+m)!(j-m)!]^{\frac{1}{2}} \sum_{s=s_{\mathrm{min}}}^{s_{\mathrm{max}}} \left[ \frac{(-1)^{m'-m+s} (cos \frac{\beta}{2})^{2j+m-m'-2s} (sin \frac{\beta}{2})^{m'-m+2s}}{(j+m-s)!  s!  (m'-m+s)!  (j-m'-s)!} \right]
+\end{aligned}$$
+
+*where:*  *s*<sub>min</sub> = *m**a**x*(0, *m* − *m*<sup>′</sup>) *and*
+ *s*<sub>max</sub> = *m**i**n*(*j* + *m*, *j* − *m*<sup>′</sup>)
+
+#### Partial derivatives with Euler angles
+
+$$\begin{aligned}
+    \frac{\partial}{\partial \alpha}D_{m'm}^{j}(\alpha, \beta, \gamma) &= - i m' d_{m'm}^{j}(\alpha, \beta, \gamma), \hspace{2cm} \alpha \in [0, 2\pi)\\
+    \frac{\partial}{\partial \beta}D_{m'm}^{j}(\alpha, \beta, \gamma) &= cot(\beta) d_{m'm}^{j}(\alpha, \beta, \gamma), \hspace{2cm} \beta \in (0, \pi)\\
+    \frac{\partial}{\partial \gamma}D_{m'm}^{j}(\alpha, \beta, \gamma) &= - i m d_{m'm}^{j}(\alpha, \beta, \gamma), \hspace{2cm} \gamma \in [0, 2\pi)
+\end{aligned}$$
+
+Steerability of a function requires proof that the function space of the
+rotated versions of the function is finite dimensional. In this case, it
+can be formulated as:
+
+*S**p**a**n*{ *f*(ℛ⋅) \| ℛ ∈ *S**O*(3) } < ∞
+
+## Case 1:
+
+Radial function depends on the degree and the order of spherical
+harmonics. Therefore the coefficients for each harmonic can be included
+within the radial function.
+
+$$\begin{aligned}
+    f(\mathcal{R} \cdot) & = \sum_{n=0}^{N} \sum_{m=-n}^{n}  f^{m}_{n}(\rho) Y^{m}_{n}(\mathcal{R} \cdot)(\theta, \phi) \\
+    & = \sum_{n=0}^{N} \sum_{m=-n}^{n}  f^{m}_{n}(\rho) \sum_{m'=-n}^{n}{D}_{\mathcal{R},n}[m,m']Y_{n}^{m'}(\theta, \phi)
+\end{aligned}$$
+
+Computational cost given the rotation matrices, radial functions and
+spherical harmonics is of the order:
+
+$$\begin{aligned}
+    \sum_{n=0}^{N} {(2n+1)}^2 & = \sum_{n=0}^{N} 4n^2  +  4n  +  1 \\
+    & = \frac{2N(2N+1)(2N+1)}{3}  +  2N(N+1)  +  (N+1)\\
+    & = \frac{(N+1)}{3} [2N(N+1)  +  2N  +  1]\\
+    & = \frac{(N+1)}{3} [4N^2  +  4N  +  1]\\
+    & = \frac{(N+1) {(2N+1)}^2}{3}
+\end{aligned}$$
+
+## Case 2:
+
+Radial function depends on the degree but not on the order of spherical
+harmonics.
+
+$$\begin{aligned}
+    f(\mathcal{R} \cdot) & = \sum_{n=0}^{N}  f_{n}(\rho) \sum_{m=-n}^{n}  c^{m}_{n}  Y^{m}_{n}(\mathcal{R} \cdot)(\theta, \phi) \\
+    & = \sum_{n=0}^{N}  f_{n}(\rho) \sum_{m=-n}^{n}  c^{m}_{n} \sum_{m'=-n}^{n}{D}_{\mathcal{R},n}[m,m']Y_{n}^{m'}(\theta, \phi)\\
+    & = \sum_{n=0}^{N}  f_{n}(\rho) \sum_{m=-n}^{n} \left[ \sum_{m'=-n}^{n}c^{m'}_{n}  {D}_{\mathcal{R},n}[m,m']\right] Y_{n}^{m}(\theta, \phi)  
+\end{aligned}$$
+
+Computational cost given the rotation matrices, radial functions and
+spherical harmonics is of the order:
+
+$$\begin{aligned}
+    O \left( {N}^3 {D}^4 \right)
+\end{aligned}$$
+
+## Case 3:
+
+Radial function is independent of the degree and the order of spherical
+harmonics.
+
+$$\begin{aligned}
+    f(\mathcal{R} \cdot) & =  f(\rho) \sum_{n=0}^{N} \sum_{m=-n}^{n}  c^{m}_{n}  Y^{m}_{n}(\mathcal{R} \cdot)(\theta, \phi) \\
+    & =  f(\rho) \sum_{n=0}^{N} \sum_{m=-n}^{n}  c^{m}_{n} \sum_{m'=-n}^{n}{D}_{\mathcal{R},n}[m,m']Y_{n}^{m'}(\theta, \phi)\\
+    & = f(\rho) \sum_{n=0}^{N} \sum_{m=-n}^{n} \left[ \sum_{m'=-n}^{n}c^{m'}_{n}  {D}_{\mathcal{R},n}[m,m']\right] Y_{n}^{m}(\theta, \phi)  
+\end{aligned}$$
+
+Computational cost given the rotation matrices, radial functions and
+spherical harmonics is of the order:
+
+$$\begin{aligned}
+    \sum_{n=0}^{N} {2n+1} & = N(N+1)  +  (N+1)\\
+    & = N^2  +  2N  +  1\\
+    & = (N+1)^2
+\end{aligned}$$
+
+
+
+
+# 2D vs 3D Steerable
+
+## Steerable Filters and their radial profiles: Continuous domain
+
+2D:  *ĝ*(*r*, *θ*)
+$$\begin{aligned}
+    {\hat{g}}(r, \theta) &= \sum_{n \in \mathbb{Z}}  {\hat{g}}_{n}(r) {e}^{j n \theta}, \hspace{2cm} \sum_{n \in \mathbb{Z}}  {\|\|{\hat{g}}_{n}\|\|}_2^2 < \infty  \\
+    {\hat{g}}_{n}(r) &= \frac{1}{2\pi} \int_{0}^{2\pi}  {\hat{g}}(r, \theta) {e}^{- j n \theta} ~~d\theta
+\end{aligned}$$
+*g* is steerable if and only if finitely many *ĝ*<sub>*n*</sub> are
+non-zero.
+
+3D:  *f*(*ρ*, *θ*, *ϕ*)
+$$\begin{aligned}
+    f(\rho, \theta, \phi) &= \sum_{n \in \mathbb{Z}} \sum_{m=-n}^{n}  f^{m}_{n}(\rho) Y^{m}_{n}(\theta, \phi), \hspace{2cm} \sum_{n \in \mathbb{Z}}  {\|\|f_{n}^{m}\|\|}_2^2 < \infty  \\
+    f_{n}^{m}(\rho) &= \int_{0}^{2\pi} \int_{0}^{\pi} f(\rho, \theta, \phi) \overline{ Y^{m}_{n}(\theta, \phi) } sim\theta ~~d\theta ~~d\phi
+\end{aligned}$$
+*f* is steerable if and only if finitely many
+*f*<sub>*n*</sub><sup>*m*</sup> are non-zero.
+
+## Rotation: Continuous domain
+
+2D:
+$$\begin{aligned}
+    {\hat{g}}(\mathcal{R}_{\alpha} \cdot)(r, \theta) &= {\hat{g}}(r,\theta + \alpha) \\
+    &=  \sum_{n=0}^{N}  {e}^{j n \alpha}  {\hat{g}}_{n}(r) {e}^{j n \theta}
+\end{aligned}$$
+
+3D:
+$$
+    f(\mathcal{R}_{(\alpha, \beta, \gamma)} \cdot)(\rho, \theta, \phi) =\sum_{n=0}^{N} \sum_{m=-n}^{n}  f^{m}_{n}(\rho) \sum_{m'=-n}^{n}{D}_{n, \mathcal{R}_{(\alpha, \beta, \gamma)}}^{m,m'}Y_{n}^{m'}(\theta, \phi)$$
+
+## Detection Procedure: Continuous domain
+
+2D:
+$$\begin{aligned}
+    {I}_{ang}(\boldsymbol{x_0}) &= \arg \max_{\theta_0 \in [0, 2\pi)} \left< {I}(\cdot -\boldsymbol{x_0}), g(\mathcal{R}_{\theta_0} \cdot)\right>\\
+    {I}_{amp}(\boldsymbol{x_0}) &= \max_{\theta_0 \in [0, 2\pi)} \left< {I}(\cdot -\boldsymbol{x_0}), g(\mathcal{R}_{\theta_0} \cdot)\right>\\
+    &=  \left< {I}(\cdot -\boldsymbol{x_0}), g(\mathcal{R}_{I_{ang}(\boldsymbol{x_0})} \cdot)\right>
+\end{aligned}$$
+where *I*<sub>*a**n**g*</sub>(**x**<sub>**0**</sub>) is the estimated
+orientation of the template at **x**<sub>**0**</sub> ∈ ℝ<sup>2</sup> and
+*I*<sub>*a**m**p*</sub>(**x**<sub>**0**</sub>) is the amplitude of the
+maximum response of *g* at **x**<sub>**0**</sub>.
+
+3D:
+$$\begin{aligned}
+    {I}_{ang}(\boldsymbol{x_0}) &= \arg \max_{(\alpha_0, \beta_0, \gamma_0) \in [0, 2\pi)} \left< {I}(\cdot -\boldsymbol{x_0}), f(\mathcal{R}_{(\alpha_0, \beta_0, \gamma_0)} \cdot)\right> \\
+    {I}_{amp}(\boldsymbol{x_0}) &= \max_{(\alpha_0, \beta_0, \gamma_0) \in [0, 2\pi)} \left< {I}(\cdot -\boldsymbol{x_0}), f(\mathcal{R}_{(\alpha_0, \beta_0, \gamma_0)} \cdot)\right>  \\
+    &=  \left< {I}(\cdot -\boldsymbol{x_0}), f(\mathcal{R}_{I_{ang}(\boldsymbol{x_0})} \cdot)\right>
+\end{aligned}$$
+where *I*<sub>*a**n**g*</sub>(**x**<sub>**0**</sub>) is the estimated
+orientation of the template at **x**<sub>**0**</sub> ∈ ℝ<sup>3</sup> and
+*I*<sub>*a**m**p*</sub>(**x**<sub>**0**</sub>) is the amplitude of the
+maximum response of *f* at **x**<sub>**0**</sub>.
+
+## Detection Procedure: Discrete domain
+
+2D:
+
+3D:
+
+**Hyperparameters:**
+
+1.  Set of circular harmonics *H*<sub>2*d*</sub>
+
+    where *H*<sub>2*d*</sub> = {0, 1, ⋯, *N*<sub>2*d*</sub>}
+
+2.  Discretization step *r*<sub>0</sub>
+
+3.  Dimensions of template such that:
+
+    $T : D_{2d} \times D_{2d} \xrightarrow{} \mathbb{R}$
+
+    where *D*<sub>2*d*</sub> = {0, 1, ⋯, *d*<sub>2*d*</sub> − 1}
+
+    and *d*<sub>2*d*</sub> ∈ ℕ
+
+4.  Angular discretization samples *M*
+
+1.  Set of spherical harmonic degrees *H*<sub>3*d*</sub>
+
+    where *H*<sub>3*d*</sub> = {0, 1, ⋯, *N*<sub>3*d*</sub>}
+
+2.  Discretization step *r*<sub>0</sub>
+
+3.  Dimensions of template such that:
+
+    $T : D_{3d} \times D_{3d} \times D_{3d} \xrightarrow{} \mathbb{R}$
+
+    where *D*<sub>3*d*</sub> = {0, 1, ⋯, *d*<sub>3*d*</sub> − 1}
+
+    and *d*<sub>3*d*</sub> ∈ ℕ
+
+**Function Approximation Steps:**
+
+1.  Compute: $T \xrightarrow[\text{DFT}]{} \hat{T}$
+
+2.  Compute coefficients *d*<sub>*n*</sub>[*k*]
+
+    ∀  *n* ∈ *H*<sub>2*d*</sub> and *k* ∈ *K*
+
+    where *K* ⊂ ℤ such that *r*<sub>0</sub>*k* remains in the range of
+    the image
+
+    *d*<sub>*n*</sub>[*k*] = ∫<sub>ℝ<sup>2</sup></sub> *T̂*(*ω*<sub>*x*</sub>, *ω*<sub>*y*</sub>) *ϕ̂*<sub>*n*, *k*</sub>(*ω*<sub>*x*</sub>, *ω*<sub>*y*</sub>) *d**ω*<sub>*x*</sub> *d**ω*<sub>*y*</sub>
+
+    where
+    $$\hat{\phi}_{n,k}(\omega_x, \omega_y) = \frac{1}{r_0} \beta \left( \frac{\sqrt{\omega_{x}^2 + {\omega_y}^2}}{r_0} - k \right) \: e^{j n \: arctan(\omega_x / \omega_y)}$$
+
+    the integral is approximated with its Riemann sum, from the
+    knowledge of *T̂* on the Cartesian grid
+
+3.  Compute radial spline coefficients *c*<sub>*n*</sub>[*k*]
+
+    *c*<sub>*n*</sub>[*k*] = (*h*<sub>*i**n**v*</sub> \* *d*<sub>*n*</sub>)[*k*]
+    ∀  *n* ∈ *H*<sub>2*d*</sub>, *k* ∈ *K*
+
+    where *h*[*k*] = ⟨*β*, *β*(⋅  − *k*)⟩
+
+    and
+    (*h* \* *h*<sub>*i**n**v*</sub>)[*k*] = (*h*<sub>*i**n**v*</sub> \* *h*)[*k*] = *δ*[*k*]
+
+4.  The radial profile is given by:
+
+    $$\hat{g}_{n}(r) = \sum_{k \in K} c_n[k] \frac{1}{r_0} \beta \left( \frac{r}{r_0} - k \right)$$
+
+5.  The optimal filter is given by:
+
+    $$\hat{g}_{opt}(r, \theta) = \sum_{n=0}^{N_{2d}} \sum_{k \in K} c_n[k] \frac{1}{r_0} \beta \left( \frac{r}{r_0} - k \right) \: e^{j n \theta}$$
+
+**Complexity**:
+
+max(*K*) × *N*<sub>2*d*</sub>× max(*K*)× *O*(2D Riemann Sum)
+
+1.  Compute coefficients *d*<sub>*n*</sub><sup>*m*</sup>[*k*]
+
+    ∀  *n* ∈ *H*<sub>3*d*</sub> and *k* ∈ *K*
+
+    where *K* ⊂ ℤ such that *r*<sub>0</sub>*k* remains in the range of
+    the image
+
+    *d*<sub>*n*</sub><sup>*m*</sup>[*k*] = ∫<sub>ℝ<sup>3</sup></sub> *T*(*x*, *y*, *z*) *ϕ*<sub>*n*, *m*, *k*</sub>(*x*, *y*, *z*) *d**x* *d**y* *d**z*
+
+    where in spherical coordinates
+    $$\hat{\phi}_{n,m,k}(\rho, \theta, \phi) = \frac{1}{r_0} \beta \left( \frac{\rho}{r_0} - k \right) Y_{n}^{m}(\theta, \phi)$$
+
+    the integral is reduced to a sum over the discrete points for which
+    *T* is defined.
+
+2.  Compute radial spline coefficients
+    *c*<sub>*n*</sub><sup>*m*</sup>[*k*]
+
+    *c*<sub>*n*</sub><sup>*m*</sup>[*k*] = (*h*<sub>*i**n**v*</sub> \* *d*<sub>*n*</sub><sup>*m*</sup>)[*k*]
+    ∀  *n* ∈ *H*<sub>3*d*</sub>, *k* ∈ *K*
+
+    where *h*[*k*] = ⟨*β*, *β*(⋅  − *k*)⟩
+
+    and
+    (*h* \* *h*<sub>*i**n**v*</sub>)[*k*] = (*h*<sub>*i**n**v*</sub> \* *h*)[*k*] = *δ*[*k*]
+
+3.  The radial profile is given by:
+
+    $$f_{n}^{m}(\rho) = \sum_{k \in K} c_n^m[k] \frac{1}{r_0} \beta \left( \frac{\rho}{r_0} - k \right)$$
+
+4.  The optimal filter is given by:
+
+    $$f_{opt}(\rho, \theta, \phi) = \sum_{n=0}^{N_{3d}} \sum_{m=-n}^{n} \sum_{k \in K}^{} c_n^m[k] \frac{1}{r_0} \beta \left( \frac{\rho}{r_0} - k \right) Y_{n}^{m}(\theta, \phi)$$
+
+**Complexity**:
+
+max(*K*) × *N*<sub>3*d*</sub><sup>2</sup>× max(*K*)× *O*(3D Riemann Sum)
+
+**Orientation Estimation:**
+
+1.  Iterate over *M* + 1 uniformly distributed angles
+
+    $$\theta_m = \frac{2\pi m}{M} ~~~~\forall m \in 0, 1, \cdots, M $$
+
+    1.  Compute rotated filter *ĝ*<sub>*θ*<sub>*m*</sub></sub>(*r*, *θ*)
+
+    2.  Compute:
+        $\hat{g}_{\theta_m} \xrightarrow[\text{IDFT}]{\text{}} g_{\theta_m}$
+
+2.  Estimate best orientation from detection scores
+
+**Complexity**:
+*M* × *N*<sub>2*d*</sub> × *d*<sub>2*d*</sub><sup>2</sup> × *O*(IDFT)
+
+**Options in 3D**
+
+1.  Grid search over
+    *α* ∈ [0, 2*π*), *β* ∈ [0, *π*], *γ* ∈ [0, 2*π*)
+
+2.  PyTorch (Adam Optimiser)
+
+    1.  Calculate formulas for derivatives and write explicit backward
+        (backpropagation) function **OR**
+
+    2.  Implement PyTorch-friendly Spherical Harmonics and Wigner-D
+        matrix functions
+
+<!-- 
+3.  *Michael’s idea:* make the comparison in the continuous domain by
+    extracting radial profiles of target templates (**!!!**)
+
+
+
+
+
+# Grid Search vs Gradient Descent in Orientation Estimation
+
+Grid Search and Gradient Descent approaches are used to find the maximum
+value of functions with domain as [0, 2*π*), of the form:
+
+$$f(\alpha) = \sum_{n=-N}^{N} a_n  e^{-jn\alpha} \hspace{3cm} a_n \in \mathbb{C} \text{ and } a_{-n} = \overline{a_n}$$
+
+*f*(⋅) simplifies to a trigonometric polynomial of the order N.
+
+## Case 1
+
+First, experiments are run on a trigonometric polynomial of degree 5,
+represented by the following graph:
+
+<figure>
+<img src="/img/posts/steer3D/funcplot_case1_argmax_5.7611.jpg"
+style="width:80.0%" />
+</figure>
+
+It is known that the global maxima of this function is reached at
+*α* = 5.7611.  
+
+#### Grid Search
+
+For a given value of *M*, the domain [0, 2*π*) is divided uniformly
+into M samples. These samples are the different *α* whose corresponding
+functional values are calculated. **Blue lines** in the plots below show
+the absolute difference between the argmax of the function over all
+sampled *α* and 5.7611.
+
+#### Gradient Descent
+
+The algorithm (currently implemented Vanilla Gradient Descent) is run
+for 30 iterations to maximise the function with respect to *α*. Each
+plotted value on the **red lines** gives the absolute difference between
+the optimised *α* of the iteration and 5.7611.
+
+The following graph (and it’s zoomed version), depict the results of the
+test run:
+
+<figure>
+<img src="/img/posts/steer3D/plot_case1_harmonics_5.jpg"
+style="width:100.0%" />
+</figure>
+
+<figure>
+<img src="/img/posts/steer3D/plot_case1_harmonics_5_zoom.jpg"
+style="width:100.0%" />
+</figure>
+
+#### To be noted and discussed:
+
+– Initialise our Gradient Descent with, is tricky, especially due to
+multiple local maxima.
+
+– Requires brief explanation, with suggestions to possibly tackle this
+(including demo results) in the next meeting.
+
+## Case 2
+
+First, experiments are run on a trigonometric polynomial of degree 10,
+represented by the following graph:
+
+<figure>
+<img src="/img/posts/steer3D/funcplot_case2_argmax_5.6228.jpg"
+style="width:80.0%" />
+</figure>
+
+It is known that the global maxima of this function is reached at
+*α* = 5.6228.
+
+The following graph (and it’s zoomed version), depict the results of the
+test run:
+
+<figure>
+<img src="/img/posts/steer3D/plot_case2_harmonics_10.jpg"
+style="width:100.0%" />
+</figure>
+
+<figure>
+<img src="/img/posts/steer3D/plot_case2_harmonics_10_zoom.jpg"
+style="width:100.0%" />
+</figure>
+
+r0.5 <img src="/img/posts/steer3D/GD_X_val_case2.jpg" style="width:50.0%"
+alt="image" />
+
+#### To be noted and discussed:
+
+– This is an instance where Grid Search may backfire, for low values of
+’*M*’ as can be seen from the plots.
+
+– It is evident from the oscillating values in the adjacent plot that
+basic (Vanilla) Gradient Descent technique is not converging well in
+this case. This can be fixed by using better existing techniques.
+
+
+
+
+
+# Sampling Techniques on S(2)
+
+The problem of how to evenly distribute points on a sphere has a lengthy
+history. It bears great significance across fields of mathematics, the
+sciences and computing, to name a few.
+
+#### Our interest in this problem:
+
+To find the unknown orientation of a rotated 3D template, we will
+perform Grid Search over a number of orientations or perform Gradient
+Descent algorithms from different orientation initialisations. This
+would benefit from a set of equidistant points (or approximately so) on
+S(2) with respect to which the known template can be rotated.
+
+#### Chapter’s Objective:
+
+This chapter discusses and compares several methods of sampling the
+surface of a unit sphere.
+
+The idea is that in an ideal distribution of a given number of points on
+S(2), each point’s nearest neighbour(s) should be as far away as
+possible. As a result, all points will be maximally spaced out.
+
+## Uniform Discretization along Latitudes and Longitudes
+
+A naïve way of discretising the surface of a 3-dimensional unit sphere
+is by uniformly distributing the 2 angles required to parameterise it in
+spherical coordinates, namely *θ* (elevation angle) and *ϕ* (azimuthal
+angle) that range from [0, *π*] and [0, 2*π*) respectively.
+
+<figure>
+<img src="/img/posts/steer3D/SampleS2-uniform.jpg" style="width:35.0%" />
+</figure>
+
+Herein, the main disadvantage is the crowding of sample points towards
+the poles (*θ* = 0, *π*) against the spaced out ones along the equator
+(*θ* = *π*/2). This disadvantage can be attributed to the fixed number
+of samples of *ϕ* irrespective of *θ*.
+
+## Uniform Discretization along Latitudes and Polar Axis
+
+This method was proposed by the username *’nbubis’* on
+math.stackexchange.com in response to a query on the platform
+([link](https://math.stackexchange.com/questions/442418/random-generation-of-rotation-matrices)).
+
+$$\begin{aligned}
+    \theta &= {cos}^{-1}( 2u_1 - 1)\\
+    \phi &= 2\pi u_2
+\end{aligned}$$
+
+Where *u*<sub>1</sub> and *u*<sub>2</sub> are uniformly distributed in
+[0, 1]. The idea behind this is to basically sample *ϕ* uniformly
+(same as the previous case) and sample the z-axis uniformly in
+−1 ≤ *z* ≤ 1. We then take the mapped values of *θ* on the surface of
+the sphere because *θ* = *c**o**s*<sup>−1</sup>(*z*).
+
+<figure>
+<img src="/img/posts/steer3D/SampleS2-stackoverflow.jpg"
+style="width:35.0%" />
+</figure>
+
+Here, the previously encountered disadvantage of overcrowding of sample
+points towards the poles (*θ* = 0, *π*) is attempted to be rectified by
+concentrating samples of *θ* closer to the equator (*θ* = *π*/2).
+However, due to a constant number of samples in *ϕ* irrespective of the
+value of *θ*, the problem of a higher density of samples closer to the
+poles still prevails.
+
+## Fibonacci lattice
+
+Of the existing near-optimal solutions to the problem, one of the most
+common simple methods is based on the Fibonacci lattice or the Golden
+Spiral. Our implementation of the same is taken from the algorithm
+mentioned in the paper ([link to
+paper](https://arxiv.org/pdf/0912.4540.pdf)) by Álvaro González.
+
+<figure>
+<img src="/img/posts/steer3D/SampleS2-fibonacci.jpg" style="width:35.0%" />
+</figure>
+
+I request you to check out the paper for the beautiful pictorial
+patterns, if not also for its theory and different metrics of
+comparison.
+
+## Method Joe (for lack of a better name)
+
+To my knowledge, this is not an existing method of sampling on S(2) in
+literature.
+
+$$\begin{aligned}
+    \text{Given } N \in 2, 3, \cdots &\\
+    \theta = N &\text{ uniformly distributed samples in } [0,\pi]\\
+    \text{for every } \theta_i:&\\
+    &N_i = N cos(\theta_i - \frac{\pi}{2})\\
+    &\phi_i = N_i \text{ uniformly distributed samples in } [0,2\pi)
+\end{aligned}$$
+
+#### Algorithm
+
+``` python
+import numpy as np
+
+theta = []
+phi = []
+N = 15  #parameter
+
+for theta_i in np.linspace(0, np.pi, N+2)[1:-1]:
+    N_i = int(np.ceil(N*np.cos(theta_i - np.pi/2)))
+    for phi_i in np.linspace(0, 2*np.pi, N_i+1)[:-1]:
+        theta.append(theta_i)
+        phi.append(phi_i)
+```
+
+Here, *θ* is sampled uniformly over [0, *π*]. Now, for each value of
+*θ*, the latitude is uniformly sampled into a number of points that is
+dependent on the value of *θ* in such a way that *ϕ* has more samples
+towards the equator and fewer ones closer to the poles.
+
+<figure>
+<img src="/img/posts/steer3D/SampleS2-mymethod.jpg" style="width:35.0%" />
+</figure>
+
+## Comparison of the methods
+
+#### Distance between 2 points on a sphere: 
+
+This is known as the Great Circle Distance ([Wikipedia
+link](https://en.wikipedia.org/wiki/Great-circle_distance)). For our
+purpose this can be simplified as:
+
+*d*((*θ*<sub>1</sub>, *ϕ*<sub>1</sub>), (*θ*<sub>2</sub>, *ϕ*<sub>2</sub>)) = *s**i**n*(*θ*<sub>1</sub>) ⋅ *s**i**n*(*θ*<sub>2</sub>) ⋅ *c**o**s*(*ϕ*<sub>1</sub> − *ϕ*<sub>2</sub>) + *c**o**s*(*θ*<sub>1</sub>) ⋅ *c**o**s*(*θ*<sub>2</sub>)
+
+To achieve a ’good’ distribution on *S*(2), the minimum distance between
+each point and it’s nearest neighbour should be as large as possible.
+
+The plot below, depicts the minimum distance between any 2 points on a
+unit sphere along the Y-axis versus the number of sample points in the
+distribution along the X-axis. There are plots pertaining to each
+discretization technique discussed above.
+
+<figure>
+<img src="/img/posts/steer3D/S2_dist_comparision.jpg" style="width:100.0%" />
+</figure> -->
