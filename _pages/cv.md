@@ -9,9 +9,5 @@ description:
 ---
 
 {% raw %}
-<<<<<<< HEAD
 <iframe width='100%' height='900px' frameborder='0' scrolling='yes'class='embed-responsive-item' src='https://anshunino.github.io/assets/pdf/AnshumanSinha_CV.pdf' allowfullscreen></iframe>
-=======
-<iframe width='100%' height='900px' frameborder='0' scrolling='yes' class='embed-responsive-item' src='https://anshunino.github.io/assets/pdf/AnshumanSinha_CV.pdf' allowfullscreen></iframe>
->>>>>>> d292b297b68b4076412de55bac5f76acb3af4967
 {% endraw %}
