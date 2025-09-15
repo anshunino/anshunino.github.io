@@ -1,8 +1,8 @@
 ---
 layout: post
-title:  "Steer -3D"
+title:  "Steer 3D"
 subtitle: "My work at EPFL in Lausanne at the Biomedical Imaging Group"
-background: '/img/cells.png'
+background: '/img/project_2.jpg'
 date:   2022-09-21 14:00:00 +0200
 categories : research
 published: true
@@ -53,7 +53,7 @@ orthonormal basis on *L*<sub>2</sub>(𝕊<sup>2</sup>) [ref]. They are
 defined by a degree *n* ∈ *N*, which can be seen as a layer of spherical
 harmonics, and an order *m* ∈ {−*n*, ..., *n*}:
 
-*Y*<sub>*n*</sub><sup>*m*</sup>(*θ*, *ϕ*) = *B* *e*<sup>*j**m**ϕ*</sup> *P*<sub>*n*</sub><sup>*m*</sup>(*c**o**s* *θ*)
+*Y*<sub>*n*</sub><sup>*m*</sup>(*θ*, *ϕ*) = *B* *e*<sup>*j**m**ϕ*</sup> *P*<sub>*n*</sub><sup>*m*</sup>(*cos* *θ*)
 
 For a given degree, there are (2*n* + 1) independent solutions of this
 form, one for each integer *m*. The integer *m* corresponds to the
@@ -95,7 +95,7 @@ $$\text{where} \hspace{1cm} \langle Y_{n}^{m} , Y_{u}^{v} \rangle = \int_{0}^{\p
 
 A function is steerable if and only if its rotated version can be
 constructed as the linear combination of a finite number of basis
-functions. Its definition is the equation (2) in [ref].  
+functions. Its definition is the equation (2) in [ref].
 We are interested in the steerability of the spherical harmonics. The
 definition in 3D is similar to the Definition 1 of the 2D case in
 [ref]. All the spherical harmonics are steerable together, however
@@ -104,8 +104,8 @@ fixed degree, the set of spherical harmonics forms a steerable family.
 It means that the rotated version of one of them is a linear combination
 of the complete family. In 3D, for a fixed degree n, all the spherical
 harmonics are steerable because their rotated version is in the span of
-their system. They form a steerable family.  
-For any rotation ℛ ∈ *S**O*(3), the rotated version
+their system. They form a steerable family.
+For any rotation ℛ ∈ *SO*(3), the rotated version
 *Y*<sub>*n*</sub><sup>*m*</sup>(ℛ ·) of a spherical harmonic can be
 expressed as a linear combination of all elements in in the family
 represented by the degree subspace *n*:
