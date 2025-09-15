@@ -15,6 +15,8 @@ The revolution in accessibility of computational power has paved the
 path for the usage of 3D and higher-dimensional images across
 disciplines and industries.  
 
+{% include figure.html path="assets/img/12.jpg" title="CycleGAN" class="img-fluid rounded z-depth-1" %}
+
 Currently, deep convolutional neural networks (CNNs) show highly
 impressive detection performance in many applications. Filters can be
 designed to detect the positions of templates in images. The free
