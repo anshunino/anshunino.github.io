@@ -17,6 +17,8 @@ disciplines and industries.
 
 {% include figure.html path="assets/img/12.jpg" title="CycleGAN" class="img-fluid rounded z-depth-1" %}
 
+![image](assets/img/12.jpg "CycleGAN")
+
 Currently, deep convolutional neural networks (CNNs) show highly
 impressive detection performance in many applications. Filters can be
 designed to detect the positions of templates in images. The free
