@@ -4,11 +4,7 @@ permalink: /repositories/
 title: Repositories
 description: Personal Github Stats
 nav: false
-<<<<<<< HEAD
 nav_order: 
-=======
-nav_order: 3
->>>>>>> 4bba1e5dc8ee41e4e8e89ae20066e6f16cb79bf1
 ---
 
 ## GitHub users
