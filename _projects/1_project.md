@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "Object detection & Reinforcement Learning-based spline fitting"
-subtitle: "My internship at EMBL-EBI in Cambridge at the Uhlmann group"
+title:  "Steer -3D"
+subtitle: "My work at EPFL in Lausanne at the Biomedical Imaging Group"
 background: '/img/cells.png'
 date:   2022-09-21 14:00:00 +0200
 categories : research
