@@ -2,7 +2,7 @@
 layout: post
 title:  "Steer 3D"
 subtitle: "My work at EPFL in Lausanne at the Biomedical Imaging Group"
-background: '/img/project_2.jpg'
+background: '/img/12.jpg'
 date:   2022-09-21 14:00:00 +0200
 categories : research
 published: true
@@ -16,8 +16,6 @@ path for the usage of 3D and higher-dimensional images across
 disciplines and industries.  
 
 {% include figure.html path="assets/img/12.jpg" title="CycleGAN" class="img-fluid rounded z-depth-1" %}
-
-![image](assets/img/12.jpg "CycleGAN")
 
 Currently, deep convolutional neural networks (CNNs) show highly
 impressive detection performance in many applications. Filters can be
