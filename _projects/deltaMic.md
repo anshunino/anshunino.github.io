@@ -27,7 +27,7 @@ It mimics the microscope’s image formation process using **spatial convolution
 
 > By jointly optimizing both shape and microscopy parameters from raw images, deltaMic removes the need for training datasets or heuristic priors.
 
-{% include figure.html path="assets/img/dmic_pipeline.jpg" title="Pipeline Overview"%}
+{% include figure.html path="assets/img/dmic_pipeline.jpg" title="Pipeline Overview" class="img-fluid rounded z-depth-1"%}
 *Figure 1. Overview of the deltaMic pipeline.*
 
 ---
@@ -65,9 +65,9 @@ to minimize the weighted L2 loss between **rendered** and **real** microscopy im
 
 ### Embryo Shape Inference
 
-{% include figure.html path="assets/img/dmic_fig10.png" title=""%}
+{% include figure.html path="assets/img/dmic_fig10.png" title="" class="img-fluid rounded z-depth-1"%}
 
-{% include video.html path="assets/videos/Supplementary_mov_s8.mp4" title=""%}
+{% include video.html path="assets/video/Supplementary_mov_s8.mp4" title=""%}
 *Video. Shape inference and synthetic rendering convergence.*
 
 ---
@@ -76,7 +76,7 @@ to minimize the weighted L2 loss between **rendered** and **real** microscopy im
 
 deltaMic was benchmarked against **DM3D**, a Fiji plugin for active-mesh segmentation.
 
-{% include figure.html path="assets/img/dmic_fig10.png" title=""%}
+{% include figure.html path="assets/img/dmic_fig9.png" title="" class="img-fluid rounded z-depth-1"%}
 
 > deltaMic outperforms DM3D on **membrane reconstruction accuracy** and **synthetic fidelity**, though less suited for nucleus membranes.
 
