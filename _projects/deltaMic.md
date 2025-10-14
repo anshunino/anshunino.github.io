@@ -1,16 +1,15 @@
 ---
-layout: post
+layout: page
 title:  "deltaMic"
 description: "My work during the 1st year of my PhD at the Turlier Lab"
 img: 'assets/img/dmic_pipeline.jpg'
 date:   2025-06-25 14:00:00 +0200
 importance: 1
 category : research
-published: true
-hidden: false
+
 ---
 
-# 🧬 deltaMic: Inverse 3D Microscopy Rendering for Embryo Shape Inference with Active Mesh
+# deltaMic: Inverse 3D Microscopy Rendering for Embryo Shape Inference with Active Mesh
 
 **Sacha Ichbiah¹, Anshuman Sinha¹², Fabrice Delbary¹, Hervé Turlier¹**  
 ¹ Collège de France, CNRS, Inserm, PSL University, Paris, France  
