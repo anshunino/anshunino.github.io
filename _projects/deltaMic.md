@@ -4,6 +4,7 @@ title:  "deltaMic"
 description: "My work during the 1st year of my PhD at the Turlier Lab"
 img: 'assets/img/dmic_pipeline.jpg'
 date:   2025-06-25 14:00:00 +0200
+importance: 1
 category : research
 published: true
 hidden: false
@@ -43,10 +44,6 @@ $$ I(x) = \mathcal{F}^{-1}[ \hat{u}_\Lambda \cdot \hat{h} ](x) $$
 
 This reduces computational complexity from **O(n⁶)** to **O(n³ log n³)**.
 
-<video controls loop width="640">
-  <source src="assets/videos/fourier_convolution.mp4" type="video/mp4">
-</video>  
-*Video 1. Fourier-space convolution process for microscopy rendering.*
 
 ---
 
@@ -68,20 +65,10 @@ to minimize the weighted L2 loss between **rendered** and **real** microscopy im
 
 ### Embryo Shape Inference
 
-| Species | Stage | Result |
-|----------|--------|--------|
-| *Phallusia mammillata* | 8-cell | ![Ascidian Result](assets/img/ascidian_result.jpg) |
-| *Mus musculus* | 4-cell | ![Mouse Result](assets/img/mouse_result.jpg) |
-| *C. elegans* | 16-cell | ![Worm Result](assets/img/worm_result.jpg) |
-
-{% include figure.html path="assets/img/dmic_fig10.jpg" title=""%}
+{% include figure.html path="assets/img/dmic_fig10.png" title=""%}
 
 {% include video.html path="assets/videos/Supplementary_mov_s8.mp4" title=""%}
-
-<video controls loop width="640">
-  <source src="assets/videos/Supplementary_mov_s8.mp4" type="video/mp4">
-</video>  
-*Video 2. Shape inference and synthetic rendering convergence.*
+*Video. Shape inference and synthetic rendering convergence.*
 
 ---
 
@@ -89,22 +76,9 @@ to minimize the weighted L2 loss between **rendered** and **real** microscopy im
 
 deltaMic was benchmarked against **DM3D**, a Fiji plugin for active-mesh segmentation.
 
-| Model | XY Cross-section | YZ Cross-section |
-|--------|------------------|------------------|
-| DM3D | ![DM3D XY](assets/img/dm3d_xy.jpg) | ![DM3D YZ](assets/img/dm3d_yz.jpg) |
-| deltaMic (ours) | ![deltaMic XY](assets/img/deltamic_xy.jpg) | ![deltaMic YZ](assets/img/deltamic_yz.jpg) |
+{% include figure.html path="assets/img/dmic_fig10.png" title=""%}
 
 > deltaMic outperforms DM3D on **membrane reconstruction accuracy** and **synthetic fidelity**, though less suited for nucleus membranes.
-
----
-
-## 🚀 Future Directions
-
-- Extend to **dynamic morphogenesis** tracking (tension, pressure, deformation)
-- Improve **initial mesh estimation** for complex embryos
-- Explore **biophysical parameter inference** directly from deltaMic optimization
-
-> Let’s collaborate on open questions and extensions!
 
 ---
 
@@ -130,7 +104,7 @@ deltaMic was benchmarked against **DM3D**, a Fiji plugin for active-mesh segment
 ## 🎥 Bonus
 
 [![](assets/img/deltaMic_vid_Thumbnail.png)](https://youtu.be/55I-_FWINvI)
-*Watch the full presentation of deltaMic (ICCV 2025 poster spotlight)*
+*Watch the short presentation of deltaMic (ICCV 2025 poster spotlight)*
 
 ---
 

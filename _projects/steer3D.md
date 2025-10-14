@@ -4,6 +4,7 @@ title:  "Steer 3D"
 description: "My work at EPFL in Lausanne at the Biomedical Imaging Group"
 img: 'assets/img/12.jpg'
 date:   2022-09-21 14:00:00 +0200
+importance: 2
 category : research
 published: true
 hidden: false
