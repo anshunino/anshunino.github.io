@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "deltaMic"
-description: "My work at EPFL in Lausanne at the Biomedical Imaging Group"
+description: "My work during the 1st year of my PhD at the Turlier Lab"
 img: 'assets/img/dmic_pipeline.jpg'
 date:   2025-06-25 14:00:00 +0200
 category : research
@@ -26,7 +26,7 @@ It mimics the microscope’s image formation process using **spatial convolution
 
 > By jointly optimizing both shape and microscopy parameters from raw images, deltaMic removes the need for training datasets or heuristic priors.
 
-![Pipeline Overview](assets/img/dmic_pipeline.jpg)  
+{% include figure.html path="assets/img/dmic_pipeline.jpg" title="Pipeline Overview"%}
 *Figure 1. Overview of the deltaMic pipeline.*
 
 ---
@@ -73,6 +73,10 @@ to minimize the weighted L2 loss between **rendered** and **real** microscopy im
 | *Phallusia mammillata* | 8-cell | ![Ascidian Result](assets/img/ascidian_result.jpg) |
 | *Mus musculus* | 4-cell | ![Mouse Result](assets/img/mouse_result.jpg) |
 | *C. elegans* | 16-cell | ![Worm Result](assets/img/worm_result.jpg) |
+
+{% include figure.html path="assets/img/dmic_fig10.jpg" title=""%}
+
+{% include video.html path="assets/videos/Supplementary_mov_s8.mp4" title=""%}
 
 <video controls loop width="640">
   <source src="assets/videos/Supplementary_mov_s8.mp4" type="video/mp4">
