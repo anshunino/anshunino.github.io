@@ -1,8 +1,8 @@
 ---
 layout: post
 title:  "Steer 3D"
-subtitle: "My work at EPFL in Lausanne at the Biomedical Imaging Group"
-background: '/img/12.jpg'
+description: "My work at EPFL in Lausanne at the Biomedical Imaging Group"
+img: 'assets/img/12.jpg'
 date:   2022-09-21 14:00:00 +0200
 category : research
 published: true
