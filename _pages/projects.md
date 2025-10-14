@@ -2,10 +2,10 @@
 layout: page
 title: Projects
 permalink: /projects/
-description: This is a growing collection of my project(s), and updates are constantly being made. For a complete list of all my projects, please visit my <a href='https://github.com/fatwir'>Github profile</a>
+description: This is a growing collection of my project(s), and updates are constantly being made. For a complete list of all my projects, please visit my <a href='https://github.com/anshunino'>Github profile</a>
 nav: true
 nav_order: 2
-display_categories: [work]
+display_categories: [research, work]
 horizontal: false
 ---
 
