@@ -2,7 +2,7 @@
 layout: post
 title:  "deltaMic"
 description: "My work at EPFL in Lausanne at the Biomedical Imaging Group"
-img: 'assets/images/dmic_pipeline.jpg'
+img: 'assets/img/dmic_pipeline.jpg'
 date:   2025-06-25 14:00:00 +0200
 category : research
 published: true
@@ -26,7 +26,7 @@ It mimics the microscope’s image formation process using **spatial convolution
 
 > By jointly optimizing both shape and microscopy parameters from raw images, deltaMic removes the need for training datasets or heuristic priors.
 
-![Pipeline Overview](assets/images/dmic_pipeline.jpg)  
+![Pipeline Overview](assets/img/dmic_pipeline.jpg)  
 *Figure 1. Overview of the deltaMic pipeline.*
 
 ---
@@ -59,7 +59,7 @@ Starting from an initial mesh, deltaMic **optimizes**:
 
 to minimize the weighted L2 loss between **rendered** and **real** microscopy images.
 
-![Active Mesh Optimization](assets/images/active_mesh_optimization.gif)  
+![Active Mesh Optimization](assets/img/active_mesh_optimization.gif)  
 *Figure 2. Mesh optimization over iterations.*
 
 ---
@@ -70,9 +70,9 @@ to minimize the weighted L2 loss between **rendered** and **real** microscopy im
 
 | Species | Stage | Result |
 |----------|--------|--------|
-| *Phallusia mammillata* | 8-cell | ![Ascidian Result](assets/images/ascidian_result.jpg) |
-| *Mus musculus* | 4-cell | ![Mouse Result](assets/images/mouse_result.jpg) |
-| *C. elegans* | 16-cell | ![Worm Result](assets/images/worm_result.jpg) |
+| *Phallusia mammillata* | 8-cell | ![Ascidian Result](assets/img/ascidian_result.jpg) |
+| *Mus musculus* | 4-cell | ![Mouse Result](assets/img/mouse_result.jpg) |
+| *C. elegans* | 16-cell | ![Worm Result](assets/img/worm_result.jpg) |
 
 <video controls loop width="640">
   <source src="assets/videos/Supplementary_mov_s8.mp4" type="video/mp4">
@@ -87,8 +87,8 @@ deltaMic was benchmarked against **DM3D**, a Fiji plugin for active-mesh segment
 
 | Model | XY Cross-section | YZ Cross-section |
 |--------|------------------|------------------|
-| DM3D | ![DM3D XY](assets/images/dm3d_xy.jpg) | ![DM3D YZ](assets/images/dm3d_yz.jpg) |
-| deltaMic (ours) | ![deltaMic XY](assets/images/deltamic_xy.jpg) | ![deltaMic YZ](assets/images/deltamic_yz.jpg) |
+| DM3D | ![DM3D XY](assets/img/dm3d_xy.jpg) | ![DM3D YZ](assets/img/dm3d_yz.jpg) |
+| deltaMic (ours) | ![deltaMic XY](assets/img/deltamic_xy.jpg) | ![deltaMic YZ](assets/img/deltamic_yz.jpg) |
 
 > deltaMic outperforms DM3D on **membrane reconstruction accuracy** and **synthetic fidelity**, though less suited for nucleus membranes.
 
@@ -125,7 +125,7 @@ deltaMic was benchmarked against **DM3D**, a Fiji plugin for active-mesh segment
 
 ## 🎥 Bonus
 
-[![](assets/images/deltaMic_vid_Thumbnail.png)](https://youtu.be/55I-_FWINvI)
+[![](assets/img/deltaMic_vid_Thumbnail.png)](https://youtu.be/55I-_FWINvI)
 *Watch the full presentation of deltaMic (ICCV 2025 poster spotlight)*
 
 ---
