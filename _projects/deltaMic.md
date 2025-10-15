@@ -66,7 +66,7 @@ to minimize the weighted L2 loss between **rendered** and **real** microscopy im
 
 {% include figure.html path="assets/img/dmic_fig10.png" title="" class="img-fluid rounded z-depth-1"%}
 
-{% include video.html path="assets/video/Supplementary_mov_s8.mp4" title=""%}
+{% include video.html path="assets/video/Supplementary_mov_s8.mp4" autoplay=true loop=true muted=true %}
 *Video. Shape inference and synthetic rendering convergence.*
 
 ---
