@@ -205,18 +205,6 @@ video, .centered-video, .centered-img {
   opacity: 1 !important;
 }
 
-.post video.centered-video video,
-video.centered-video,
-.centered-video > video {
-  display: block !important;
-  margin: 1.5em auto !important;
-  width: 100% !important;
-  max-width: 960px !important;
-  height: auto !important;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-}
-
 /* make details look formal */
 details.benchmark-section {
   background: #fafafa;
@@ -244,4 +232,18 @@ details.benchmark-section[open] summary {
   overflow-x: auto;
   font-family: "JetBrains Mono", monospace;
   font-size: 0.9rem;
+}
+
+.post video.centered-video video,
+video.centered-video,
+.centered-video > video {
+  display: block !important;
+  margin: 1.5em auto !important;
+  width: 100% !important;
+  max-width: 960px !important;
+  height: auto !important;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  visibility: visible !important;
+  opacity: 1 !important;
 }
