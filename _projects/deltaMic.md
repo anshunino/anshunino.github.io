@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "deltaMic"
-description: "Differentiable 3D microscopy rendering for quantitative embryo shape inference"
+description: ""
 img: 'assets/img/dmic_pipeline.jpg'
 date: 2025-06-25 14:00:00 +0200
 importance: 1
@@ -11,7 +11,6 @@ category: research
 <link rel="stylesheet" href="{{ '/assets/css/research.css' | relative_url }}">
 
 <div class="hero">
-  <h1>deltaMic</h1>
   <h2>Inverse 3D Microscopy Rendering for Embryo Shape Inference with Active Mesh</h2>
 
   <p class="authors">
@@ -48,7 +47,7 @@ $$
 I(x) = \mathcal{F}^{-1}\left[\hat{u}_\Lambda \cdot \hat{h}\right](x),
 $$
 
-reducing computational complexity from $O(n^6)$ to $O(n^3\log n^3)$.
+reducing computational complexity from O(n^6) to O(n^3 . log(n^3)).
 
 deltaMic begins from an initial mesh and iteratively updates both the **vertex coordinates** and **PSF parameters** to minimize the weighted image difference between rendered and experimental microscopy data.
 
@@ -71,20 +70,22 @@ deltaMic accurately reconstructs early-stage embryo morphologies across species 
 ---
 
 ## Benchmarking
-<details open>
-  <summary><strong>Click to collapse / expand benchmarking results</strong></summary>
 
-  <div class="benchmarking">
+{::options parse_block_html="true" /}
+<details open class="benchmark-section">
+  <summary><strong>Benchmarking Results</strong></summary>
 
-  To assess generality, deltaMic was compared against **DM3D**, a leading active-mesh segmentation framework implemented as a Fiji plug-in.
+  <p>To assess generality, deltaMic was compared against <strong>DM3D</strong>, a leading active-mesh segmentation framework implemented as a Fiji plug-in.</p>
 
   {% include figure.html path="assets/img/dmic_fig9.png" title="Figure 4 – Comparison between DM3D and deltaMic on 3D mouse organoid data." class="centered-img" %}
 
-  > deltaMic demonstrates improved reconstruction of multicellular membrane structures while maintaining photometric fidelity.  
-  > Performance on nucleus-only datasets is limited due to design assumptions targeting multicellular surfaces.
+  <blockquote>
+  deltaMic demonstrates improved reconstruction of multicellular membrane structures while maintaining photometric fidelity.  
+  Performance on nucleus-only datasets is limited due to design assumptions targeting multicellular surfaces.
+  </blockquote>
 
-  </div>
 </details>
+{::options parse_block_html="false" /}
 
 ---
 

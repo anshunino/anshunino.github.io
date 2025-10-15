@@ -151,3 +151,30 @@ hr {
     font-size: 1.6rem;
   }
 }
+
+.benchmark-section {
+  background: #fafafa;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 1em 1.2em;
+  margin: 1.5em 0 2em;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.benchmark-section summary {
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 0.5em;
+}
+
+.benchmark-section[open] summary {
+  border-bottom: 1px solid #eee;
+  margin-bottom: 0.8em;
+  padding-bottom: 0.3em;
+}
+
+.benchmark-section summary::marker {
+  color: #1a73e8;
+  font-size: 1.2em;
+}
