@@ -178,3 +178,29 @@ hr {
   color: #1a73e8;
   font-size: 1.2em;
 }
+
+/* Ensure the video element itself (if class is on it) is styled */
+video.centered-video,
+.centered-video > video,
+.centered-video {
+  display: block;
+  margin: 1.5em auto;
+  max-width: 100%;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+
+/* If include wraps video into a figure or div with the class */
+.centered-img, .centered-video {
+  display: block;
+  margin: 1.5em auto;
+  max-width: 100%;
+}
+
+/* Force any global CSS from overriding display */
+video, .centered-video, .centered-img {
+  visibility: visible !important;
+  opacity: 1 !important;
+}

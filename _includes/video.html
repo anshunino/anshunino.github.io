@@ -1,42 +1,33 @@
+{% assign extension = include.path | split:'.' | last | downcase %}
+
 <figure>
-
-  {% assign extension = include.path | split:'.' | last %}
-
   {% if extension == "mp4" or extension == "webm" or extension == "ogg" %}
-
-  <video
-    src="{{ include.path | relative_url }}"
-    {% if include.class %}class="{{ include.class }}"{% endif %}
-    {% if include.width %}width="{{ include.width }}"{% else %}width="auto"{% endif %}
-    {% if include.height %}height="{{ include.height }}"{% else %}height="auto"{% endif %}
-    {% if include.title %}title="{{ include.title }}"{% endif %}
-    {% if include.autoplay %}autoplay{% endif %}
-    {% if include.controls %}controls{% endif %}
-    {% if include.loop %}loop{% endif %}
-    {% if include.muted %}muted{% endif %}
-    {% if include.poster %}poster="{{ include.poster }}"{% endif %}
-    autoplay loop muted playsinline preload="auto"
-    style="max-width:100%; height:auto;"
-  >
-  Sorry, your browser doesn't support embedded videos.
-  </video>
-
+    <video
+      src="{{ include.path | relative_url }}"
+      {% if include.class %}class="{{ include.class }}"{% endif %}
+      {% if include.width %}width="{{ include.width }}"{% endif %}
+      {% if include.height %}height="{{ include.height }}"{% endif %}
+      {% if include.title %}title="{{ include.title }}"{% endif %}
+      {% if include.autoplay %}autoplay{% endif %}
+      {% if include.loop %}loop{% endif %}
+      {% if include.muted %}muted{% endif %}
+      {% if include.controls %}controls{% endif %}
+      playsinline
+      preload="metadata"
+    >
+      Sorry — your browser does not support embedded video.
+    </video>
   {% else %}
-
-  <iframe
-    src="{{ include.path }}"
-    {% if include.class %}class="{{ include.class }}"{% endif %}
-    frameborder="0"
-    allow="autoplay; encrypted-media"
-    allowfullscreen
-    {% if include.width %}width="{{ include.width }}"{% else %}width="auto"{% endif %}
-    {% if include.height %}height="{{ include.height }}"{% else %}height="auto"{% endif %}
-  ></iframe>
-
+    <iframe
+      src="{{ include.path }}"
+      {% if include.class %}class="{{ include.class }}"{% endif %}
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen
+      {% if include.width %}width="{{ include.width }}"{% endif %}
+      {% if include.height %}height="{{ include.height }}"{% endif %}
+    ></iframe>
   {% endif %}
 
-  {% if include.caption %}
-    <figcaption class="caption">{{ include.caption }}</figcaption>
-  {% endif %}
-
+  {% if include.caption %}<figcaption class="caption">{{ include.caption }}</figcaption>{% endif %}
 </figure>

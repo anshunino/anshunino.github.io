@@ -71,21 +71,7 @@ deltaMic accurately reconstructs early-stage embryo morphologies across species 
 
 ## Benchmarking
 
-{::options parse_block_html="true" /}
-<details open class="benchmark-section">
-  <summary><strong>Benchmarking Results</strong></summary>
-
-  <p>To assess generality, deltaMic was compared against <strong>DM3D</strong>, a leading active-mesh segmentation framework implemented as a Fiji plug-in.</p>
-
-  {% include figure.html path="assets/img/dmic_fig9.png" title="Figure 4 – Comparison between DM3D and deltaMic on 3D mouse organoid data." class="centered-img" %}
-
-  <blockquote>
-  deltaMic demonstrates improved reconstruction of multicellular membrane structures while maintaining photometric fidelity.  
-  Performance on nucleus-only datasets is limited due to design assumptions targeting multicellular surfaces.
-  </blockquote>
-
-</details>
-{::options parse_block_html="false" /}
+{% include benchmark.html %}
 
 ---
 
@@ -112,7 +98,8 @@ This approach enables quantitative analysis of morphogenesis by linking observed
 - **Code:** [GitHub Repository](https://github.com/VirtualEmbryo/deltaMic)  
 - **Contact:** [anshuman.sinha@etu.u-paris.fr](mailto:anshuman.sinha@etu.u-paris.fr)
 
-```bibtex
+{% raw %}
+```text
 @misc{ichbiah2025inverse3dmicroscopyrendering,
   title={Inverse 3D Microscopy Rendering for Cell Shape Inference with Active Mesh},
   author={Sacha Ichbiah and Anshuman Sinha and Fabrice Delbary and Hervé Turlier},
@@ -122,3 +109,4 @@ This approach enables quantitative analysis of morphogenesis by linking observed
   primaryClass={physics.bio-ph},
   url={https://arxiv.org/abs/2303.10440}
 }
+{% endraw %}
