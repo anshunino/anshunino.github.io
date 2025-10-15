@@ -64,7 +64,11 @@ deltaMic accurately reconstructs early-stage embryo morphologies across species 
 
 {% include figure.html path="assets/img/dmic_fig10.png" title="Figure 3 – Inferred cellular geometries for ascidian, mouse, and C. elegans embryos." class="centered-img" %}
 
-{% include video.html path="assets/video/Supplementary_mov_s8.mp4" autoplay=true loop=true muted=true playsinline=true class="centered-video" %}
+{% raw %}
+<div class="centered-video">
+  {% include video.html path="assets/video/Supplementary_mov_s8.mp4" autoplay=true loop=true muted=true playsinline=true %}
+</div>
+{% endraw %}
 *Supplementary Video – Shape inference and synthetic rendering convergence.*
 
 ---

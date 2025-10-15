@@ -1,19 +1,25 @@
-<!-- _includes/benchmark.html -->
+## Benchmarking
+
+{% raw %}
 <details class="benchmark-section" open>
   <summary><strong>Benchmarking Results</strong></summary>
 
-  <div class="benchmark-body">
-    <p>
-      To assess generality, <strong>deltaMic</strong> was compared against <strong>DM3D</strong>,
-      a leading active-mesh segmentation framework implemented as a Fiji plug-in.
-    </p>
+  <p>
+    To assess generality, <strong>deltaMic</strong> was compared against
+    <strong>DM3D</strong>, a leading active-mesh segmentation framework implemented as a Fiji plug-in.
+  </p>
 
-    {% include figure.html path="assets/img/dmic_fig9.png" title="Figure 4 – Comparison: DM3D vs deltaMic" class="centered-img" %}
+  <figure class="centered-img">
+    <img src="{{ '/assets/img/dmic_fig9.png' | relative_url }}"
+         alt="Comparison between DM3D and deltaMic on 3D mouse organoid data.">
+    <figcaption>Figure 4 – Comparison between DM3D and deltaMic on 3D mouse organoid data.</figcaption>
+  </figure>
 
-    <blockquote>
-      deltaMic demonstrates improved reconstruction of multicellular membrane structures while
-      maintaining photometric fidelity. Performance on nucleus-only datasets is limited due to
-      design assumptions targeting multicellular surfaces.
-    </blockquote>
-  </div>
+  <blockquote>
+    deltaMic demonstrates improved reconstruction of multicellular membrane structures
+    while maintaining photometric fidelity.
+    Performance on nucleus-only datasets is limited due to design assumptions
+    targeting multicellular surfaces.
+  </blockquote>
 </details>
+{% endraw %}
