@@ -166,6 +166,38 @@ document.addEventListener("DOMContentLoaded", function() {
       </div>
     </div>
 
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Centered block with two display equations -->
+    <div class="equations text-center" style="max-width:900px;margin:1.2rem auto;">
+      <!-- First display equation -->
+      <div>
+        <script type="math/tex; mode=display">
+          I(x) = (u_\Lambda * h)(x) = \int u_\Lambda(p)\, h(x-p)\, d^3p
+        </script>
+      </div>
+
+      <!-- Small spacer -->
+      <div style="height:0.6rem;"></div>
+
+      <!-- Second display equation -->
+      <div>
+        <script type="math/tex; mode=display">
+          I(x) = \mathcal{F}^{-1}\!\left[\widehat{u}_\Lambda \cdot \widehat{h}\right](x)
+        </script>
+      </div>
+
+      <!-- Accessibility / noscript fallback -->
+      <noscript style="display:block;color:#666;margin-top:0.8rem;">
+        <strong>Math (no JS):</strong>
+        <pre style="white-space:pre-wrap;background:#f6f6f8;padding:0.6rem;border-radius:6px;">
+          I(x) = (u_\Lambda * h)(x) = ∫ u_\Lambda(p) h(x-p) d³p
+
+          I(x) = F⁻¹[ û_Λ · ĥ ](x)
+        </pre>
+      </noscript>
+    </div>
+
     <!-- Results -->
     <div class="row">
       <div class="col-md-8 col-md-offset-2">
@@ -178,7 +210,7 @@ document.addEventListener("DOMContentLoaded", function() {
               class="img-fluid zoomable-img"
               alt="deltaMic pipeline overview"
               style="width: 70%;">
-          <p><em>Figure 3 - Inferred cellular geometries for ascidian, mouse, and C. elegans embryos.</em></p>
+          <p><em>Figure 2 - Inferred cellular geometries for ascidian, mouse, and C. elegans embryos.</em></p>
         </div>
         <br>
         <div class="text-center">
@@ -203,7 +235,7 @@ document.addEventListener("DOMContentLoaded", function() {
               class="img-fluid zoomable-img"
               alt="deltaMic pipeline overview"
               style="width: 70%;">
-          <p><em>Figure 4 - Comparison between DM3D and deltaMic on 3D mouse organoid data.</em></p>
+          <p><em>Figure 3 - Comparison between DM3D and deltaMic on 3D mouse organoid data.</em></p>
         </div>
         <blockquote>
           deltaMic demonstrates improved reconstruction of multicellular membrane structures while maintaining
@@ -225,7 +257,6 @@ document.addEventListener("DOMContentLoaded", function() {
         <p><strong>Current limitations</strong></p>
         <ul>
           <li>Dependence on an adequate initial mesh</li>
-          <li>Computational load for large volumetric datasets</li>
         </ul>
         <p><strong>Ongoing directions</strong></p>
         <ul>
