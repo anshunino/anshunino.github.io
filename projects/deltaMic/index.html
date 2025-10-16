@@ -20,6 +20,29 @@
   <script src="js/app.js"></script>
 </head>
 
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const zoomableImages = document.querySelectorAll(".zoomable-img");
+  const lightbox = document.createElement("div");
+  lightbox.id = "lightbox-overlay";
+  document.body.appendChild(lightbox);
+
+  const img = document.createElement("img");
+  lightbox.appendChild(img);
+
+  zoomableImages.forEach(el => {
+    el.addEventListener("click", () => {
+      img.src = el.src;
+      lightbox.classList.add("visible");
+    });
+  });
+
+  lightbox.addEventListener("click", () => {
+    lightbox.classList.remove("visible");
+  });
+});
+</script>
+
 <body>
   <div class="container" id="main">
     <!-- Title -->
@@ -86,44 +109,44 @@
           deltaMic achieves robust 3D reconstruction <strong>without labeled training data or priors</strong>.
         </p>
         <div class="text-center">
-          <details class="figure-dropdown">
-            <summary><strong>Figure 1 - deltaMic pipeline overview (click to expand)</strong></summary>
-            <img src="images/dmic_fig1_vertical.svg" class="img-responsive" alt="deltaMic pipeline overview">
-            <p><em>deltaMic pipeline illustrating Fourier-space rendering and mesh optimization.</em></p>
-          </details>
+          <img src="images/dmic_fig1_vertical.svg"
+              class="img-fluid zoomable-img"
+              alt="deltaMic pipeline overview"
+              style="width: 70%;">
+          <p><em>Figure 1 - deltaMic pipeline overview.</em></p>
         </div>
       </div>
     </div>
 
 
-    <div class="video-grid">
-      <div class="video-item">
-        <video muted autoplay loop playsinline controls>
-          <source src="images/mov_s1.mp4" type="video/mp4">
-        </video>
-        <div class="caption">A sphere dividing in 2</div>
-      </div>
+    <div class="row text-center" style="margin-top: 20px;">
+        <div class="col-md-6 col-sm-6 col-xs-12" style="padding:10px;">
+            <video width="100%" muted autoplay loop controls>
+            <source src="images/mov_s1.mp4" type="video/mp4">
+            </video>
+            <div style="margin-top:5px;font-style:italic;">A sphere dividing in 2</div>
+        </div>
 
-      <div class="video-item">
-        <video muted autoplay loop playsinline controls>
-          <source src="images/mov_s2.mp4" type="video/mp4">
-        </video>
-        <div class="caption">Toroid to a bath Duck</div>
-      </div>
+        <div class="col-md-6 col-sm-6 col-xs-12" style="padding:10px;">
+            <video width="100%" muted autoplay loop controls>
+            <source src="images/mov_s2.mp4" type="video/mp4">
+            </video>
+            <div style="margin-top:5px;font-style:italic;">Toroid to a bath Duck</div>
+        </div>
 
-      <div class="video-item">
-        <video muted autoplay loop playsinline controls>
-          <source src="images/mov_s3.mp4" type="video/mp4">
-        </video>
-        <div class="caption">Bob the Cow</div>
-      </div>
+        <div class="col-md-6 col-sm-6 col-xs-12" style="padding:10px;">
+            <video width="100%" muted autoplay loop controls>
+            <source src="images/mov_s3.mp4" type="video/mp4">
+            </video>
+            <div style="margin-top:5px;font-style:italic;">Bob the Cow</div>
+        </div>
 
-      <div class="video-item">
-        <video muted autoplay loop playsinline controls>
-          <source src="images/mov_s4.mp4" type="video/mp4">
-        </video>
-        <div class="caption">Fish in the Sea</div>
-      </div>
+        <div class="col-md-6 col-sm-6 col-xs-12" style="padding:10px;">
+            <video width="100%" muted autoplay loop controls>
+            <source src="images/mov_s4.mp4" type="video/mp4">
+            </video>
+            <div style="margin-top:5px;font-style:italic;">Fish in the Sea</div>
+        </div>
     </div>
 
     <!-- Methodology -->
