@@ -86,41 +86,44 @@
           deltaMic achieves robust 3D reconstruction <strong>without labeled training data or priors</strong>.
         </p>
         <div class="text-center">
-          <img src="images/dmic_pipeline.jpg" class="img-responsive" alt="deltaMic pipeline overview">
-          <p><em>Figure 1 - deltaMic pipeline overview.</em></p>
+          <details class="figure-dropdown">
+            <summary><strong>Figure 1 - deltaMic pipeline overview (click to expand)</strong></summary>
+            <img src="images/dmic_fig1_vertical.svg" class="img-responsive" alt="deltaMic pipeline overview">
+            <p><em>deltaMic pipeline illustrating Fourier-space rendering and mesh optimization.</em></p>
+          </details>
         </div>
       </div>
     </div>
 
 
-    <div class="row text-center" style="margin-top: 20px;">
-        <div class="col-md-6 col-sm-6 col-xs-12" style="padding:10px;">
-            <video width="100%" muted autoplay loop controls>
-            <source src="images/mov_s1.mp4" type="video/mp4">
-            </video>
-            <div style="margin-top:5px;font-style:italic;">A sphere dividing in 2</div>
-        </div>
+    <div class="video-grid">
+      <div class="video-item">
+        <video muted autoplay loop playsinline controls>
+          <source src="images/mov_s1.mp4" type="video/mp4">
+        </video>
+        <div class="caption">A sphere dividing in 2</div>
+      </div>
 
-        <div class="col-md-6 col-sm-6 col-xs-12" style="padding:10px;">
-            <video width="100%" muted autoplay loop controls>
-            <source src="images/mov_s2.mp4" type="video/mp4">
-            </video>
-            <div style="margin-top:5px;font-style:italic;">Toroid to a bath Duck</div>
-        </div>
+      <div class="video-item">
+        <video muted autoplay loop playsinline controls>
+          <source src="images/mov_s2.mp4" type="video/mp4">
+        </video>
+        <div class="caption">Toroid to a bath Duck</div>
+      </div>
 
-        <div class="col-md-6 col-sm-6 col-xs-12" style="padding:10px;">
-            <video width="100%" muted autoplay loop controls>
-            <source src="images/mov_s3.mp4" type="video/mp4">
-            </video>
-            <div style="margin-top:5px;font-style:italic;">Bob the Cow</div>
-        </div>
+      <div class="video-item">
+        <video muted autoplay loop playsinline controls>
+          <source src="images/mov_s3.mp4" type="video/mp4">
+        </video>
+        <div class="caption">Bob the Cow</div>
+      </div>
 
-        <div class="col-md-6 col-sm-6 col-xs-12" style="padding:10px;">
-            <video width="100%" muted autoplay loop controls>
-            <source src="images/mov_s4.mp4" type="video/mp4">
-            </video>
-            <div style="margin-top:5px;font-style:italic;">Fish in the Sea</div>
-        </div>
+      <div class="video-item">
+        <video muted autoplay loop playsinline controls>
+          <source src="images/mov_s4.mp4" type="video/mp4">
+        </video>
+        <div class="caption">Fish in the Sea</div>
+      </div>
     </div>
 
     <!-- Methodology -->
@@ -137,10 +140,6 @@
           Starting from an initial mesh, deltaMic iteratively updates both vertex coordinates and PSF parameters to
           minimize the weighted image difference between rendered and experimental microscopy data.
         </p>
-        <div class="text-center">
-          <img src="images/active_mesh_optimization.gif" class="img-responsive" alt="Active Mesh Optimization">
-          <p><em>Figure 2 - Active mesh optimization over successive iterations.</em></p>
-        </div>
       </div>
     </div>
 
@@ -152,7 +151,7 @@
           deltaMic accurately reconstructs early-stage embryo morphologies across species and imaging modalities.
         </p>
         <div class="text-center">
-          <img src="images/dmic_fig10.png" class="img-responsive" alt="Embryo reconstructions">
+          <img src="images/dmic_fig10.svg" class="img-responsive" alt="Embryo reconstructions">
           <p><em>Figure 3 - Inferred cellular geometries for ascidian, mouse, and C. elegans embryos.</em></p>
         </div>
         <div class="text-center">
@@ -173,7 +172,7 @@
           framework implemented as a Fiji plug-in.
         </p>
         <div class="text-center">
-          <img src="images/dmic_fig9.png" class="img-responsive" alt="DM3D vs deltaMic">
+          <img src="images/dmic_fig9.svg" class="img-responsive" alt="DM3D vs deltaMic">
           <p><em>Figure 4 - Comparison between DM3D and deltaMic on 3D mouse organoid data.</em></p>
         </div>
         <blockquote>
