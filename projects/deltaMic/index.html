@@ -44,161 +44,177 @@ document.addEventListener("DOMContentLoaded", function() {
 </script>
 
 <body>
-  <div class="container" id="main">
+  <div class="container" id="main" style="padding-top:40px;">
     <!-- Title -->
     <div class="row">
       <h2 class="col-md-12 text-center">
         Inverse 3D Microscopy Rendering for Embryo Shape Inference with Active Mesh
         <br>
-        <small><em>ICCV 2025</em></small>
       </h2>
+      <div class="text-center" style="margin-top:10px;">
+        <img src="images/ICCV 2025 Logo Color.svg" alt="ICCV 2025 Logo"
+             style="max-width:160px;width:30%;height:auto;">
+      </div>
     </div>
+    <br>
 
     <!-- Authors -->
     <div class="row">
-    <div class="col-md-12 text-center">
-        <ul class="list-inline" style="margin-bottom: 5px;">
-        <li><b>Sacha Ichbiah<sup>1</sup></b></li>
-        <li><b>Anshuman Sinha<sup>1,2</sup></b></li>
-        <li><b>Fabrice Delbary<sup>1</sup></b></li>
-        <li><b>Hervé Turlier<sup>1</sup></b></li>
+      <div class="col-md-12 text-center">
+        <ul class="list-inline" style="margin-bottom:5px;">
+          <li><b>Sacha Ichbiah<sup>1</sup></b></li>
+          <li><b>Anshuman Sinha<sup>1,2</sup></b></li>
+          <li><b>Fabrice Delbary<sup>1</sup></b></li>
+          <li><b>Hervé Turlier<sup>1</sup></b></li>
         </ul>
         <p>
-        <sup>1</sup> Collège de France, CNRS, INSERM, PSL University<br>
-        <sup>2</sup> Université Paris Cité
+          <sup>1</sup> Collège de France, CNRS, INSERM, PSL University<br>
+          <sup>2</sup> Université Paris Cité
         </p>
-    </div>
+
+        <!-- Affiliation logos -->
+        <div class="text-center" style="margin-top:10px;">
+          <img src="images/logo_CDF.png" alt="CDF Logo"
+             style="max-width:160px;width:40%;height:auto;">
+        </div>
+      </div>
     </div>
 
-    <!-- Links -->
+    <hr>
+<!-- Links -->
     <div class="row">
       <div class="col-md-4 col-md-offset-4 text-center">
         <ul class="nav nav-pills nav-justified">
-            <li>
-                <a
-                    href="https://openaccess.thecvf.com/content/ICCV2025/html/Ichbiah_Inverse_3D_Microscopy_Rendering_for_Cell_Shape_Inference_with_Active_ICCV_2025_paper.html">
-                    <img src="images/ICCV2025.png" height="40px">
-                    <h4><strong>Paper</strong></h4>
-                </a>
-            </li>
-            <li>
-                <a href="https://github.com/VirtualEmbryo/deltaMic">
-                <img src="images/github.png" height="40px">
-                <h4><strong>Code</strong></h4>
-                </a>
-            </li>
-            <li>
-                <a href="https://www.youtube.com/watch?v=55I-_FWINvI">
-                <img src="images/YouTube.png" height="40px">
-                <h4><strong>Video</strong></h4>
-                </a>
-            </li>
+          <li>
+            <a
+              href="https://openaccess.thecvf.com/content/ICCV2025/html/Ichbiah_Inverse_3D_Microscopy_Rendering_for_Cell_Shape_Inference_with_Active_ICCV_2025_paper.html">
+              <img src="images/ICCV2025.png" height="40px" alt="ICCV Paper Link">
+              <h4><strong>Paper</strong></h4>
+            </a>
+          </li>
+          <li>
+            <a href="https://github.com/VirtualEmbryo/deltaMic">
+              <img src="images/github.png" height="40px" alt="GitHub Code">
+              <h4><strong>Code</strong></h4>
+            </a>
+          </li>
+          <li>
+            <a href="https://www.youtube.com/watch?v=55I-_FWINvI">
+              <img src="images/YouTube.png" height="40px" alt="YouTube Video">
+              <h4><strong>Video</strong></h4>
+            </a>
+          </li>
         </ul>
       </div>
     </div>
 
-    <!-- Abstract -->
+    <hr>
+
+    <!-- Overview -->
     <div class="row">
       <div class="col-md-8 col-md-offset-2">
         <h3>Overview</h3>
         <p class="text-justify">
           <strong>deltaMic</strong> is a CUDA-based <em>differentiable 3D renderer</em> for fluorescence microscopy.
-          It models image formation as a <strong>Fourier-space convolution</strong> between the microscope’s point spread
-          function (PSF) and a <strong>triangular mesh representation</strong> of the specimen.
+          It models image formation as a <strong>Fourier-space convolution</strong> between the microscope’s
+          point-spread function (PSF) and a <strong>triangular mesh representation</strong> of the specimen.
           By jointly optimizing mesh geometry and optical parameters directly from raw images,
           deltaMic achieves robust 3D reconstruction <strong>without labeled training data or priors</strong>.
         </p>
         <div class="text-center">
           <img src="images/dmic_fig1_vertical.svg"
-              class="img-fluid zoomable-img"
-              alt="deltaMic pipeline overview"
-              style="width: 70%;">
+               class="img-fluid zoomable-img"
+               alt="deltaMic pipeline overview"
+               style="width:70%;">
           <p><em>Figure 1 - deltaMic pipeline overview.</em></p>
         </div>
       </div>
     </div>
 
+    <hr>
 
-    <div class="row text-center" style="margin-top: 20px;">
-        <div class="col-md-6 col-sm-6 col-xs-12" style="padding:10px;">
-            <video width="100%" muted autoplay loop controls>
-            <source src="images/mov_s1.mp4" type="video/mp4">
-            </video>
-            <div style="margin-top:5px;font-style:italic;">A sphere dividing in 2</div>
-        </div>
-
-        <div class="col-md-6 col-sm-6 col-xs-12" style="padding:10px;">
-            <video width="100%" muted autoplay loop controls>
-            <source src="images/mov_s2.mp4" type="video/mp4">
-            </video>
-            <div style="margin-top:5px;font-style:italic;">Toroid to a bath Duck</div>
-        </div>
-
-        <div class="col-md-6 col-sm-6 col-xs-12" style="padding:10px;">
-            <video width="100%" muted autoplay loop controls>
-            <source src="images/mov_s3.mp4" type="video/mp4">
-            </video>
-            <div style="margin-top:5px;font-style:italic;">Bob the Cow</div>
-        </div>
-
-        <div class="col-md-6 col-sm-6 col-xs-12" style="padding:10px;">
-            <video width="100%" muted autoplay loop controls>
-            <source src="images/mov_s4.mp4" type="video/mp4">
-            </video>
-            <div style="margin-top:5px;font-style:italic;">Fish in the Sea</div>
-        </div>
-    </div>
-
-    <!-- Methodology -->
+    <!-- First Experiment Results -->
     <div class="row">
       <div class="col-md-8 col-md-offset-2">
-        <h3>Methodology</h3>
+        <h3>First Experiment Results</h3>
         <p class="text-justify">
-          Microscopy rendering is modeled as: <br>
-          <code>I(x) = (uΛ * h)(x) = ∫ uΛ(p) h(x - p) d³p</code> <br>
-          and equivalently in Fourier space as:
-          <code>I(x) = 𝔽⁻¹[ûΛ · ĥ](x)</code>, reducing computational complexity from O(n⁶) to O(n³·log(n³)).
-        </p>
-        <p class="text-justify">
-          Starting from an initial mesh, deltaMic iteratively updates both vertex coordinates and PSF parameters to
-          minimize the weighted image difference between rendered and experimental microscopy data.
+          The following videos show the progression of deltaMic fitting simple initial meshes — spherical or toroidal —
+          to match different target geometries in clean, artificial fluorescence images. These demonstrate the
+          optimization's convergence from abstract shapes to realistic targets using synthetic data.
         </p>
       </div>
     </div>
 
-    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-
-    <!-- Centered block with two display equations -->
-    <div class="equations text-center" style="max-width:900px;margin:1.2rem auto;">
-      <!-- First display equation -->
-      <div>
-        <script type="math/tex; mode=display">
-          I(x) = (u_\Lambda * h)(x) = \int u_\Lambda(p)\, h(x-p)\, d^3p
-        </script>
+    <div class="row text-center" style="margin-top: 10px;">
+      <div class="col-md-6 col-sm-6 col-xs-12" style="padding:10px;">
+        <video width="100%" muted autoplay loop controls>
+          <source src="images/mov_s1.mp4" type="video/mp4">
+        </video>
+        <div style="margin-top:5px;font-style:italic;">A sphere dividing in two</div>
       </div>
 
-      <!-- Small spacer -->
-      <div style="height:0.6rem;"></div>
-
-      <!-- Second display equation -->
-      <div>
-        <script type="math/tex; mode=display">
-          I(x) = \mathcal{F}^{-1}\!\left[\widehat{u}_\Lambda \cdot \widehat{h}\right](x)
-        </script>
+      <div class="col-md-6 col-sm-6 col-xs-12" style="padding:10px;">
+        <video width="100%" muted autoplay loop controls>
+          <source src="images/mov_s2.mp4" type="video/mp4">
+        </video>
+        <div style="margin-top:5px;font-style:italic;">Toroidal shape adapting to a complex form</div>
       </div>
 
-      <!-- Accessibility / noscript fallback -->
-      <noscript style="display:block;color:#666;margin-top:0.8rem;">
-        <strong>Math (no JS):</strong>
-        <pre style="white-space:pre-wrap;background:#f6f6f8;padding:0.6rem;border-radius:6px;">
-          I(x) = (u_\Lambda * h)(x) = ∫ u_\Lambda(p) h(x-p) d³p
+      <div class="col-md-6 col-sm-6 col-xs-12" style="padding:10px;">
+        <video width="100%" muted autoplay loop controls>
+          <source src="images/mov_s3.mp4" type="video/mp4">
+        </video>
+        <div style="margin-top:5px;font-style:italic;">Morphing of a spherical mesh to a non-convex shape</div>
+      </div>
 
-          I(x) = F⁻¹[ û_Λ · ĥ ](x)
-        </pre>
-      </noscript>
+      <div class="col-md-6 col-sm-6 col-xs-12" style="padding:10px;">
+        <video width="100%" muted autoplay loop controls>
+          <source src="images/mov_s4.mp4" type="video/mp4">
+        </video>
+        <div style="margin-top:5px;font-style:italic;">Adaptation of a torus to a folded geometry</div>
+      </div>
     </div>
 
-    <!-- Results -->
+    <hr>
+
+    <!-- Real Microscopy Reconstruction -->
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+        <h3>Microscopy Reconstruction Results (C. elegans)</h3>
+        <p class="text-justify">
+          The next set of experiments applies deltaMic to real microscopy data, showing its ability to fit fluorescent
+          membrane images of <em>C. elegans</em> embryos at various developmental stages — 4-cell, 8-cell, and
+          16-cell stages — demonstrating accurate inference of multicellular morphology from real imaging data.
+        </p>
+      </div>
+    </div>
+
+    <div class="row text-center" style="margin-top: 10px;">
+      <div class="col-md-4 col-sm-6 col-xs-12" style="padding:10px;">
+        <video width="100%" muted autoplay loop controls>
+          <source src="images/mov_s5.mp4" type="video/mp4">
+        </video>
+        <div style="margin-top:5px;font-style:italic;">C. elegans – 4-cell stage reconstruction</div>
+      </div>
+
+      <div class="col-md-4 col-sm-6 col-xs-12" style="padding:10px;">
+        <video width="100%" muted autoplay loop controls>
+          <source src="images/mov_s6.mp4" type="video/mp4">
+        </video>
+        <div style="margin-top:5px;font-style:italic;">C. elegans – 8-cell stage reconstruction</div>
+      </div>
+
+      <div class="col-md-4 col-sm-6 col-xs-12" style="padding:10px;">
+        <video width="100%" muted autoplay loop controls>
+          <source src="images/mov_s7.mp4" type="video/mp4">
+        </video>
+        <div style="margin-top:5px;font-style:italic;">C. elegans – 16-cell stage reconstruction</div>
+      </div>
+    </div>
+
+    <hr>
+
+    <!-- Results Across Species -->
     <div class="row">
       <div class="col-md-8 col-md-offset-2">
         <h3>Results Across Species</h3>
@@ -212,15 +228,10 @@ document.addEventListener("DOMContentLoaded", function() {
               style="width: 70%;">
           <p><em>Figure 2 - Inferred cellular geometries for ascidian, mouse, and C. elegans embryos.</em></p>
         </div>
-        <br>
-        <div class="text-center">
-          <video width="100%" muted autoplay loop controls>
-            <source src="images/mov_s8.mp4" type="video/mp4">
-          </video>
-          <p><em>Supplementary Video - Shape inference and synthetic rendering convergence.</em></p>
-        </div>
       </div>
     </div>
+
+    <hr>
 
     <!-- Benchmark -->
     <div class="row">
@@ -245,6 +256,8 @@ document.addEventListener("DOMContentLoaded", function() {
       </div>
     </div>
 
+    <hr>
+
     <!-- Discussion -->
     <div class="row">
       <div class="col-md-8 col-md-offset-2">
@@ -267,24 +280,22 @@ document.addEventListener("DOMContentLoaded", function() {
       </div>
     </div>
 
+    <hr>
+
     <!-- Citation -->
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <h3>
-                Citation
-            </h3>
-            <pre>@InProceedings{deltamic_2025_ICCV,
-                author    = {Sacha Ichbiah and Anshuman Sinha and Fabrice Delbary and Hervé Turlier},
-                title     = {Inverse 3D Microscopy Rendering for Cell Shape Inference with Active Mesh},
-                booktitle = {Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV)},
-                month     = {October},
-                year      = {2025},
-                pages     = {27466-27475}
-            }
-            </pre>
-            <!-- </textarea></center>
-            </div> -->
-        </div>
+      <div class="col-md-8 col-md-offset-2">
+        <h3>Citation</h3>
+        <pre>@InProceedings{deltamic_2025_ICCV,
+    author    = {Sacha Ichbiah and Anshuman Sinha and Fabrice Delbary and Hervé Turlier},
+    title     = {Inverse 3D Microscopy Rendering for Cell Shape Inference with Active Mesh},
+    booktitle = {Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV)},
+    month     = {October},
+    year      = {2025},
+    pages     = {27466-27475}
+}
+        </pre>
+      </div>
     </div>
 
     <!-- Footer -->
@@ -297,5 +308,4 @@ document.addEventListener("DOMContentLoaded", function() {
     </div>
   </div>
 </body>
-
 </html>
