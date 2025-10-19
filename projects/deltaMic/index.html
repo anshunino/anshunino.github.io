@@ -125,8 +125,8 @@ document.addEventListener("DOMContentLoaded", function() {
         <h3>Overview</h3>
         <p class="text-justify">
           <strong>deltaMic</strong> is a CUDA-based <em>differentiable 3D renderer</em> for fluorescence microscopy.
-          It models image formation as a <strong>Fourier-space convolution</strong> between the microscope’s
-          point-spread function (PSF) and a <strong>triangular mesh representation</strong> of the specimen.
+          It models 3D image formation/aquisition as a <strong>convolution</strong> between the microscope's
+          <strong>point-spread function (PSF)</strong> and a <strong>triangular 3D mesh representation</strong> of the specimen.
           By jointly optimizing mesh geometry and optical parameters directly from raw images,
           deltaMic achieves robust 3D reconstruction <strong>without labeled training data or priors</strong>.
         </p>
@@ -137,6 +137,10 @@ document.addEventListener("DOMContentLoaded", function() {
                style="width:70%;">
           <p><em>Figure 1 - deltaMic pipeline overview.</em></p>
         </div>
+        <br>
+        <p class="text-justify">
+          To keep this webpage results-oriented, we urge the interested reader to explore the neat methodology in greater detail from our <a href="https://openaccess.thecvf.com/content/ICCV2025/html/Ichbiah_Inverse_3D_Microscopy_Rendering_for_Cell_Shape_Inference_with_Active_ICCV_2025_paper.html">full paper</a>!
+        </p>
       </div>
     </div>
 
@@ -146,10 +150,13 @@ document.addEventListener("DOMContentLoaded", function() {
     <div class="row">
       <div class="col-md-8 col-md-offset-2">
         <h3>First Experiment Results</h3>
+        <blockquote>
+          The algorithmic objective of deltaMic is: Given a practical initial 3D mesh and a target 3D image, it will differentiably optimize this mesh to represent the object embedded in the 3D image - thus aquiring a differentiable 3D mesh model of the object!
+        </blockquote>
         <p class="text-justify">
-          The following videos show the progression of deltaMic fitting simple initial meshes — spherical or toroidal —
-          to match different target geometries in clean, artificial fluorescence images. These demonstrate the
-          optimization's convergence from abstract shapes to realistic targets using synthetic data.
+          The following videos show the progression of deltaMic starting from simple meshes — sphere or toroid —
+          to match target geometries in <strong>clean, artificial 3D fluorescence images</strong>. These demonstrate the
+          optimization's convergence from abstract shapes to realistic targets using <strong>synthetic general-purpose data</strong>.
         </p>
       </div>
     </div>
@@ -166,21 +173,21 @@ document.addEventListener("DOMContentLoaded", function() {
         <video width="100%" muted autoplay loop controls>
           <source src="images/mov_s2.mp4" type="video/mp4">
         </video>
-        <div style="margin-top:5px;font-style:italic;">Toroidal shape adapting to a complex form</div>
+        <div style="margin-top:5px;font-style:italic;">Toroid to a bath Duck</div>
       </div>
 
       <div class="col-md-6 col-sm-6 col-xs-12" style="padding:10px;">
         <video width="100%" muted autoplay loop controls>
           <source src="images/mov_s3.mp4" type="video/mp4">
         </video>
-        <div style="margin-top:5px;font-style:italic;">Morphing of a spherical mesh to a non-convex shape</div>
+        <div style="margin-top:5px;font-style:italic;">Sphere to a Cow</div>
       </div>
 
       <div class="col-md-6 col-sm-6 col-xs-12" style="padding:10px;">
         <video width="100%" muted autoplay loop controls>
           <source src="images/mov_s4.mp4" type="video/mp4">
         </video>
-        <div style="margin-top:5px;font-style:italic;">Adaptation of a torus to a folded geometry</div>
+        <div style="margin-top:5px;font-style:italic;">Sphere to a Fish</div>
       </div>
     </div>
 
@@ -191,9 +198,9 @@ document.addEventListener("DOMContentLoaded", function() {
       <div class="col-md-8 col-md-offset-2">
         <h3>Microscopy Reconstruction Results (C. elegans)</h3>
         <p class="text-justify">
-          The next set of experiments applies deltaMic to real microscopy data, showing its ability to fit fluorescent
+          This next set of experiments applies deltaMic to <strong>real microscopy data</strong>, showing its ability to fit fluorescent
           membrane images of <em>C. elegans</em> embryos at various developmental stages — 4-cell, 8-cell, and
-          16-cell stages — demonstrating accurate inference of multicellular morphology from real imaging data.
+          16-cell stages — demonstrating accurate inference of multicellular morphology from real 3D imaging data.
         </p>
       </div>
     </div>
@@ -235,7 +242,7 @@ document.addEventListener("DOMContentLoaded", function() {
               class="img-fluid zoomable-img"
               alt="deltaMic cross-species results"
               style="width: 70%;">
-          <p><em>Figure 2 - Inferred cellular geometries for ascidian, mouse, and C. elegans embryos.</em></p>
+          <p><em>Figure 2 - Inferred cellular 3D geometries for mouse, ascidian and C. elegans embryos.</em></p>
         </div>
       </div>
     </div>
