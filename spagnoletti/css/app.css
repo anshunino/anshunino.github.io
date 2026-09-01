@@ -1,0 +1,271 @@
+/* spagnoletti - self-contained, no framework.
+   Targets desktop and mobile Safari, Chrome, Firefox and Edge. */
+
+:root {
+  --bg: #ffffff;
+  --fg: #1c1f26;
+  --muted: #6a7180;
+  --rule: #e3e6ec;
+  --accent: #2f6fd0;
+  --panel: #0a0c12;
+  --panel-2: #141824;
+  --panel-line: #232a3b;
+  --panel-fg: #cfd6e6;
+  --good: #7ee2b0;
+  --good-line: #2c5c46;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #12141a;
+    --fg: #e6e9f0;
+    --muted: #98a0b0;
+    --rule: #272c37;
+    --accent: #7fb2ff;
+  }
+}
+
+* { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;   /* iOS: no auto-zoom of body text */
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font: 16px/1.62 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+main {
+  max-width: 820px;
+  margin: 0 auto;
+  /* viewport-fit=cover: keep clear of the iPhone notch in landscape */
+  padding: 40px max(20px, env(safe-area-inset-left)) 60px
+              max(20px, env(safe-area-inset-right));
+}
+
+header { margin-bottom: 26px; }
+h1 { font-size: 30px; margin: 0; letter-spacing: -0.01em; }
+.sub { color: var(--muted); margin: 4px 0 0; font-size: 15px; }
+a { color: var(--accent); }
+
+h2 {
+  font-size: 21px;
+  margin: 42px 0 6px;
+  padding-top: 20px;
+  border-top: 1px solid var(--rule);
+}
+
+h3 { font-size: 16px; margin: 24px 0 4px; }
+p { margin: 0 0 10px; }
+.lead { font-size: 17px; margin-bottom: 22px; }
+.small { font-size: 13.5px; color: var(--muted); }
+
+code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.9em;
+  background: rgba(127, 140, 170, 0.14);
+  padding: 1px 5px;
+  border-radius: 3px;
+}
+
+/* Long equations scroll rather than forcing the page sideways. */
+.eq, .scroll {
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+.eq { margin: 6px 0 14px; }
+
+table { border-collapse: collapse; font-size: 14.5px; min-width: 100%; }
+th, td { text-align: left; padding: 6px 16px 6px 0; border-bottom: 1px solid var(--rule); }
+th { font-weight: 600; color: var(--muted); font-size: 13px; }
+td.y { color: #1e9c68; }
+td.n { color: #c2603a; }
+@media (prefers-color-scheme: dark) {
+  td.y { color: var(--good); }
+  td.n { color: #e0916c; }
+}
+
+figure { margin: 14px 0 10px; }
+figure img { width: 100%; height: auto; display: block; }
+figcaption { font-size: 13.5px; color: var(--muted); margin-top: 6px; }
+
+footer {
+  margin-top: 46px;
+  padding-top: 16px;
+  border-top: 1px solid var(--rule);
+  color: var(--muted);
+  font-size: 13px;
+  text-align: right;
+}
+
+/* ---------- simulation panel ---------- */
+
+.sim {
+  background: var(--panel);
+  border-radius: 8px;
+  padding: 12px;
+  margin: 22px 0 8px;
+}
+
+#stage {
+  display: block;
+  width: 100%;
+  height: clamp(260px, 52vh, 520px);
+  background: var(--panel);
+  border-radius: 5px;
+  /* Let vertical page scrolling win over any gesture on the canvas. */
+  touch-action: pan-y;
+}
+
+#sim-error {
+  display: none;
+  background: #4a1f1f;
+  color: #ffd7d7;
+  padding: 10px;
+  border-radius: 4px;
+  margin-top: 10px;
+  font-size: 13px;
+}
+
+.readout {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(104px, 1fr));
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.readout div {
+  background: var(--panel-2);
+  border: 1px solid var(--panel-line);
+  border-radius: 4px;
+  padding: 6px 9px;
+  color: var(--panel-fg);
+  font-size: 11.5px;
+  line-height: 1.3;
+}
+
+.readout b {
+  display: block;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  font-variant-numeric: tabular-nums;
+}
+
+.readout .keep { border-color: var(--good-line); }
+.readout .keep b { color: var(--good); }
+
+#picker {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(76px, 1fr));
+  gap: 7px;
+  margin-top: 12px;
+}
+
+.pick {
+  background: var(--panel-2);
+  border: 1px solid #262d40;
+  border-radius: 5px;
+  padding: 7px 4px 5px;
+  color: #8e9cb5;
+  text-align: center;
+  cursor: pointer;
+  font: inherit;
+  transition: border-color .14s, background .14s;
+  touch-action: manipulation;
+}
+
+.pick img { display: block; height: 40px; margin: 0 auto 4px; opacity: .5; }
+.pick span { display: block; font-size: 11.5px; font-weight: 600; }
+.pick em { display: block; font-size: 10px; font-style: normal; opacity: .65; font-variant-numeric: tabular-nums; }
+.pick.on { border-color: #4a86e8; background: #17233c; color: #fff; }
+.pick.on img { opacity: 1; }
+
+.controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px 16px;
+  margin-top: 14px;
+  color: var(--panel-fg);
+}
+
+.controls label {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  color: #9fb0cc;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  margin-bottom: 3px;
+}
+
+.controls .val { color: #7fb2ff; font-weight: 400; text-transform: none; letter-spacing: 0; }
+
+.controls select {
+  width: 100%;
+  background: var(--panel-2);
+  color: #e6ecf7;
+  border: 1px solid var(--panel-line);
+  border-radius: 4px;
+  /* >=16px stops iOS Safari zooming the page when a select is focused. */
+  font-size: 16px;
+  padding: 7px 6px;
+}
+
+.controls input[type=range] {
+  width: 100%;
+  margin: 0;
+  accent-color: #4a86e8;
+  /* Comfortable touch target on phones. */
+  height: 26px;
+  touch-action: manipulation;
+}
+
+.buttons {
+  margin-top: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 14px;
+}
+
+.buttons button {
+  background: #22304a;
+  border: 1px solid #34507f;
+  color: #dbe6fb;
+  border-radius: 4px;
+  padding: 9px 22px;
+  /* Not the `font` shorthand: a family of `inherit` inside it is invalid and
+     drops the whole declaration, leaving Safari's 11px UA button default. */
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.buttons button:hover { background: #2c4676; color: #fff; }
+
+.chk {
+  color: var(--panel-fg);
+  font-size: 13.5px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+@media (max-width: 480px) {
+  main { padding-top: 26px; }
+  h1 { font-size: 25px; }
+  .lead { font-size: 16px; }
+  .readout b { font-size: 15px; }
+}

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>spagnoletti | Many Many Tiny Spanish Men</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="light dark">
+
+  <meta property="og:title" content="spagnoletti: Many Many Tiny Spanish Men">
+  <meta property="og:description"
+    content="An interactive image cascade. Mass is the sum of pixel intensities; every split and every collision conserves mass, momentum and energy.">
+  <meta property="og:image" content="https://anshunino.github.io/spagnoletti/images/cascade_ladder.png">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://anshunino.github.io/spagnoletti/">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css"
+        crossorigin="anonymous" referrerpolicy="no-referrer">
+  <link rel="stylesheet" href="css/app.css">
+</head>
+
+<body>
+  <main>
+    <header>
+      <h1>spagnoletti</h1>
+      <p class="sub">Many many tiny spanish men &mdash;
+        <a href="https://anshunino.github.io/">Anshuman Sinha</a>
+      </p>
+    </header>
+
+    <p class="lead">
+      An image's <b>mass</b> is the sum of its pixel intensities, with the transparent background contributing
+      zero. Copies drift and collide; every impact splits both participants into <i>N</i> lovely little Spaniards. Mass,
+      momentum and energy are conserved throughout.
+    </p>
+
+    <!-- simulation -->
+    <div class="sim">
+      <canvas id="stage"></canvas>
+      <div id="sim-error"></div>
+
+      <div class="readout">
+        <div><b id="r-count">0</b><span>copies</span></div>
+        <div><b id="r-gen">0</b><span>generation</span></div>
+        <div><b id="r-hits">0</b><span>collisions</span></div>
+        <div class="keep"><b id="r-mass">--</b><span>total mass</span></div>
+        <div id="tile-p"><b id="r-p">0</b><span id="r-p-label">|momentum|</span></div>
+        <div><b id="r-ke">0</b><span>kinetic</span></div>
+        <div><b id="r-u">0</b><span>internal</span></div>
+        <div class="keep"><b id="r-energy">--</b><span>KE + internal</span></div>
+      </div>
+
+      <div id="picker"></div>
+
+      <div class="controls">
+        <div>
+          <label for="s-n">Lovely little Spaniards per split</label>
+          <select id="s-n">
+            <option value="2">N = 2</option>
+            <option value="4" selected>N = 4</option>
+            <option value="9">N = 9</option>
+          </select>
+        </div>
+        <div>
+          <label for="s-bounds">Boundary</label>
+          <select id="s-bounds">
+            <option value="walls" selected>reflecting walls</option>
+            <option value="periodic">periodic</option>
+          </select>
+        </div>
+        <div>
+          <label for="s-cooldown">Split cooldown <span class="val" id="s-cooldown-val"></span></label>
+          <input type="range" id="s-cooldown" min="60" max="1200" step="20" value="260">
+        </div>
+        <div>
+          <label for="s-recoil">Recoil speed <span class="val" id="s-recoil-val"></span></label>
+          <input type="range" id="s-recoil" min="10" max="130" step="2" value="46">
+        </div>
+        <div>
+          <label for="s-budget">Energy budget <span class="val" id="s-budget-val"></span></label>
+          <input type="range" id="s-budget" min="5" max="12" step="1" value="8">
+        </div>
+        <div>
+          <label for="s-seeds">Seed copies <span class="val" id="s-seeds-val"></span></label>
+          <input type="range" id="s-seeds" min="2" max="16" step="1" value="14">
+        </div>
+      </div>
+
+      <div class="buttons">
+        <button id="b-play">Play</button>
+        <button id="b-reset">Reset</button>
+        <label class="chk"><input type="checkbox" id="t-trails" checked> trails</label>
+        <label class="chk"><input type="checkbox" id="t-boxes"> collision discs</label>
+      </div>
+    </div>
+
+    <!-- physics -->
+    <h2>The physics</h2>
+
+    <h3>Mass</h3>
+    <p>Alpha \(\alpha\) times luma \(L\), summed over the sprite. The background has zero alpha and so weighs
+      nothing.</p>
+    <p class="eq">$$ M \;=\; \sum_{x} \alpha(x)\,L(x) $$</p>
+
+    <h3>Split geometry</h3>
+    <p>A copy scaled by \(s\) covers \(s^2\) as many pixels, so it carries \(s^2M\). Demanding \(N\) equal lovely little Spaniards
+      fixes the scale &mdash; it is not a free parameter.</p>
+    <p class="eq">$$ s^2 M = \frac{M}{N} \quad\Longrightarrow\quad s = \frac{1}{\sqrt{N}} $$</p>
+    <p>So \(N=4\) halves each copy.</p>
+
+    <h3>Split kinematics</h3>
+    <p>Lovely little Spaniards recoil isotropically in the parent's rest frame. Evenly spaced directions make the recoil sum
+      vanish, so momentum is exact.</p>
+    <p class="eq">$$ \mathbf{v}_i = \mathbf{v} + \mathbf{u}_i, \qquad |\mathbf{u}_i| = u, \qquad
+      \sum_{i=1}^{N} \mathbf{u}_i = \mathbf{0} $$</p>
+    <p>That recoil costs \(\tfrac{1}{2}Mu^2\), paid from an internal budget \(U\). Kinetic energy gained equals
+      internal energy spent, so \(E = T + U\) is exact.</p>
+    <p class="eq">$$ \Delta Q = \tfrac{1}{2} M u^{2}, \qquad U \longrightarrow \frac{U - \Delta Q}{N} $$</p>
+    <p>Both \(\Delta Q\) and \(U\) fall by \(N\) per generation, so \(U/\Delta Q\) drops by exactly one each split:
+      \(U_0 = R\,\Delta Q_0\) buys exactly \(R\) generations. The budget is set as a <b>population</b>, since
+      \(S\) seeds reach \(S N^{R}\) copies after \(R\) generations:</p>
+    <p class="eq">$$ R = \left\lceil \log_{N}\!\left(\frac{C}{S}\right) \right\rceil $$</p>
+    <p>Rounded up because generations are discrete &mdash; a budget of 1.94 of them would otherwise strand the
+      swarm a whole generation short. The count is what stops it at \(C\) exactly, and nothing divides past
+      that: a collision with no budget left is still just an elastic bounce. The ceiling also bounds the starting
+      swarm, since you may not begin with more copies than you are allowed to have.</p>
+
+    <h3>Copy&ndash;copy collision</h3>
+    <p>Equal-area discs, resolved elastically along the contact normal \(\mathbf{n}\). Equal and opposite impulses,
+      so momentum and kinetic energy are both exact. <b>Only these impacts cause fission.</b></p>
+    <p class="eq">$$ j = \frac{2 m_a m_b}{m_a + m_b}\,(\mathbf{v}_{ab}\!\cdot\mathbf{n}), \qquad
+      \mathbf{v}_a \mathrel{-}= \frac{j}{m_a}\mathbf{n}, \qquad
+      \mathbf{v}_b \mathrel{+}= \frac{j}{m_b}\mathbf{n} $$</p>
+
+    <h3>Boundary</h3>
+    <p>A wall is an infinite mass: specular reflection flips the normal component and preserves speed, so kinetic
+      energy survives but momentum does not. A wall is not another copy, so <b>bouncing never splits anything</b>.
+      Switch to periodic and momentum becomes exact too.</p>
+    <p class="eq">$$ \mathbf{v} \longrightarrow \mathbf{v} - 2(\mathbf{v}\cdot\mathbf{n})\,\mathbf{n} $$</p>
+
+    <h3>What is conserved</h3>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr><th></th><th>Mass</th><th>Momentum</th><th>Energy \(T+U\)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Split</td><td class="y">exact</td><td class="y">exact</td><td class="y">exact</td></tr>
+          <tr><td>Copy&ndash;copy collision</td><td class="y">exact</td><td class="y">exact</td><td class="y">exact</td></tr>
+          <tr><td>Reflecting wall</td><td class="y">exact</td><td class="n">absorbed</td><td class="y">exact</td></tr>
+          <tr><td>Periodic boundary</td><td class="y">exact</td><td class="y">exact</td><td class="y">exact</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="small">Measured in-browser: under periodic boundaries \(|\mathbf{p}|\) held to four decimals across
+      330,066 collisions; mass and \(T+U\) held under both boundaries.</p>
+
+    <h3>Ignition</h3>
+    <p>Because fission needs contact, the swarm has a threshold. It is stochastic &mdash; whether the first impact
+      happens at all decides the run. Copies alive after five seconds, five trials each:</p>
+    <div class="scroll">
+      <table>
+        <tbody>
+          <tr><td>6 seeds</td><td>36, 6, 6, 72, 720</td></tr>
+          <tr><td>10 seeds</td><td>40, 31, 28, 517, 133</td></tr>
+          <tr><td>14 seeds</td><td>2417, 2507, 1037, 2507, 326</td></tr>
+          <tr><td>16 seeds</td><td>1960, 502, 2452, 2500, 2500</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Widest scatter in the middle, as expected near criticality. The collision rate goes as the square of the
+      population; nothing in the code encodes the threshold.</p>
+
+    <!-- deepinv -->
+    <h2>The cascade as a forward operator</h2>
+    <p>Halving an image is <a href="https://deepinv.org/">DeepInverse</a>'s <code>Downsampling</code> operator,
+      \(y = S(h * x)\) &mdash; antialias filter, then decimate. The cascade is that operator composed with itself,
+      so the swarm is a stack of measurements of one original.</p>
+    <figure>
+      <img src="images/cascade_ladder.png" alt="Downsampling and noise ladder, generations 0 to 5">
+      <figcaption>Generations 0&ndash;5. Top: bicubic antialiasing. Middle: unfiltered decimation, which aliases.
+        Bottom: bicubic with <code>PoissonNoise</code>, photon count following the mass.</figcaption>
+    </figure>
+    <p>The noise row is not decoration: mass is a photon count and each split quarters it, so a
+      generation-\(k\) copy is measured with \(4^{-k}\) as many photons.</p>
+    <p>As a <code>ComposedLinearPhysics</code> chain the operator norm falls fourfold per generation while the
+      condition number stays near \(3\!-\!4\) (\(3.68,\ 3.91,\ 3.60,\ 2.69\) for \(k = 1 \ldots 4\)). The cascade
+      is rank-deficient, not ill-conditioned: it discards dimensions cleanly rather than scrambling what it keeps,
+      which is why many offset copies can undo it.</p>
+
+    <p class="small">
+      Sprites were cut from photographs on a black ground. A brightness key fails &mdash; the subjects wear dark
+      clothing &mdash; so background is found topologically: dark pixels reachable from the border, plus large
+      enclosed regions such as the gap under a raised arm. Masses are computed offline; DeepInverse is PyTorch and
+      runs only there, while the live simulation reimplements the same halving in JavaScript.
+    </p>
+
+    <footer>&copy; 2026 Anshuman Sinha</footer>
+  </main>
+
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"
+          crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"
+          crossorigin="anonymous" referrerpolicy="no-referrer"
+          onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}],throwOnError:false});"></script>
+  <script src="js/sim.js"></script>
+</body>
+
+</html>
